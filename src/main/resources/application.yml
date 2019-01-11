@@ -9,6 +9,8 @@ uploadDir: E:/upload/
 #logging:
 #  config: src/main/resources/log4j-spring.properties
 spring:
+  shymeleaf:
+    cash: false
   datasource:
     url: jdbc:mysql://129.204.70.43:3306/crm?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
     driver-class-name: com.mysql.cj.jdbc.Driver
