@@ -6,8 +6,8 @@ javauser:
 downloadDir: E:/download/
 uploadDir: E:/upload/
 #日志配置文件
-logging:
-  config: src/main/resources/log4j-spring.properties
+#logging:
+#  config: src/main/resources/log4j-spring.properties
 spring:
   datasource:
     url: jdbc:mysql://129.204.70.43:3306/crm?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
