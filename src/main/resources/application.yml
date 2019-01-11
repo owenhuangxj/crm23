@@ -1,0 +1,38 @@
+server:
+  #服务器端口号
+  port: 80
+javauser:
+#  上传下载目录
+downloadDir: E:/download/
+uploadDir: E:/upload/
+#日志配置文件
+logging:
+  config: src/main/resources/log4j-spring.properties
+spring:
+  datasource:
+    url: jdbc:mysql://129.204.70.43:3306/crm?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: crm_group23
+    password: Group23@2019
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 2   #连接池的初始连接数
+      max-active: 10    #连接池中最大活跃连接数
+      min-evictable-idle-time-millis: 30000   #一个连接在连接池中最少的生存时间
+      min-idle: 2   #连接池保持的空闲连接数
+      max-wait: 2000  #向连接获取连接等待的时间，超出就会抛异常
+      time-between-eviction-runs-millis: 60000  #回收程序回收空闲连接的间隔，多少时间进行一次检测空闲连接并
+      #开发环境开启
+      test-on-borrow: true
+      test-on-return: true
+
+      test-while-idle: true
+      filters: stat,wall,log4j
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=2000
+#mybatis-plus 配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.ss.entity.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
