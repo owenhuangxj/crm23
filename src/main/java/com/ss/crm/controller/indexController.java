@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 
 public class indexController {
-    @Value("${user.name}")
-    private String un;
 
     @GetMapping("/")
     public String index() {
