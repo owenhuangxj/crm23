@@ -8,6 +8,7 @@ uploadDir: E:/upload/
 #日志配置文件
 #logging:
 #  config: src/main/resources/log4j-spring.properties
+
 spring:
   shymeleaf:
     cash: false
