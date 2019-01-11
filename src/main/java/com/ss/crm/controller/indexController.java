@@ -7,12 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 
 public class indexController {
-@Value("${user.name}")
-private String un;
-@GetMapping("/demo")
-    public String index(){
+    @Value("${user.name}")
+    private String un;
 
-        return "demo";
+    @GetMapping("/")
+    public String index() {
+
+        return "index";
+    }
+
+    @GetMapping("/vue_test")
+    public String testVueModule() {
+        return "test_vue_module";
     }
 
 }
