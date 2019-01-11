@@ -45,11 +45,14 @@
             <version>1.3.2</version>
         </dependency>
         <!--日志-->
-        <!-- 忽略自带的日志框架. -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <!-- logback是springboot默认使用的日志，默认级别INFO。比log4j效率更高，且实现了slf4j接口。实际日志都是在运行时binding的具体实现类。
+            默认情况下spring-boot-starter已经包含了logback，所以我们启动项目时没有配置日志也会正常打印日志。
+            默认配置在org.springframework.boot.logging.logback.base.xml ,仅是简单更改的话不需要创建并配置resources/logback-spring.xml()，在application.properties或者application.yml更改相关配置就可以了。-->
             <exclusions>
+                <!--排除springboot的默认日志logback-->
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
@@ -58,9 +61,24 @@
         </dependency>
         <!-- log4j. -->
         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j</artifactId>
             <version>1.3.8.RELEASE</version>
+        </dependency>-->
+        <!-- log4j2依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <!-- 加上这个才能辨认到log4j2.yml文件 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>
         <!--热部署工具-->
         <dependency>
