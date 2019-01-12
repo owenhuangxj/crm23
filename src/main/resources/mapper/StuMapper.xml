@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ss.crm.mapper.StuMapper">
+    <!--添加简历数据-->
+    <insert id="insertStuResume">
+        insert into t_student
+        <include refid="stuColumns"/>
+        values
+        <include refid="stuValues"/>
+    </insert>
+
+    <!--查询学生信息-->
+    <select id="getStuInfo" resultMap="stuResultMap">
+        select
+        <include refid="stuColumns"/>
+        from
+        t_student
+        where
+        stu_number = #{stuNumber}
+    </select>
+
+    <resultMap type="student" id="stuResultMap" autoMapping="true">
+    </resultMap>
+
+    <sql id="stuColumns">stu_name,stu_number,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_trained,stu_performance
+    </sql>
+    <sql id="stuValues">#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuTrained},#{stuPerformance}</sql>
+
+
+</mapper>

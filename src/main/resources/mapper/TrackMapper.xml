@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ss.crm.mapper.TrackMapper">
+    <!--查询跟踪信息-->
+    <select id="getTrackInfo" resultMap="trackResultMap">
+        select
+        a.track_ways,a.track_time,a.track_status,a.track_next_time,a.track_duration,a.track_turnover_time,a.track_importance,a.track_valid,a.track_details,
+		b.stu_name,
+		e.emp_name,
+		d.emp_name
+        from t_track a,t_student b,t_employee e,t_employee d
+		where a.stu_number = b.stu_number
+		and a.teacher_id = d.emp_id
+		and a.consult_id = e.emp_id
+		and a.stu_number = #{stuNumber}
+    </select>
+    <!--添加跟踪信息-->
+    <insert id="insertTrackRecord">
+
+    </insert>
+</mapper>
