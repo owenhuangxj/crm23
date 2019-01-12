@@ -16,6 +16,15 @@
     </select>
     <!--添加跟踪信息-->
     <insert id="insertTrackRecord">
-
+        insert into t_track
+        track_ways,track_time,track_status,track_next_time,track_duration,track_turnover_time,track_importance,track_valid,track_details,stu_number,track_details
+        values
+        <include refid="trackValues"/>
     </insert>
+
+    <resultMap id="track" type="trackResultMap" autoMapping="true">
+    </resultMap>
+
+    <sql id="trackValues">
+    </sql>
 </mapper>

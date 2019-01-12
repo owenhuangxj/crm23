@@ -20,14 +20,12 @@ public class TrackController {
     /**
      * 查询跟踪信息
      * @param stuNumber
-     * @param empId
      * @return 页面集合
      */
     @RequestMapping(value = "/getTrack", produces = "application/json;charset=UTF-8")
     public @ResponseBody List<Track> getTrackInfo(
-            @RequestParam("stuNumber") String stuNumber,
-            @RequestParam("empId") Long empId) {
-        return ts.getTrackInfo(stuNumber, empId);
+            @RequestParam("stuNumber") String stuNumber) {
+        return ts.getTrackInfo(stuNumber);
     }
 
     /**
