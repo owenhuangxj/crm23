@@ -3,21 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>测试Vue组件的引用</title>
-    <script src="resources/js/vue.js"></script>
-    <script src="resources/js/httpVueLoader.js"></script>
+    <!--项目启动后用-->
+  <!--  <script src="resources/js/vue.js"></script>
+    <script src="resources/js/httpVueLoader.js"></script>-->
+    <!--静态访问-->
+
+    <script src="../static/js/httpVueLoader.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/jquery-3.3.1.js"></script>
+    <script src="../static/js/axios.min.js"></script>
+
+    <style>
+
+    </style>
 </head>
 <body>
-<div id="app">
-    <App></App>
+
+<script>
+    $(function () {
+        $('.sel').change(function () {    // 选择后替换内容并恢复箭头方向
+            $('#selectShow').html($('.sel').find('option:selected').html());
+        })
+
+
+    })
+</script>
+
+
+<div id="test">
+<allot></allot>
+
+
 </div>
+
 <script type="text/javascript">
+
     new Vue({
-            el:'#app',
+            el:"#test",
             components: {
-                'App': httpVueLoader('resources/components/App.vue')
+                'Allot': httpVueLoader('../static/components/Allot.vue'),
             }
         }
     )
+
 </script>
 </body>
 </html>
+<script>
+    import Datepicker from "../static/components/datepicker";
+    export default {
+        components: {Datepicker}
+    }
+</script>
