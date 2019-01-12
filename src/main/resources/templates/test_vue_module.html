@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
     <meta charset="UTF-8">
     <title>测试Vue组件的引用</title>
     <script src="https://unpkg.com/vue"></script>
@@ -9,13 +12,17 @@
 <body>
 <div id="app">
     <App></App>
+    <!--<Tab></Tab>-->
 </div>
+
 <script type="text/javascript">
     new Vue({
             el:'#app',
             components: {
-                'App': httpVueLoader('resources/components/App.vue')
+                'App': httpVueLoader('./components/App.vue')
+                // 'Tab': httpVueLoader('resources/components/Tab.vue')
             }
+
         }
     )
 </script>
