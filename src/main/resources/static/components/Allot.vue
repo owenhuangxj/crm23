@@ -36,7 +36,7 @@
         </div>
         <div class="split"/>
 
-
+<span>null</span>
         <!--按钮-->
         <a class="allot-button" v-for="k in buttons"> {{k.text}}</a>
     </div>
