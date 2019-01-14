@@ -7,6 +7,7 @@ public class TrackInfo extends Model<TrackInfo> {
     /**
      * 跟踪方式
      */
+
     private String trackMethod;
     /**
      * 优先级：1：无，2：低，3：中，4：高
