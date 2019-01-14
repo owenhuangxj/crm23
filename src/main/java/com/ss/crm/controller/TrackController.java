@@ -4,6 +4,7 @@ import com.ss.crm.entity.TrackInfo;
 import com.ss.crm.service.TrackInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,7 @@ public class TrackController {
      * @param stuNumber
      * @return 页面集合
      */
+    @CrossOrigin
     @RequestMapping(value = "/getTrack", produces = "application/json;charset=UTF-8")
     public @ResponseBody List<TrackInfo> getTrackInfo(
             @RequestParam("stuNumber") String stuNumber) {

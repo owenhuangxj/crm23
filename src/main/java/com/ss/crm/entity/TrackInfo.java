@@ -27,7 +27,7 @@ public class TrackInfo extends Model<TrackInfo> {
     /**
      * 跟踪时长
      */
-    private Integer newTrackDuration;
+    private Integer trackDuration;
     /**
      * 预计上门时间
      */
@@ -77,8 +77,8 @@ public class TrackInfo extends Model<TrackInfo> {
         return nextTrackTime;
     }
 
-    public Integer getNewTrackDuration() {
-        return newTrackDuration;
+    public Integer getTrackDuration() {
+        return trackDuration;
     }
 
     public String getPredictTime() {
@@ -125,8 +125,8 @@ public class TrackInfo extends Model<TrackInfo> {
         this.nextTrackTime = nextTrackTime;
     }
 
-    public void setNewTrackDuration(Integer newTrackDuration) {
-        this.newTrackDuration = newTrackDuration;
+    public void setTrackDuration(Integer trackDuration) {
+        this.trackDuration = trackDuration;
     }
 
     public void setPredictTime(String predictTime) {
@@ -153,13 +153,13 @@ public class TrackInfo extends Model<TrackInfo> {
         this.technicalInterviewer = technicalInterviewer;
     }
 
-    public TrackInfo(String trackMethod, String priority, String trackTime, String currentStatus, String nextTrackTime, Integer newTrackDuration, String predictTime, String predictTrade, String trackDesc, String trailsman, String stuNumber, String technicalInterviewer) {
+    public TrackInfo(String trackMethod, String priority, String trackTime, String currentStatus, String nextTrackTime, Integer trackDuration, String predictTime, String predictTrade, String trackDesc, String trailsman, String stuNumber, String technicalInterviewer) {
         this.trackMethod = trackMethod;
         this.priority = priority;
         this.trackTime = trackTime;
         this.currentStatus = currentStatus;
         this.nextTrackTime = nextTrackTime;
-        this.newTrackDuration = newTrackDuration;
+        this.trackDuration = trackDuration;
         this.predictTime = predictTime;
         this.predictTrade = predictTrade;
         this.trackDesc = trackDesc;

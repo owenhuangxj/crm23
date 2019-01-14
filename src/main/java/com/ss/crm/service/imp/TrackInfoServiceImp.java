@@ -30,7 +30,7 @@ public class TrackInfoServiceImp implements TrackInfoService {
         Student stu = new Student();
         stu.setStuNumber(ti.getStuNumber());
         // 获取对象
-        Track track = new Track(ti.getTrackMethod(),ti.getTrackTime(),ti.getCurrentStatus(),ti.getNextTrackTime(),ti.getNewTrackDuration(),ti.getPredictTime(),ti.getPredictTrade(),null,null,ti.getTrackDesc(),user,stu,user1);
+        Track track = new Track(ti.getTrackMethod(),ti.getTrackTime(),ti.getCurrentStatus(),ti.getNextTrackTime(),ti.getTrackDuration(),ti.getPredictTime(),ti.getPredictTrade(),null,null,ti.getTrackDesc(),user,stu,user1);
         return ts.addTrackRecord(track);
     }
 
