@@ -33,7 +33,7 @@ public class CrmApplicationTests {
 //        Student stu = ss.getStuInfo("20191121800");
 //        Student stu = ss.getStuInfo("20191141148");
 //        System.out.println(stu);
-//        ss.addStuResume(new Student("20191141148","胡杰","男","重要","13421452356","651234568","高","河南","智联招聘","无","无","无","无","无","无","无"));
+//        ss.addStuResume(new Student("20191141148","胡杰","男","重要","13421452356","651234568","高","河南","智联招聘","无","无","无","无","无","无","无","无"));
     }
 
     @Test
@@ -50,9 +50,10 @@ public class CrmApplicationTests {
 //        stu.setStuLevel("高");
 //
 //        String trackTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+//        String trackPredictTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 //        String trackTurnoverTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 //
-//        Track track = new Track("微信",trackTime,"跟踪中",trackTime,30,trackTurnoverTime,"重要","有效","无");
+//        Track track = new Track("微信",trackTime,"跟踪中",trackTime,30,trackPredictTime,trackTurnoverTime,"重要","有效","无");
 //        track.setConsultId(user);
 //        track.setStuNumber(stu);
 //

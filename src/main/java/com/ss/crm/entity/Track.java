@@ -22,6 +22,8 @@ public class Track extends Model<Track> {
     private String trackNextTime;
     /**跟踪时长*/
     private Integer trackDuration;
+    /**预计上门时间*/
+    private String trackPredictTime;
     /**预计成交时间*/
     private String trackTurnoverTime;
     /**重要程度*/
@@ -37,12 +39,13 @@ public class Track extends Model<Track> {
     /**面试老师id*/
     private User teacherId;
 
-    public Track(String trackWays, String trackTime, String trackStatus, String trackNextTime, Integer trackDuration, String trackTurnoverTime, String trackImportance, String trackValid, String trackDetails) {
+    public Track(String trackWays, String trackTime, String trackStatus, String trackNextTime, Integer trackDuration, String trackPredictTime, String trackTurnoverTime, String trackImportance, String trackValid, String trackDetails) {
         this.trackWays = trackWays;
         this.trackTime = trackTime;
         this.trackStatus = trackStatus;
         this.trackNextTime = trackNextTime;
         this.trackDuration = trackDuration;
+        this.trackPredictTime = trackPredictTime;
         this.trackTurnoverTime = trackTurnoverTime;
         this.trackImportance = trackImportance;
         this.trackValid = trackValid;

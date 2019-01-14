@@ -4,7 +4,7 @@
     <!--查询跟踪信息-->
     <select id="getTrackInfo" resultMap="trackResultMap">
         select
-        a.track_ways,a.track_time,a.track_status,a.track_next_time,a.track_duration,a.track_turnover_time,a.track_importance,a.track_valid,a.track_details,
+        a.track_ways,a.track_time,a.track_status,a.track_next_time,a.track_duration,a.track_predict_time,a.track_turnover_time,a.track_importance,a.track_valid,a.track_details,
 		a.consult_id,a.stu_number,a.teacher_id
         from t_track a,t_student b,s_user e,s_user d
 		where a.stu_number = b.stu_number
@@ -15,7 +15,7 @@
     <!--添加跟踪信息-->
     <insert id="insertTrackRecord">
         insert into t_track
-        (track_ways,track_time,track_status,track_next_time,track_duration,track_turnover_time,track_importance,track_valid,track_details,consult_id,stu_number,teacher_id)
+        (track_ways,track_time,track_status,track_next_time,track_duration,track_predict_time,track_turnover_time,track_importance,track_valid,track_details,consult_id,stu_number,teacher_id)
         values
         (<include refid="trackValues"/>)
     </insert>
@@ -29,8 +29,8 @@
         </association>
     </resultMap>
 
-    <sql id="trackColumns">track_ways,track_time,track_status,track_next_time,track_duration,track_turnover_time,track_importance,track_valid,track_details,consult_id,stu_number,teacher_id
+    <sql id="trackColumns">track_ways,track_time,track_status,track_next_time,track_duration,track_predict_time,track_turnover_time,track_importance,track_valid,track_details,consult_id,stu_number,teacher_id
     </sql>
-    <sql id="trackValues">#{trackWays},#{trackTime},#{trackStatus},#{trackNextTime},#{trackDuration},#{trackTurnoverTime},#{trackImportance},#{trackValid},#{trackDetails},#{consultId.userId},#{stuNumber.stuNumber},#{teacherId.userId}
+    <sql id="trackValues">#{trackWays},#{trackTime},#{trackStatus},#{trackNextTime},#{trackDuration},#{trackPredictTime},#{trackTurnoverTime},#{trackImportance},#{trackValid},#{trackDetails},#{consultId.userId},#{stuNumber.stuNumber},#{teacherId.userId}
     </sql>
 </mapper>

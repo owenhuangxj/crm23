@@ -32,6 +32,8 @@ public class Student extends Model<Student> {
     private String stuLevel;
     /**居住地址*/
     private String stuAddress;
+    /**学生渠道*/
+    private String stuChannel;
     /**学生来源*/
     private String stuSource;
     /**自我评价*/
@@ -51,7 +53,7 @@ public class Student extends Model<Student> {
 //    /**学生状态：1：新增，2：跟踪中，3：待面试，4：面试未通过，5：面试通过，6：已缴未清，7：已缴费，8：入学，9：放弃入学，10：退学，11：放弃*/
 //    private int stuStatus;
 
-    public Student(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance) {
+    public Student(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance) {
         this.stuNumber = stuNumber;
         this.stuName = stuName;
         this.stuSex = stuSex;
@@ -60,6 +62,7 @@ public class Student extends Model<Student> {
         this.stuQq = stuQq;
         this.stuLevel = stuLevel;
         this.stuAddress = stuAddress;
+        this.stuChannel = stuChannel;
         this.stuSource = stuSource;
         this.stuEvaluation = stuEvaluation;
         this.stuWork = stuWork;

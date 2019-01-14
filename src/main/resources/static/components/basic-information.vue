@@ -7,40 +7,40 @@
             <el-form ref="form" :model="basicInfo" label-width="250px" >
                 <div class="formCss">
                     <el-form-item class="basicInfoM" label="姓名：">
-                        <el-input v-model="basicInfo.name" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuName" :disabled="isEdit"></el-input>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="学员编号:">
-                        <el-input v-model="basicInfo.serialNum" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuNumber" :disabled="isEdit"></el-input>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="性别:">
-                        <el-input v-model="basicInfo.gender" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuSex" :disabled="isEdit"></el-input>
                     </el-form-item>
                 </div>
                 <div class="formCss">
                     <el-form-item class="basicInfoM" label="重要客户：">
-                        <el-input v-model="basicInfo.isImportant" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuImportance" :disabled="isEdit"></el-input>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="手机号:">
-                        <el-input v-model="basicInfo.phoneNum" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuPhoneNum" :disabled="isEdit"></el-input>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="QQ:">
-                        <el-input v-model="basicInfo.QQNum" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuQq" :disabled="isEdit"></el-input>
                     </el-form-item>
                 </div>
                 <div class="formCss">
                     <el-form-item class="basicInfoM" label="优先级：">
-                        <el-input v-model="basicInfo.priority" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuLevel" :disabled="isEdit"></el-input>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="渠道:">
-                        <el-input v-model="basicInfo.channel" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuChannel" :disabled="isEdit"></el-input>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="来源途径:">
-                        <el-input v-model="basicInfo.approach" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuSource" :disabled="isEdit"></el-input>
                     </el-form-item>
                 </div>
                 <div class="formCss">
                     <el-form-item class="basicInfoM" label="暂住地：">
-                        <el-input v-model="basicInfo.outFlown" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuAddress" :disabled="isEdit"></el-input>
                     </el-form-item>
                 </div>
             </el-form>
@@ -54,31 +54,31 @@
             <el-form :label-position="labelPosition" ref="form" :model="basicInfo" label-width="250px">
                 <div class="detailCss">
                     <el-form-item class="detailInputForm" label="自我评价：">
-                        <el-input type="textarea" class="inputSize" v-model="basicInfo.selfEvaluation" :disabled="isEdit" autosize></el-input>
+                        <el-input type="textarea" class="inputSize" v-model="basicInfo.stuEvaluation" :disabled="isEdit" autosize></el-input>
                     </el-form-item>
                     <el-form-item class="detailInputForm" label="工作经历:">
-                        <el-input type="textarea" class="inputSize" v-model="basicInfo.workExperience" :disabled="isEdit" autosize></el-input>
+                        <el-input type="textarea" class="inputSize" v-model="basicInfo.stuWork" :disabled="isEdit" autosize></el-input>
                     </el-form-item>
                 </div>
                 <div class="detailCss">
                     <el-form-item class="detailInputForm" label="项目经验：">
-                        <el-input type="textarea" class="inputSize" v-model="basicInfo.projectExperience" :disabled="isEdit" autosize></el-input>
+                        <el-input type="textarea" class="inputSize" v-model="basicInfo.stuProject" :disabled="isEdit" autosize></el-input>
                     </el-form-item>
                     <el-form-item class="detailInputForm" label="教育经历:">
-                        <el-input type="textarea" class="inputSize" v-model="basicInfo.educationExperience" :disabled="isEdit" autosize></el-input>
+                        <el-input type="textarea" class="inputSize" v-model="basicInfo.stuEducation" :disabled="isEdit" autosize></el-input>
                     </el-form-item>
                 </div>
                 <div class="detailCss">
                     <el-form-item class="detailInputForm" label="培训经历：">
-                        <el-input type="textarea" class="inputSize" v-model="basicInfo.trainingRecord" :disabled="isEdit" autosize></el-input>
+                        <el-input type="textarea" class="inputSize" v-model="basicInfo.stuTrained" :disabled="isEdit" autosize></el-input>
                     </el-form-item>
                     <el-form-item class="detailInputForm" label="证书:">
-                        <el-input type="textarea" class="inputSize" v-model="basicInfo.credential" :disabled="isEdit" autosize></el-input>
+                        <el-input type="textarea" class="inputSize" v-model="basicInfo.stuCredentials" :disabled="isEdit" autosize></el-input>
                     </el-form-item>
                 </div>
                 <div class="detailCss">
                     <el-form-item class="detailInputForm" label="在校情况：">
-                        <el-input type="textarea" class="inputSize" v-model="basicInfo.schoolPerformance" :disabled="isEdit" autosize></el-input>
+                        <el-input type="textarea" class="inputSize" v-model="basicInfo.stuPerformance" :disabled="isEdit" autosize></el-input>
                     </el-form-item>
                 </div>
             </el-form>
@@ -92,23 +92,23 @@
 
 <script>
     let info = {
-        name:"张三",
-        serialNum:"123",
-        gender:"男",
-        isImportant:"是",
-        phoneNum:"123456789",
-        QQNum:"123456",
-        priority:"高",
-        channel:"ee",
-        approach:"ff",
-        outFlown:"aa",
-        selfEvaluation:"dasd",
-        workExperience:"fgvasd",
-        projectExperience:"hfh",
-        educationExperience:"jh",
-        trainingRecord:"lul",
-        credential:"etw",
-        schoolPerformance:"mnf",
+        stuName:"张三",
+        stuNumber:"123",
+        stuSex:"男",
+        stuImportance:"是",
+        stuPhoneNum:"123456789",
+        stuQq:"123456",
+        stuLevel:"高",
+        stuChannel:"ee",
+        stuSource:"ff",
+        stuAddress:"aa",
+        stuEvaluation:"dasd",
+        stuWork:"fgvasd",
+        stuProject:"hfh",
+        stuEducation:"jh",
+        stuTrained:"lul",
+        stuCredentials:"etw",
+        stuPerformance:"mnf",
     }
     module.exports = {
         data(){

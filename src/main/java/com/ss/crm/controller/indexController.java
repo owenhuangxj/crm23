@@ -19,4 +19,11 @@ public class indexController {
         return "test_vue_module";
     }
 
+
+    @GetMapping("/add")
+    public String add() {
+
+        return "add";
+    }
+
 }

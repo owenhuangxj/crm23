@@ -16,7 +16,7 @@
             <el-table-column prop="nextTrackTime" label="下次跟踪时间" width="200"></el-table-column>
             <el-table-column prop="trailsman" label="跟踪者" width="120"></el-table-column>
             <el-table-column prop="technicalInterviewer" label="技术面试老师" width="120"></el-table-column>
-            <el-table-column prop="remark" label="备注" width="350"></el-table-column>
+            <el-table-column prop="trackDesc" label="备注" width="350"></el-table-column>
         </el-table>
         <div style="text-align: center">
             <el-button type="primary" @click="dialogFormVisible = true" plain>新增记录</el-button>
@@ -89,7 +89,7 @@
                     nextTrackTime:"2012-05-36 12:65:87",
                     trailsman:"阿四",
                     technicalInterviewer:"阿三",
-                    remark:"神魔都没有",
+                    trackDesc:"神魔都没有",
                 }, ],
                 dialogFormVisible: false,
                 form:{

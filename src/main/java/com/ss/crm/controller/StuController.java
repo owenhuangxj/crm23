@@ -26,11 +26,14 @@ public class StuController {
         return stuResume>0;
     }
 
+    /**
+     * 通过学生编号查询学生信息
+     * @param stuNumber 学生编号
+     * @return 学生信息
+     */
     @RequestMapping(value = "/getStu", produces = "application/json;charset=UTF-8")
-    public @ResponseBody  void getStuInfo(@RequestParam("stuNumber") String stuNumber){
-        Student stu = ss.getStuInfo(stuNumber);
-        System.out.println(stu);
-
+    public @ResponseBody  Student getStuInfo(@RequestParam("stuNumber") String stuNumber){
+        return ss.getStuInfo(stuNumber);
     }
 
 
