@@ -15,15 +15,21 @@ public class StuController {
     @Autowired
     private StuService ss;
 
+    /**
+     * 手动添加学生简历
+     * @param stu 学生数据
+     * @return 是否添加成功
+     */
     @RequestMapping(value = "/addStu", produces = "application/json;charset=UTF-8")
     public @ResponseBody  Boolean addStuResume(Student stu){
         Integer stuResume = ss.addStuResume(stu);
         return stuResume>0;
     }
 
-    @RequestMapping(value = "getStu", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/getStu", produces = "application/json;charset=UTF-8")
     public @ResponseBody  void getStuInfo(@RequestParam("stuNumber") String stuNumber){
         Student stu = ss.getStuInfo(stuNumber);
+        System.out.println(stu);
 
     }
 

@@ -18,5 +18,12 @@ public interface StuService {
      */
     Student getStuInfo( String stuNumber);
 
+    /**
+     * 修改学生信息
+     * @param stu 学生数据
+     * @return 改变行数
+     */
+    Integer updateStuInfoByStuNumber(Student stu);
+
 
 }

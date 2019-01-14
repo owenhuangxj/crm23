@@ -31,10 +31,21 @@ public class Track extends Model<Track> {
     /**跟踪内容*/
     private String trackDetails;
     /**咨询师id*/
-    private Employee consultId;
+    private User consultId;
     /**学生id*/
-    private Student stuId;
+    private Student stuNumber;
     /**面试老师id*/
-    private Employee teacherId;
+    private User teacherId;
 
+    public Track(String trackWays, String trackTime, String trackStatus, String trackNextTime, Integer trackDuration, String trackTurnoverTime, String trackImportance, String trackValid, String trackDetails) {
+        this.trackWays = trackWays;
+        this.trackTime = trackTime;
+        this.trackStatus = trackStatus;
+        this.trackNextTime = trackNextTime;
+        this.trackDuration = trackDuration;
+        this.trackTurnoverTime = trackTurnoverTime;
+        this.trackImportance = trackImportance;
+        this.trackValid = trackValid;
+        this.trackDetails = trackDetails;
+    }
 }
