@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>验证码</title>
+</head>
+<body>
+<P>您获取的验证码为:<p style="color: red;font-size: 30px" th:text="${#request.getAttribute('num')}"></p></P>
+
+</body>
+</html>
