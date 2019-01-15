@@ -13,12 +13,18 @@
                         <el-input v-model="basicInfo.stuNumber" :disabled="isEdit"></el-input>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="性别:">
-                        <el-input v-model="basicInfo.stuSex" :disabled="isEdit"></el-input>
+                        <el-select v-model="basicInfo.stuSex" :disabled="isEdit">
+                            <el-option label="男" value="男"></el-option>
+                            <el-option label="女" value="女"></el-option>
+                        </el-select>
                     </el-form-item>
                 </div>
                 <div class="formCss">
                     <el-form-item class="basicInfoM" label="重要客户：">
-                        <el-input v-model="basicInfo.stuImportance" :disabled="isEdit"></el-input>
+                        <el-select v-model="basicInfo.stuImportance" :disabled="isEdit">
+                            <el-option label="重要" value="重要"></el-option>
+                            <el-option label="不重要" value="不重要"></el-option>
+                        </el-select>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="手机号:">
                         <el-input v-model="basicInfo.stuPhoneNum" :disabled="isEdit"></el-input>
@@ -29,7 +35,12 @@
                 </div>
                 <div class="formCss">
                     <el-form-item class="basicInfoM" label="优先级：">
-                        <el-input v-model="basicInfo.stuLevel" :disabled="isEdit"></el-input>
+                        <el-select v-model="basicInfo.stuLevel" :disabled="isEdit">
+                            <el-option label="无" value="无"></el-option>
+                            <el-option label="中" value="中"></el-option>
+                            <el-option label="高" value="高"></el-option>
+                            <el-option label="低" value="低"></el-option>
+                        </el-select>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="渠道:">
                         <el-input v-model="basicInfo.stuChannel" :disabled="isEdit"></el-input>
@@ -84,7 +95,8 @@
             </el-form>
         </div>
         <div style="text-align: center">
-            <el-button type="info" @click="edit" plain>编辑</el-button>
+            <el-button v-if="isEdit" type="info" @click="edit" plain>编辑</el-button>
+            <el-button v-if="!isEdit" type="danger" @click="cancelEdit" plain>取消</el-button>
             <el-button v-if="!isEdit" type="primary" @click="saveInfo" plain>保存</el-button>
         </div>
     </div>
@@ -110,6 +122,7 @@
         stuCredentials:"etw",
         stuPerformance:"mnf",
     }
+    let oldData,editData;
     module.exports = {
         data(){
             return {
@@ -118,19 +131,29 @@
                 spread:'el-icon-arrow-right',
                 pack:'el-icon-arrow-down',
                 isEdit:true,
-                basicInfo: info
+                basicInfo: null
             }
+        },
+        mounted(){
+            axios.get("http://localhost/stu/getStu?stuNumber=20191121830")
+                .then(response => (oldData = Object.assign({},response.data),
+                    this.basicInfo = response.data,
+                console.log("路由数据"+JSON.stringify(response.data))))
         },
         methods : {
             unwind : function(){
                 this.calContro = !this.calContro
             },
             edit:function () {
+                editData = Object.assign({},oldData)
                 this.isEdit = false
             },
             saveInfo:function () {
                 this.isEdit = true
-                alert("保存操作")
+            },
+            cancelEdit:function () {
+                this.basicInfo = editData
+                this.isEdit = true
             }
         }
     }
