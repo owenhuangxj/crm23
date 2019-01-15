@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 public class indexController {
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index() {
 
         return "index";
@@ -17,6 +17,13 @@ public class indexController {
     @GetMapping("/vue_test")
     public String testVueModule() {
         return "test_vue_module";
+    }
+
+
+    @GetMapping("/add")
+    public String add() {
+
+        return "add";
     }
 
 }

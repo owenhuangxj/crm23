@@ -3,4 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ss.crm.mapper.UserMapper">
+    <!--查询姓名-->
+    <select id="getUserNameByUserId" resultMap="userResultMap">
+        select
+        user_name
+        from s_user
+        where user_id = #{userId}
+    </select>
+
+    <resultMap id="userResultMap" type="user" autoMapping="true">
+
+    </resultMap>
 </mapper>

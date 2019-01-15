@@ -24,6 +24,6 @@ public interface StuMapper {
      * @param stuNumber 学生编号
      * @return 学生信息
      */
-    Student getStuInfo(@Param("stuNumber") String stuNumber);
+    Student getStuInfoByStuNumber(@Param("stuNumber") String stuNumber);
 
 }

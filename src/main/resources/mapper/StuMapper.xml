@@ -4,13 +4,13 @@
     <!--添加简历数据-->
     <insert id="insertStuResume">
         insert into t_student
-        <include refid="stuColumns"/>
+        (stu_name,stu_number,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance)
         values
-        <include refid="stuValues"/>
+        (#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuChannel},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuCredentials},#{stuPerformance})
     </insert>
 
-    <!--查询学生信息-->
-    <select id="getStuInfo" resultMap="stuResultMap">
+    <!--通过学生编号查询学生信息-->
+    <select id="getStuInfoByStuNumber" resultMap="stuResultMap">
         select
         <include refid="stuColumns"/>
         from
@@ -19,12 +19,65 @@
         stu_number = #{stuNumber}
     </select>
 
-    <resultMap type="student" id="stuResultMap" autoMapping="true">
+    <!--修改学生信息-->
+    <update id="updateStuInfo">
+        update t_student
+        <set>
+            <if test="null!=stuLevel and stuLevel!=''">
+                stu_level = #{stuLevel},
+            </if>
+            <if test="null!=stuNumber and stuNumber!=''">
+                stu_number = #{stuNumber},
+            </if>
+            <if test="null!=stuSex and stuSex!=''">
+                stu_sex = #{stuSex},
+            </if>
+            <if test="null!=stuImportance and stuImportance!=''">
+                stu_importance = #{stuImportance},
+            </if>
+            <if test="null!=stuPhoneNum and stuPhoneNum!=''">
+                stu_phone_num = #{stuPhoneNum},
+            </if>
+            <if test="null!=stuQq and stuQq!=''">
+                stu_qq = #{stuQq},
+            </if>
+            <if test="null!=stuAddress and stuAddress!=''">
+                stu_address = #{stuAddress},
+            </if>
+            <if test="null!=stuChannel and stuChannel!=''">
+                stu_channel = #{stuChannel},
+            </if>
+            <if test="null!=stuSource and stuSource!=''">
+                stu_source = #{stuSource},
+            </if>
+            <if test="null!=stuEvaluation and stuEvaluation!=''">
+                stu_evaluation = #{stuEvaluation},
+            </if>
+            <if test="null!=stuWork and stuWork!=''">
+                stu_work = #{stuWork},
+            </if>
+            <if test="null!=stuProject and stuProject!=''">
+                stu_project = #{stuProject},
+            </if>
+            <if test="null!=stuEducation and stuEducation!=''">
+                stu_education = #{stuEducation},
+            </if>
+            <if test="null!=stuTrained and stuTrained!=''">
+                stu_trained = #{stuTrained},
+            </if>
+            <if test="null!=stuCredentials and stuCredentials!=''">
+                stu_credentials = #{stuCredentials}
+            </if>
+        </set>
+        where stu_number = #{stuNumber}
+    </update>
+
+    <resultMap id="stuResultMap" type="student" autoMapping="true">
     </resultMap>
 
-    <sql id="stuColumns">stu_name,stu_number,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_trained,stu_performance
+    <sql id="stuColumns">stu_name,stu_number,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance
     </sql>
-    <sql id="stuValues">#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuTrained},#{stuPerformance}</sql>
+    <sql id="stuValues">#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuChannel},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuCredentials},#{stuPerformance}</sql>
 
 
 </mapper>

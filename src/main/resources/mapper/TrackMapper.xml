@@ -3,28 +3,36 @@
 <mapper namespace="com.ss.crm.mapper.TrackMapper">
     <!--查询跟踪信息-->
     <select id="getTrackInfo" resultMap="trackResultMap">
-        select
-        a.track_ways,a.track_time,a.track_status,a.track_next_time,a.track_duration,a.track_turnover_time,a.track_importance,a.track_valid,a.track_details,
-		b.stu_name,
-		e.emp_name,
-		d.emp_name
-        from t_track a,t_student b,t_employee e,t_employee d
-		where a.stu_number = b.stu_number
-		and a.teacher_id = d.emp_id
-		and a.consult_id = e.emp_id
+        select DISTINCT
+        a.track_ways,a.track_time,a.track_status,a.track_next_time,a.track_duration,a.track_predict_time,a.track_turnover_time,a.track_importance,a.track_valid,a.track_details,
+		a.consult_id,
+		a.stu_number,
+		if (a.teacher_id is null,teacher_id=null,a.teacher_id) teacher_id
+        from t_track a,t_student b,s_user e,s_user d
+		where a.stu_number = b.stu_number and
+        if (a.teacher_id is null,0=0,a.teacher_id = d.user_id)
+		and a.consult_id = e.user_id
 		and a.stu_number = #{stuNumber}
     </select>
     <!--添加跟踪信息-->
     <insert id="insertTrackRecord">
         insert into t_track
-        track_ways,track_time,track_status,track_next_time,track_duration,track_turnover_time,track_importance,track_valid,track_details,stu_number,track_details
+        (track_ways,track_time,track_status,track_next_time,track_duration,track_predict_time,track_turnover_time,track_importance,track_valid,track_details,consult_id,stu_number,teacher_id)
         values
-        <include refid="trackValues"/>
+        (<include refid="trackValues"/>)
     </insert>
 
-    <resultMap id="track" type="trackResultMap" autoMapping="true">
+    <resultMap id="trackResultMap" type="track" autoMapping="true">
+        <association property="consultId" column="consult_id" select="com.ss.crm.mapper.UserMapper.getUserNameByUserId">
+        </association>
+        <association property="stuNumber" column="stu_number" select="com.ss.crm.mapper.StuMapper.getStuInfoByStuNumber">
+        </association>
+        <association property="teacherId" column="teacher_id" select="com.ss.crm.mapper.UserMapper.getUserNameByUserId">
+        </association>
     </resultMap>
 
-    <sql id="trackValues">
+    <sql id="trackColumns">track_ways,track_time,track_status,track_next_time,track_duration,track_predict_time,track_turnover_time,track_importance,track_valid,track_details,consult_id,stu_number,teacher_id
+    </sql>
+    <sql id="trackValues">#{trackWays},#{trackTime},#{trackStatus},#{trackNextTime},#{trackDuration},#{trackPredictTime},#{trackTurnoverTime},#{trackImportance},#{trackValid},#{trackDetails},#{consultId.userId},#{stuNumber.stuNumber},#{teacherId.userId}
     </sql>
 </mapper>

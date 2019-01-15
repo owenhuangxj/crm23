@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>测试Vue组件的引用</title>
+    <title>添加学员信息</title>
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/http-vue-loader"></script>
     <link rel="stylesheet" href="https://unpkg.com/element-ui@2.4.11/lib/theme-chalk/index.css">
@@ -10,15 +10,13 @@
 </head>
 <body>
 <div id="app">
-    <basic-information></basic-information>
-    <track-record></track-record>
+    <track-add></track-add>
 </div>
 <script type="text/javascript">
     new Vue({
             el:'#app',
             components: {
-                'basic-information': httpVueLoader('resources/components/basic-information.vue'),
-                'track-record': httpVueLoader('resources/components/track-record.vue'),
+                'track-add': httpVueLoader('resources/components/new-basic-information.vue'),
             }
         }
     )
