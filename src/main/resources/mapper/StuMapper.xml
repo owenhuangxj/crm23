@@ -26,6 +26,48 @@
             <if test="null!=stuLevel and stuLevel!=''">
                 stu_level = #{stuLevel},
             </if>
+            <if test="null!=stuNumber and stuNumber!=''">
+                stu_number = #{stuNumber},
+            </if>
+            <if test="null!=stuSex and stuSex!=''">
+                stu_sex = #{stuSex},
+            </if>
+            <if test="null!=stuImportance and stuImportance!=''">
+                stu_importance = #{stuImportance},
+            </if>
+            <if test="null!=stuPhoneNum and stuPhoneNum!=''">
+                stu_phone_num = #{stuPhoneNum},
+            </if>
+            <if test="null!=stuQq and stuQq!=''">
+                stu_qq = #{stuQq},
+            </if>
+            <if test="null!=stuAddress and stuAddress!=''">
+                stu_address = #{stuAddress},
+            </if>
+            <if test="null!=stuChannel and stuChannel!=''">
+                stu_channel = #{stuChannel},
+            </if>
+            <if test="null!=stuSource and stuSource!=''">
+                stu_source = #{stuSource},
+            </if>
+            <if test="null!=stuEvaluation and stuEvaluation!=''">
+                stu_evaluation = #{stuEvaluation},
+            </if>
+            <if test="null!=stuWork and stuWork!=''">
+                stu_work = #{stuWork},
+            </if>
+            <if test="null!=stuProject and stuProject!=''">
+                stu_project = #{stuProject},
+            </if>
+            <if test="null!=stuEducation and stuEducation!=''">
+                stu_education = #{stuEducation},
+            </if>
+            <if test="null!=stuTrained and stuTrained!=''">
+                stu_trained = #{stuTrained},
+            </if>
+            <if test="null!=stuCredentials and stuCredentials!=''">
+                stu_credentials = #{stuCredentials}
+            </if>
         </set>
         where stu_number = #{stuNumber}
     </update>

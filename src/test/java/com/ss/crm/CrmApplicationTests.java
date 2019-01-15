@@ -39,12 +39,13 @@ public class CrmApplicationTests {
     @Test
     public void trackTest(){
         List<Track> info = ts.getTrackInfo("20191121800");
-        System.out.println(info);
+        System.out.println(info.size());
+        System.out.println(info.get(0).getTeacherId().getUserName());
 
 
 //        User user = new User();
 //        user.setUserId(5);
-//
+//        20191121800
 //        Student stu = new Student();
 //        stu.setStuNumber("20191141148");
 //        stu.setStuLevel("高");
