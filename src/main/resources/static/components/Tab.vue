@@ -6,7 +6,8 @@
                @click="Tab(index)"
                v-for="(item,index) in items"
                :class="{active : index===curId}"
-            >{{item.item}} <span class="count">(0)</span></a>
+            >{{item.item}}</a>
+            <!--<span class="count">({{item.msgCount}})</span>-->
         </div>
         <!--横线-->
         <div id="tabScroll">
@@ -16,11 +17,11 @@
         <!--中间消息列表-->
         <div class="tab-con">
             <div v-for="(content, index) in contents">
-                <div class="msgItem" v-for="item in content">
+                <div class="msgItem"  v-for="item in content" v-show="item.status===curId">
                     <div class="msgTitle">{{item.title}}</div>
                     <div class="itemUtil">
-                        <a href="javascript:;" class="itemBtn" v-show="index===curId"
-                           v-for="(btntext,index) in itemBtns">{{itemBtns[index].btntext}}</a>
+                        <a href="javascript:;" class="itemBtn" v-for="(itemBtn,index) in itemBtns" v-show="index===curId"
+                           @click="changeStatus(item,itemBtn.func)">{{itemBtn.btntext}}</a>
                     </div>
                     <div class="msgTime">{{item.time}}</div>
 
@@ -51,22 +52,32 @@
                 curId: 0,
                 // 标签名
                 items: [
-                    {item: '未读消息'},
-                    {item: '已读消息'},
-                    {item: '回收站'},
+                    {item: '未读消息', msgCount:0},
+                    {item: '已读消息',msgCount:0},
+                    {item: '回收站',msgCount:0},
                 ],
+
+                // // 中间消息列表
+                // contents: [
+                //     [],
+                //     [],
+                //     [],
+                // ],
+
                 // 下方工具按钮
                 utilBtns: [
-                    {btntext: '全部标为已读', color: '#409eff', func: ''},
+                    {btntext: '全部标为已读', color: '#409eff'},
                     {btntext: '删除全部', color: '#f56c6c'},
                     {btntext: '清空回收站', color: '#f56c6c'}
                 ],
+
                 // 每条消息后的工具按钮
                 itemBtns: [
-                    {btntext: '标为已读', color: '#fff', func: ''},
-                    {btntext: '删除', color: '#f56c6c', func: ''},
-                    {btntext: '还原', color: '#f56c6c', func: ''}
-                ]
+                    {btntext: '标为已读', color: '#fff', func:"read"},
+                    {btntext: '删除', color: '#f56c6c', func:"delete"},
+                    {btntext: '还原', color: '#f56c6c', func:"reduct"}
+                ],
+
             }
         },
         methods: {
@@ -76,27 +87,42 @@
                 document.getElementsByClassName("utilBtn")[index].style.background = this.utilBtns[index].color;
                 //等vue将active类赋值完成后再执行
                 setTimeout(tabScrollMove, 10, this);
-                setTimeout(initMsgList, 11, this, index);
-                console.log('执行Tab')
-                console.log(this.contents);
+                // setTimeout(initMsgList, 11, this, index);
+                initMsgList(this, index);
             },
+            changeStatus(item, func){
+                console.log(item);
+                console.log(item.id);
+                console.log(func);
+                axios({
+                    method:'post',
+                    url:'./changeMsgStatus/'+item.id+'/'+item.status,
+
+                }).then(function(response){
+                        alert("修改结果"+response.data)
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+            }
 
 
         },
         beforeCreate: function(){
             // 中间表内容
-            this.contents = [];
+            this.contents = [[],[],[]];
             // axios中this是window对象。所以要将现在的this赋值给中间变量_this
             // var _this = this;
+            console.log('before')
             initMsgList(this,0);
 
         },
         created: function () {
-
+            // 50毫秒后加载消息列表
+            // setTimeout(loadMsgList, 50, this);
+            // loadMsgList(obj)
         },
         mounted: function(){
-            // 10毫秒后加载消息列表
-            setTimeout(loadMsgList, 10, this);
+
         }
 
     }
@@ -107,17 +133,23 @@
     // 初始化消息列表数据
     function initMsgList(obj, state){
         console.log('请求接口')
+        console.log("init中的obj")
+        console.log(obj)
         axios.get('./msgData',{
             params: {
                 status: state,
             }
         })
             .then(function (response) {
-                obj.contents = [];
+                // 在重新获取消息数据之前清空对应选项卡的消息列表，和消息统计数量
+                obj.contents[state] = [];
                 console.log(obj.contents);
                 response.data.forEach(function(v){
-                    obj.contents.push({content: v});
-                })
+                    // 对应状态的消息统计加一
+                    obj.items[v.status].msgCount++;
+                    // 将消息填入消息列表
+                    obj.contents[state].push(v);
+                });
             })
             .catch(function (error) {
                 console.log(error);
@@ -128,19 +160,19 @@
         obj.Tab(1);
         obj.$refs.msgTab.firstElementChild.click();
     }
-    // 发送请求获取消息并拼接dom
-    function getMsgData(obj,status) {
-        alert(status);
-        axios.get('./msgData.json')
-            .then(function (response) {
-                response.data.forEach(function(v){
-                    obj.contents.push({content: v});
-                })
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+    // // 发送请求获取消息并拼接dom
+    // function getMsgData(obj,status) {
+    //     alert(status);
+    //     axios.get('./msgData.json')
+    //         .then(function (response) {
+    //             response.data.forEach(function(v){
+    //                 obj.contents.push({content: v});
+    //             })
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }
 
 
 </script>
@@ -167,10 +199,13 @@
 
     #msgTab > a {
         float: left;
-        padding-right: 40px;
+        /*padding-right: 40px;*/
         height: 70px;
         line-height: 70px;
         font-size: 14px;
+        text-align: left;
+        display: inline-block;
+        width: 100px;
     }
 
     #msgTab > a:hover {
@@ -188,7 +223,7 @@
         /*左右位置过渡*/
         transition: left .3s;
         position: absolute;
-        width: 75px;
+        width: 60px;
         height: 2px;
         background-color: #409eff;
     }

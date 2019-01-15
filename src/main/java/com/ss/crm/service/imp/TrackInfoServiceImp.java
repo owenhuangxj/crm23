@@ -8,6 +8,7 @@ import com.ss.crm.service.TrackInfoService;
 import com.ss.crm.service.TrackService;
 import com.ss.crm.util.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class TrackInfoServiceImp implements TrackInfoService {
     @Autowired
     private TrackService ts;
 
+    @Autowired
+    private RedisTemplate<String, Object> rt;
     @Override
     public boolean addTrackInfoRecord(TrackInfo ti) {
 
@@ -39,7 +42,7 @@ public class TrackInfoServiceImp implements TrackInfoService {
     @Override
     public List<TrackInfo> getTrackInfo(String stuNumber) {
         List<TrackInfo> trackInfos = null;
-        RedisCache<TrackInfo> cache = new RedisCache<TrackInfo>();
+        RedisCache<TrackInfo> cache = new RedisCache<TrackInfo>(rt);
         if (null!= cache.getCache(stuNumber)) {
             return cache.getCache(stuNumber);
         } else {

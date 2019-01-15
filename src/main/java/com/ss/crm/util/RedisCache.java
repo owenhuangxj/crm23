@@ -9,7 +9,6 @@ import java.util.List;
 @Component
 public class RedisCache<T> {
 
-    @Autowired
     private RedisTemplate<String,Object> rt;
 
     /**
@@ -45,4 +44,7 @@ public class RedisCache<T> {
         return null;
     }
 
+    public RedisCache(RedisTemplate<String, Object> rt) {
+        this.rt = rt;
+    }
 }
