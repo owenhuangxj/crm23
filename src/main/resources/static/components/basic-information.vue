@@ -104,23 +104,23 @@
 
 <script>
     let info = {
-        stuName:"张三",
-        stuNumber:"123",
-        stuSex:"男",
-        stuImportance:"是",
-        stuPhoneNum:"123456789",
-        stuQq:"123456",
-        stuLevel:"高",
-        stuChannel:"ee",
-        stuSource:"ff",
-        stuAddress:"aa",
-        stuEvaluation:"dasd",
-        stuWork:"fgvasd",
-        stuProject:"hfh",
-        stuEducation:"jh",
-        stuTrained:"lul",
-        stuCredentials:"etw",
-        stuPerformance:"mnf",
+        stuName:"",
+        stuNumber:"",
+        stuSex:"",
+        stuImportance:"",
+        stuPhoneNum:"",
+        stuQq:"",
+        stuLevel:"",
+        stuChannel:"",
+        stuSource:"",
+        stuAddress:"",
+        stuEvaluation:"",
+        stuWork:"",
+        stuProject:"",
+        stuEducation:"",
+        stuTrained:"",
+        stuCredentials:"",
+        stuPerformance:"",
     }
     let oldData,editData;
     module.exports = {
@@ -131,7 +131,7 @@
                 spread:'el-icon-arrow-right',
                 pack:'el-icon-arrow-down',
                 isEdit:true,
-                basicInfo: null
+                basicInfo: info
             }
         },
         mounted(){
@@ -149,6 +149,16 @@
                 this.isEdit = false
             },
             saveInfo:function () {
+                let stuInfo = this.basicInfo
+                axios.post("/stu/updateStu",stuInfo,{
+                    header: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(function () {
+                    alert("成功")
+                }).catch(function () {
+                    alert("链接失败")
+                })
                 this.isEdit = true
             },
             cancelEdit:function () {
