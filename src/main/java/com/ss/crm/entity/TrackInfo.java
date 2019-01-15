@@ -1,13 +1,18 @@
 package com.ss.crm.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TrackInfo extends Model<TrackInfo> {
 
     /**
      * 跟踪方式
      */
-
     private String trackMethod;
     /**
      * 优先级：1：无，2：低，3：中，4：高
@@ -58,114 +63,4 @@ public class TrackInfo extends Model<TrackInfo> {
      */
     private String technicalInterviewer;
 
-    public String getTrackMethod() {
-        return trackMethod;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public String getTrackTime() {
-        return trackTime;
-    }
-
-    public String getCurrentStatus() {
-        return currentStatus;
-    }
-
-    public String getNextTrackTime() {
-        return nextTrackTime;
-    }
-
-    public Integer getTrackDuration() {
-        return trackDuration;
-    }
-
-    public String getPredictTime() {
-        return predictTime;
-    }
-
-    public String getPredictTrade() {
-        return predictTrade;
-    }
-
-    public String getTrackDesc() {
-        return trackDesc;
-    }
-
-    public String getTrailsman() {
-        return trailsman;
-    }
-
-    public String getStuNumber() {
-        return stuNumber;
-    }
-
-    public String getTechnicalInterviewer() {
-        return technicalInterviewer;
-    }
-
-    public void setTrackMethod(String trackMethod) {
-        this.trackMethod = trackMethod;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-
-    public void setTrackTime(String trackTime) {
-        this.trackTime = trackTime;
-    }
-
-    public void setCurrentStatus(String currentStatus) {
-        this.currentStatus = currentStatus;
-    }
-
-    public void setNextTrackTime(String nextTrackTime) {
-        this.nextTrackTime = nextTrackTime;
-    }
-
-    public void setTrackDuration(Integer trackDuration) {
-        this.trackDuration = trackDuration;
-    }
-
-    public void setPredictTime(String predictTime) {
-        this.predictTime = predictTime;
-    }
-
-    public void setPredictTrade(String predictTrade) {
-        this.predictTrade = predictTrade;
-    }
-
-    public void setTrackDesc(String trackDesc) {
-        this.trackDesc = trackDesc;
-    }
-
-    public void setTrailsman(String trailsman) {
-        this.trailsman = trailsman;
-    }
-
-    public void setStuNumber(String stuNumber) {
-        this.stuNumber = stuNumber;
-    }
-
-    public void setTechnicalInterviewer(String technicalInterviewer) {
-        this.technicalInterviewer = technicalInterviewer;
-    }
-
-    public TrackInfo(String trackMethod, String priority, String trackTime, String currentStatus, String nextTrackTime, Integer trackDuration, String predictTime, String predictTrade, String trackDesc, String trailsman, String stuNumber, String technicalInterviewer) {
-        this.trackMethod = trackMethod;
-        this.priority = priority;
-        this.trackTime = trackTime;
-        this.currentStatus = currentStatus;
-        this.nextTrackTime = nextTrackTime;
-        this.trackDuration = trackDuration;
-        this.predictTime = predictTime;
-        this.predictTrade = predictTrade;
-        this.trackDesc = trackDesc;
-        this.trailsman = trailsman;
-        this.stuNumber = stuNumber;
-        this.technicalInterviewer = technicalInterviewer;
-    }
 }

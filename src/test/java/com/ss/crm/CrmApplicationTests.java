@@ -2,13 +2,16 @@ package com.ss.crm;
 
 import com.ss.crm.entity.Student;
 import com.ss.crm.entity.Track;
+import com.ss.crm.entity.TrackInfo;
 import com.ss.crm.entity.User;
 import com.ss.crm.service.StuService;
+import com.ss.crm.service.TrackInfoService;
 import com.ss.crm.service.TrackService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
@@ -23,13 +26,17 @@ public class CrmApplicationTests {
     private StuService ss;
     @Autowired
     private TrackService ts;
+    @Autowired
+    private TrackInfoService tis;
+    @Autowired
+    private RedisTemplate<String, Object> rt;
 
     @Test
     public void contextLoads() {
     }
 
     @Test
-    public void stuTest(){
+    public void stuTest() {
 //        Student stu = ss.getStuInfo("20191121800");
 //        Student stu = ss.getStuInfo("20191141148");
 //        System.out.println(stu);
@@ -37,7 +44,7 @@ public class CrmApplicationTests {
     }
 
     @Test
-    public void trackTest(){
+    public void trackTest() {
         List<Track> info = ts.getTrackInfo("20191121800");
         System.out.println(info.size());
         System.out.println(info.get(0).getTeacherId().getUserName());
@@ -61,6 +68,18 @@ public class CrmApplicationTests {
 //        System.out.println(track);
 //
 //        ts.addTrackRecord(track);
+    }
+
+    @Test
+    public void trackInfoTest() {
+        List<TrackInfo> trackInfo = tis.getTrackInfo("20191121800");
+        System.out.println(trackInfo);
+    }
+
+    @Test
+    public void redisTest() {
+        List<Object> range = rt.opsForList().range("20191141148", 0, -1);
+        System.out.println("range"+range);
     }
 
 

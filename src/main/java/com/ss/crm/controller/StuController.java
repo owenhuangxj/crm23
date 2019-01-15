@@ -2,6 +2,7 @@ package com.ss.crm.controller;
 
 import com.ss.crm.entity.Student;
 import com.ss.crm.service.StuService;
+import com.ss.crm.util.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -40,14 +41,17 @@ public class StuController {
      * @param stu 学生数据
      * @return 是否修改成功
      */
-
+    @CrossOrigin
     @PostMapping(value = "/updateStu")
-    public @ResponseBody Boolean updateStuInfo(@RequestBody Student stu){
-        System.out.println(stu);
+    public @ResponseBody JsonData updateStuInfo(@RequestBody Student stu) {
+        System.out.println("-----------修改数据---------");
+        System.out.println("stu" + stu);
         Integer integer = ss.updateStuInfoByStuNumber(stu);
-        if(integer>0)
-            return true;
-        return false;
+        if (integer > 0) {
+            return new JsonData(null, null, null, true);
+        } else {
+            return new JsonData(null, null, null, false);
+        }
     }
 
 

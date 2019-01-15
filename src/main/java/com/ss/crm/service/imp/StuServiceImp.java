@@ -4,17 +4,23 @@ import com.ss.crm.entity.Student;
 import com.ss.crm.mapper.StuMapper;
 import com.ss.crm.service.StuService;
 import com.ss.crm.util.DateUtil;
+import com.ss.crm.util.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StuServiceImp implements StuService {
 
     @Autowired
     private StuMapper sm;
+    @Autowired
+    private RedisCache<Student> cache;
 
     @Override
     public Integer addStuResume(Student stu) {
+        cache.addCache(stu.getStuNumber(), stu);
         //设置学号:当前时间
         stu.setStuNumber(DateUtil.getStuNmuber());
         // 性别：0：女，1：男
@@ -55,40 +61,46 @@ public class StuServiceImp implements StuService {
 
     @Override
     public Student getStuInfo(String stuNumber) {
-        Student stu = sm.getStuInfoByStuNumber(stuNumber);
-        switch (stu.getStuSex()) {
-            case "0":
-                stu.setStuSex("女");
-                break;
-            case "1":
-                stu.setStuSex("男");
-                break;
-            case "2":
-                stu.setStuSex("未知");
-                break;
-        }
-        switch (stu.getStuImportance()) {
-            case "0":
-                stu.setStuImportance("不重要");
-                break;
-            case "1":
-                stu.setStuImportance("重要");
-                break;
-        }
-        //优先级别：1：无，2：低，3：中，4：高
-        switch (stu.getStuLevel()) {
-            case "1":
-                stu.setStuLevel("无");
-                break;
-            case "2":
-                stu.setStuLevel("低");
-                break;
-            case "3":
-                stu.setStuLevel("中");
-                break;
-            case "4":
-                stu.setStuLevel("高");
-                break;
+        Student stu = null;
+        if (cache.getCache(stuNumber).size() > 0) {
+            return (Student) (cache.getCache(stuNumber).get(0));
+        } else {
+            stu = sm.getStuInfoByStuNumber(stuNumber);
+            switch (stu.getStuSex()) {
+                case "0":
+                    stu.setStuSex("女");
+                    break;
+                case "1":
+                    stu.setStuSex("男");
+                    break;
+                case "2":
+                    stu.setStuSex("未知");
+                    break;
+            }
+            switch (stu.getStuImportance()) {
+                case "0":
+                    stu.setStuImportance("不重要");
+                    break;
+                case "1":
+                    stu.setStuImportance("重要");
+                    break;
+            }
+            //优先级别：1：无，2：低，3：中，4：高
+            switch (stu.getStuLevel()) {
+                case "1":
+                    stu.setStuLevel("无");
+                    break;
+                case "2":
+                    stu.setStuLevel("低");
+                    break;
+                case "3":
+                    stu.setStuLevel("中");
+                    break;
+                case "4":
+                    stu.setStuLevel("高");
+                    break;
+            }
+            cache.addCache(stuNumber,stu);
         }
         return stu;
     }

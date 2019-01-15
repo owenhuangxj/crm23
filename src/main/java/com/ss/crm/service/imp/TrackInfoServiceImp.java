@@ -8,7 +8,6 @@ import com.ss.crm.service.TrackInfoService;
 import com.ss.crm.service.TrackService;
 import com.ss.crm.util.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,12 +18,12 @@ public class TrackInfoServiceImp implements TrackInfoService {
 
     @Autowired
     private TrackService ts;
-
     @Autowired
-    private RedisTemplate<String, Object> rt;
+    private RedisCache<TrackInfo> cache;
+
     @Override
     public boolean addTrackInfoRecord(TrackInfo ti) {
-
+        cache.addCache(ti.getStuNumber(),ti);
         // 咨询师
         User user = new User();
         user.setUserId(Integer.parseInt(ti.getTrailsman()));
@@ -42,8 +41,8 @@ public class TrackInfoServiceImp implements TrackInfoService {
     @Override
     public List<TrackInfo> getTrackInfo(String stuNumber) {
         List<TrackInfo> trackInfos = null;
-        RedisCache<TrackInfo> cache = new RedisCache<TrackInfo>(rt);
-        if (null!= cache.getCache(stuNumber)) {
+        // 判断Redis中有没有数据
+        if ( cache.getCache(stuNumber).size()>0) {
             return cache.getCache(stuNumber);
         } else {
             // 获取跟踪对象集合
@@ -62,8 +61,8 @@ public class TrackInfoServiceImp implements TrackInfoService {
                 }
                 trackInfo = new TrackInfo(track.getTrackWays(), track.getStuNumber().getStuLevel(), track.getTrackTime(), track.getTrackStatus(), track.getTrackNextTime(), track.getTrackDuration(), track.getTrackPredictTime(), track.getTrackTurnoverTime(), track.getTrackDetails(), track.getConsultId().getUserName(), track.getStuNumber().getStuNumber(), track.getTeacherId().getUserName());
                 trackInfos.add(trackInfo);
+                cache.addCache(stuNumber, trackInfo);
             }
-            cache.addCache(stuNumber, trackInfos);
         }
         return trackInfos;
     }
