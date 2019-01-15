@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-        主页 {{who}}
+        <!--<Tab/>-->
+        aasqq
     </div>
 </template>
 
@@ -9,8 +10,11 @@
         data:function ()
         {
             return{
-                who:"Hello World!"
+                who:"!"
             }
+        },
+        components:{
+            // 'Tab': httpVueLoader('resources/components/Tab.vue')
         }
     }
 </script>

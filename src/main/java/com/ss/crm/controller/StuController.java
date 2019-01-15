@@ -38,5 +38,20 @@ public class StuController {
         return ss.getStuInfo(stuNumber);
     }
 
+    /**
+     * 修改学生信息
+     * @param stu 学生数据
+     * @return 是否修改成功
+     */
+    @RequestMapping(value = "/updateStu", produces = "application/json;charset=UTF-8")
+    public @ResponseBody Boolean updateStuInfo(Student stu){
+        Integer integer = ss.updateStuInfoByStuNumber(stu);
+        if(integer>0)
+            return true;
+        return false;
+    }
+
+
+
 
 }

@@ -3,12 +3,14 @@
 <mapper namespace="com.ss.crm.mapper.TrackMapper">
     <!--查询跟踪信息-->
     <select id="getTrackInfo" resultMap="trackResultMap">
-        select
+        select DISTINCT
         a.track_ways,a.track_time,a.track_status,a.track_next_time,a.track_duration,a.track_predict_time,a.track_turnover_time,a.track_importance,a.track_valid,a.track_details,
-		a.consult_id,a.stu_number,a.teacher_id
+		a.consult_id,
+		a.stu_number,
+		if (a.teacher_id is null,teacher_id=null,a.teacher_id) teacher_id
         from t_track a,t_student b,s_user e,s_user d
-		where a.stu_number = b.stu_number
-		and a.teacher_id = d.user_id
+		where a.stu_number = b.stu_number and
+        if (a.teacher_id is null,0=0,a.teacher_id = d.user_id)
 		and a.consult_id = e.user_id
 		and a.stu_number = #{stuNumber}
     </select>

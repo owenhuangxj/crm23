@@ -63,6 +63,9 @@ public class StuServiceImp implements StuService {
             case "1":
                 stu.setStuSex("男");
                 break;
+            case "2":
+                stu.setStuSex("未知");
+                break;
         }
         switch (stu.getStuImportance()) {
             case "0":
@@ -107,6 +110,29 @@ public class StuServiceImp implements StuService {
                 break;
             default:
                 stu.setStuLevel("1");
+                break;
+        }
+        switch (stu.getStuSex()) {
+            case "女":
+                stu.setStuSex("0");
+                break;
+            case "男":
+                stu.setStuSex("1");
+                break;
+            default:
+                stu.setStuSex("2");
+                break;
+        }
+        // 重要性：0：不重要，1：重要
+        switch (stu.getStuImportance()) {
+            case "不重要":
+                stu.setStuImportance("0");
+                break;
+            case "重要":
+                stu.setStuImportance("1");
+                break;
+            default:
+                stu.setStuImportance("0");
                 break;
         }
         return sm.updateStuInfo(stu);
