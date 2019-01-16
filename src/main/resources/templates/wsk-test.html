@@ -4,47 +4,52 @@
     <meta charset="UTF-8">
     <title>测试Vue组件的引用</title>
     <!--项目启动后用-->
-  <!--  <script src="resources/js/vue.js"></script>
-    <script src="resources/js/httpVueLoader.js"></script>-->
+    <script src="resources/js/vue.js"></script>
+    <script src="resources/js/httpVueLoader.js"></script>
+    <script src="resources/js/axios.min.js"></script>-->
     <!--静态访问-->
-
+<!--
     <script src="../static/js/httpVueLoader.js"></script>
     <script src="../static/js/vue.js"></script>
-    <script src="../static/js/jquery-3.3.1.js"></script>
-    <script src="../static/js/axios.min.js"></script>
+    <script src="../static/js/axios.min.js"></script>-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
-    <style>
-
-    </style>
 </head>
 <body>
 
 <script>
-    $(function () {
-        $('.sel').change(function () {    // 选择后替换内容并恢复箭头方向
-            $('#selectShow').html($('.sel').find('option:selected').html());
-        })
 
-
-    })
 </script>
 
 
 <div id="test">
-<allot></allot>
-
-
+<!--<allot></allot>-->
+        <resume-import></resume-import>
+<!--    <resume-data></resume-data>-->
 </div>
 
+
 <script type="text/javascript">
+
 
     new Vue({
             el:"#test",
             components: {
+             /*   'resume-import':httpVueLoader('../static/components/resume-import.vue'),
+
                 'Allot': httpVueLoader('../static/components/Allot.vue'),
+
+                'elDemo':httpVueLoader('../static/components/elDemo.vue'),
+                'resumeData':httpVueLoader('../static/components/resumeData.vue'),*/
+                'resume-import':httpVueLoader('resources/components/resume-import.vue'),
+
             }
         }
     )
+
+
+
 
 </script>
 </body>
