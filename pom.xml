@@ -125,6 +125,17 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.0.7.1</version>
         </dependency>
+        <!--execl解析转csv格式所需依赖-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.8</version>
+        </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
