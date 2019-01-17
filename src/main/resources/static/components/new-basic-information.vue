@@ -135,7 +135,7 @@
                 this.calContro = !this.calContro
             },
             present:function () {
-                alert("submit")
+                // alert("submit")
                 let stuInfo = JSON.stringify(this.basicInfo);
                 console.log("shuju："+stuInfo);
                 axios.post("http://192.168.10.181/stu/addStu",JSON.stringify(this.basicInfo),{
