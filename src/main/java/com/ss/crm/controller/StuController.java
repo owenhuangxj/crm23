@@ -20,7 +20,7 @@ public class StuController {
      * @return 是否添加成功
      */
     @CrossOrigin
-    @PostMapping(value = "/addStu", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/addStu")
     public @ResponseBody  Boolean addStuResume(@RequestBody Student stu){
         System.out.println(stu);
         Integer stuResume = ss.addStuResume(stu);
