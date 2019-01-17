@@ -52,8 +52,12 @@ public class TrackInfoServiceImp implements TrackInfoService {
         } else {
             // 获取跟踪对象集合
             List<Track> tracks = ts.getTrackInfo(stuNumber);
+            System.out.println("tracks---------->"+tracks);
             // 创建页面跟踪对象集合
             trackInfos = new ArrayList<TrackInfo>();
+            // 没有数据数据时，返回null
+            if(tracks.size()==0)
+                return trackInfos;
             // 创建页面跟踪对象
             TrackInfo trackInfo = null;
             // 循环遍历
