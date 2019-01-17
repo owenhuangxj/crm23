@@ -1,6 +1,5 @@
 package com.ss.crm.service.imp;
 
-import com.ss.crm.entity.Student;
 import com.ss.crm.entity.Track;
 import com.ss.crm.mapper.TrackMapper;
 import com.ss.crm.service.StuService;
@@ -15,11 +14,16 @@ public class TrackServiceImp implements TrackService {
 
     @Autowired
     private TrackMapper tm;
-    @Autowired
-    private StuService ss;
 
     @Override
     public boolean addTrackRecord(Track track) {
+        // 设置重要性
+        if (track.getTrackImportance() == null)
+            track.setTrackImportance("0");
+        // 设置有效性
+        if (track.getTrackValid() == null)
+            track.setTrackValid("0");
+        // 遍历状态
         switch (track.getTrackStatus()) {
             case "新增":
                 track.setTrackStatus("1");
@@ -58,31 +62,49 @@ public class TrackServiceImp implements TrackService {
                 track.setTrackStatus("1");
                 break;
         }
-        switch (track.getTrackImportance()){
-            case "重要":
-                track.setTrackImportance("1");
+        // 遍历优先级
+        switch (track.getTrackPriority()) {
+            case "无":
+                track.setTrackPriority("1");
                 break;
-            case "不重要":
-                track.setTrackImportance("0");
+            case "低":
+                track.setTrackPriority("2");
+                break;
+            case "中":
+                track.setTrackPriority("3");
+                break;
+            case "高":
+                track.setTrackPriority("4");
+                break;
+            default:
+                track.setTrackPriority("1");
                 break;
         }
-        switch (track.getTrackValid()){
-            case "有效":
-                track.setTrackValid("1");
-                break;
-            case "无效":
-                track.setTrackValid("0");
-                break;
-        }
-
+//        switch (track.getTrackImportance()) {
+//            case "重要":
+//                track.setTrackImportance("1");
+//                break;
+//            case "不重要":
+//                track.setTrackImportance("0");
+//                break;
+//            default:
+//                track.setTrackImportance("0");
+//                break;
+//
+//        }
+//        switch (track.getTrackValid()) {
+//            case "有效":
+//                track.setTrackValid("1");
+//                break;
+//            case "无效":
+//                track.setTrackValid("0");
+//                break;
+//            default:
+//                track.setTrackValid("0");
+//                break;
+//        }
         System.out.println(track);
-
         if (tm.insertTrackRecord(track) > 0) {
-            Student stu = new Student();
-            stu.setStuLevel(track.getStuNumber().getStuLevel());
-            stu.setStuNumber(track.getStuNumber().getStuNumber());
-            // 修改优先级
-            ss.updateStuInfoByStuNumber(stu);
             return true;
         }
         return false;
@@ -128,7 +150,7 @@ public class TrackServiceImp implements TrackService {
                     track.setTrackStatus("放弃");
                     break;
             }
-            switch (track.getTrackImportance()){
+            switch (track.getTrackImportance()) {
                 case "1":
                     track.setTrackImportance("重要");
                     break;
@@ -136,7 +158,7 @@ public class TrackServiceImp implements TrackService {
                     track.setTrackImportance("不重要");
                     break;
             }
-            switch (track.getTrackValid()){
+            switch (track.getTrackValid()) {
                 case "1":
                     track.setTrackValid("有效");
                     break;
@@ -144,18 +166,18 @@ public class TrackServiceImp implements TrackService {
                     track.setTrackValid("无效");
                     break;
             }
-            switch (track.getStuNumber().getStuLevel()){
+            switch (track.getTrackPriority()) {
                 case "1":
-                    track.getStuNumber().setStuLevel("无");
+                    track.setTrackPriority("无");
                     break;
                 case "2":
-                    track.getStuNumber().setStuLevel("低");
+                    track.setTrackPriority("低");
                     break;
                 case "3":
-                    track.getStuNumber().setStuLevel("中");
+                    track.setTrackPriority("中");
                     break;
                 case "4":
-                    track.getStuNumber().setStuLevel("高");
+                    track.setTrackPriority("高");
                     break;
             }
         }

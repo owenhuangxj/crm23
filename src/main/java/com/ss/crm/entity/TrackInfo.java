@@ -42,10 +42,14 @@ public class TrackInfo extends Model<TrackInfo> {
      * 预计成交时间
      */
     private String predictTrade;
-//    /**重要程度*/
-//    private String trackImportance;
-//    /**是否有效*/
-//    private String trackValid;
+    /**
+     * 重要程度
+     */
+    private String trackImportance;
+    /**
+     * 是否有效
+     */
+    private String trackValid;
     /**
      * 跟踪内容/备注
      */

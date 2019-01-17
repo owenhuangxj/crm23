@@ -10,7 +10,7 @@
                         <el-input v-model="basicInfo.stuName" :disabled="isEdit"></el-input>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="学员编号:">
-                        <el-input v-model="basicInfo.stuNumber" :disabled="isEdit"></el-input>
+                        <el-input v-model="basicInfo.stuNumber" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item class="basicInfoM" label="性别:">
                         <el-select v-model="basicInfo.stuSex" :disabled="isEdit">
@@ -135,7 +135,7 @@
             }
         },
         mounted(){
-            axios.get("http://localhost/stu/getStu?stuNumber=20191121830")
+            axios.get("http://localhost/stu/getStu?stuNumber=20191121870")
                 .then(response => (oldData = Object.assign({},response.data),
                     this.basicInfo = response.data,
                 console.log("路由数据"+JSON.stringify(response.data))))
@@ -149,7 +149,7 @@
                 this.isEdit = false
             },
             saveInfo:function () {
-                let stuInfo = this.basicInfo
+                let stuInfo = this.basicInfo;
                 axios.post("/stu/updateStu",stuInfo,{
                     header: {
                         'Content-Type': 'application/x-www-form-urlencoded'

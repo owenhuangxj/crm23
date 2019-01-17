@@ -19,8 +19,10 @@ public class StuController {
      * @param stu 学生数据
      * @return 是否添加成功
      */
-    @RequestMapping(value = "/addStu", produces = "application/json;charset=UTF-8")
-    public @ResponseBody  Boolean addStuResume(Student stu){
+    @CrossOrigin
+    @PostMapping(value = "/addStu", produces = "application/json;charset=UTF-8")
+    public @ResponseBody  Boolean addStuResume(@RequestBody Student stu){
+        System.out.println(stu);
         Integer stuResume = ss.addStuResume(stu);
         return stuResume>0;
     }
