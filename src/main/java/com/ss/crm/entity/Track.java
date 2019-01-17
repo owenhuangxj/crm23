@@ -17,6 +17,10 @@ public class Track extends Model<Track> {
      */
     private String trackWays;
     /**
+     * 优先级：1：无，2：低，3：中，4：高
+     */
+    private String trackPriority;
+    /**
      * 跟踪时间
      */
     private String trackTime;
@@ -52,17 +56,17 @@ public class Track extends Model<Track> {
      * 跟踪内容
      */
     private String trackDetails;
-    /**
-     * 咨询师id
-     */
-    private User consultId;
+//    /**
+//     * 咨询师id
+//     */
+//    private User consultId;
     /**
      * 学生id
      */
     private Student stuNumber;
-    /**
-     * 面试老师id
-     */
-    private User teacherId;
+//    /**
+//     * 面试老师id
+//     */
+//    private User teacherId;
 
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @TableName("s_user")
 public class User extends Model<User> {
     @TableId
-    private int userId;
+    private Integer userId;
     private String createDate;
     private String createId;
     private Data editDate;

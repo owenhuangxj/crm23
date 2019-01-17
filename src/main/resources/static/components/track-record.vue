@@ -26,19 +26,19 @@
             <el-form :model="form">
                 <div class="newTrackCss">
                     <el-form-item label="跟踪方式">
-                        <el-select v-model="form.newTrackMethod" >
+                        <el-select v-model="form.trackMethod" >
                             <el-option label="QQ" value="QQ"></el-option>
                             <el-option label="电话" value="电话"></el-option>
                             <el-option label="微信" value="微信"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="跟踪时间">
-                        <el-date-picker v-model="form.newTrackTime" type="datetime" ></el-date-picker>
+                        <el-date-picker v-model="form.trackTime" type="datetime" ></el-date-picker>
                     </el-form-item>
                 </div>
                 <div class="newTrackCss">
                     <el-form-item label="跟踪状态">
-                        <el-select v-model="form.trackStatus" >
+                        <el-select v-model="form.currentStatus" >
                             <el-option label="新增" value="新增"></el-option>
                             <el-option label="跟踪中" value="跟踪中"></el-option>
                             <el-option label="待面试" value="待面试"></el-option>
@@ -53,15 +53,15 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="下次跟踪时间">
-                        <el-date-picker v-model="form.newNextTrackTime" type="datetime" ></el-date-picker>
+                        <el-date-picker v-model="form.nextTrackTime" type="datetime" ></el-date-picker>
                     </el-form-item>
                 </div>
                 <div class="newTrackCss">
                     <el-form-item label="跟踪时长">
-                        <el-input v-model="form.newTrackDuration" placeholder="分钟"></el-input>
+                        <el-input v-model="form.trackDuration" placeholder="分钟"></el-input>
                     </el-form-item>
                     <el-form-item label="优先级别">
-                        <el-select v-model="form.newPriority" >
+                        <el-select v-model="form.priority" >
                             <el-option label="无" value="无"></el-option>
                             <el-option label="中" value="中"></el-option>
                             <el-option label="高" value="高"></el-option>
@@ -106,15 +106,17 @@
                 }, ],
                 dialogFormVisible: false,
                 form:{
-                    newTrackMethod:"",
-                    newTrackTime:"",
-                    trackStatus:"",
-                    newNextTrackTime:"",
-                    newTrackDuration:"",
-                    newPriority:"",
+                    trackMethod:"",
+                    trackTime:"",
+                    currentStatus:"",
+                    nextTrackTime:"",
+                    trackDuration:"",
+                    priority:"",
                     predictTime:"",
                     predictTrade:"",
                     trackDesc:"",
+                    trailsman: "1",
+                    stuNumber:"20191121870",
                 }
             }
         },
@@ -127,7 +129,17 @@
                 console.log(row.stuNumber);
             },
             onSubmit() {
-                console.log(this.form.trackDesc)
+                let trackInfo = this.form;
+                console.log(JSON.stringify(trackInfo));
+                axios.post("/track/addTrack",trackInfo,{
+                    header: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(function () {
+                    alert("成功")
+                }).catch(function () {
+                    alert("链接失败")
+                })
                 this.dialogFormVisible = false;
             },
             newCancel(){

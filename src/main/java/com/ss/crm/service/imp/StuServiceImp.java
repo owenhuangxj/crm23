@@ -20,9 +20,9 @@ public class StuServiceImp implements StuService {
 
     @Override
     public Integer addStuResume(Student stu) {
-        cache.addCache(stu.getStuNumber(), stu);
+//        cache.addCache(stu.getStuNumber(), stu);
         //设置学号:当前时间
-        stu.setStuNumber(DateUtil.getStuNmuber());
+        stu.setStuNumber(DateUtil.getStuNumber());
         // 性别：0：女，1：男
         switch (stu.getStuSex()) {
             case "女":
@@ -100,7 +100,7 @@ public class StuServiceImp implements StuService {
                     stu.setStuLevel("高");
                     break;
             }
-            cache.addCache(stuNumber,stu);
+//            cache.addCache(stuNumber,stu);
         }
         return stu;
     }

@@ -37,17 +37,17 @@ public class CrmApplicationTests {
 
     @Test
     public void stuTest() {
-//        Student stu = ss.getStuInfo("20191121800");
+        Student stu = ss.getStuInfo("20191121830");
 //        Student stu = ss.getStuInfo("20191141148");
-//        System.out.println(stu);
+        System.out.println(stu);
 //        ss.addStuResume(new Student("20191141148","胡杰","男","重要","13421452356","651234568","高","河南","智联招聘","无","无","无","无","无","无","无","无"));
     }
 
     @Test
     public void trackTest() {
         List<Track> info = ts.getTrackInfo("20191121800");
-        System.out.println(info.size());
-        System.out.println(info.get(0).getTeacherId().getUserName());
+        System.out.println(info);
+//        System.out.println(info.get(0).getTeacherId().getUserName());
 
 
 //        User user = new User();

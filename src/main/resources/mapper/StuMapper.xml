@@ -4,19 +4,20 @@
     <!--添加简历数据-->
     <insert id="insertStuResume">
         insert into t_student
-        (stu_name,stu_number,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance)
+        (<include refid="stuColumns"/>)
         values
-        (#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuChannel},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuCredentials},#{stuPerformance})
+        (<include refid="stuValues"/>)
     </insert>
 
     <!--通过学生编号查询学生信息-->
     <select id="getStuInfoByStuNumber" resultMap="stuResultMap">
         select
-        <include refid="stuColumns"/>
+        <include refid="stuColumns"/>,
+        a.consult_id,
+        if (a.teacher_id is null,a.teacher_id = null,a.teacher_id) teacher_id
         from
-        t_student
-        where
-        stu_number = #{stuNumber}
+        t_student a
+        where stu_number = #{stuNumber}
     </select>
 
     <!--修改学生信息-->
@@ -26,8 +27,8 @@
             <if test="null!=stuLevel and stuLevel!=''">
                 stu_level = #{stuLevel},
             </if>
-            <if test="null!=stuNumber and stuNumber!=''">
-                stu_number = #{stuNumber},
+            <if test="null!=stuName and stuName!=''">
+                stu_name = #{stuName},
             </if>
             <if test="null!=stuSex and stuSex!=''">
                 stu_sex = #{stuSex},
@@ -66,18 +67,26 @@
                 stu_trained = #{stuTrained},
             </if>
             <if test="null!=stuCredentials and stuCredentials!=''">
-                stu_credentials = #{stuCredentials}
+                stu_credentials = #{stuCredentials},
+            </if>
+            <if test="null!=stuPerformance and stuPerformance!=''">
+                stu_performance = #{stuPerformance}
             </if>
         </set>
         where stu_number = #{stuNumber}
     </update>
 
     <resultMap id="stuResultMap" type="student" autoMapping="true">
+        <association property="consultId" column="consult_id" select="com.ss.crm.mapper.UserMapper.getUserNameByUserId">
+        </association>
+        <association property="teacherId" column="teacher_id" select="com.ss.crm.mapper.UserMapper.getUserNameByUserId">
+        </association>
     </resultMap>
 
-    <sql id="stuColumns">stu_name,stu_number,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance
+    <sql id="stuColumns">stu_name,stu_number,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance,consult_id,teacher_id
     </sql>
-    <sql id="stuValues">#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuChannel},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuCredentials},#{stuPerformance}</sql>
+    <sql id="stuValues">#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuChannel},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuCredentials},#{stuPerformance},#{consultId},#{teacherId}
+    </sql>
 
 
 </mapper>
