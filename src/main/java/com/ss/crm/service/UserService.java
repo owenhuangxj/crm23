@@ -1,6 +1,8 @@
 package com.ss.crm.service;
 import com.ss.crm.entity.User;
 
+import java.util.List;
+
 public interface UserService {
 /*登陆判断*/
     User selectUser(String userName, String password);

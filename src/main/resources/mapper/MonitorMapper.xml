@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ss.crm.mapper.MonitorMapper">
+    <!--分页查询公司员工的信息-->
+   <select id="selectAllWorktor" resultMap="worktorMap">
+    select <include refid="worktor"/> from s_user limit #{start},#{currentPageSize}
+   </select>
+    <!--查询公司人员的总数-->
+    <select id="selectWorktorNum" resultType="Integer">
+      select count(*) from s_user
+    </select>
+    <select id="selectWorktorOfStu" resultMap="studentMap">
+        select <include refid="studentClumns"/> from t_student limt #{start},#{currentPageSize} where stu_user_id=#{userId} group by stu_id;
+    </select>
+
+    <resultMap id="worktorMap" type="user" autoMapping="true"></resultMap>
+    <sql id="worktor">user_id,user_name,sex,email,phone,status,edit_date </sql>
+</mapper>

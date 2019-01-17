@@ -83,7 +83,7 @@
   <div class="block">
     <el-pagination
       @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+      background @current-change="handleCurrentChange"
       @prev-click="handlePrevPage"
       :current-page="currentPage4"
       :page-sizes="[10, 20, 30, 40]"
@@ -98,13 +98,16 @@
 </template>
 
 <script>
-  export default {
+  module.exports={
     name:'Table',
     data() {
       return {
         select_cate:'',
         select_word:'',
         del_list:[],
+        cur_page:1,
+        cur_page_size:10,
+        url:'',
         sendList:[{'typename': 'Id'},{'typename': '姓名'},{'typename': '年纪'},{'typename': '时间'}],
         pickerOptions1: {
           disabledDate(time) {
@@ -196,10 +199,9 @@
     //     })
     //   }
     // },
-    watch:{
-      dongxi:function () {
-        alert("wozhixing");
-      }
+    created() {
+      alert("我执行了careated的方法");
+      this.getData();
     },
     computed: {
       data(){
@@ -218,11 +220,25 @@
       }
     },
 methods:{
+  //获得初始化数据
+  getData(){
+    // 开发环境使用 easy-mock 数据，正式环境使用 json 文件
+      this.url = '/selectAllWorktor/'+this.cur_page+'/'+this.cur_page_size;
+    axios.get(this.url).then((res) => {
+      alert("获得的数据："+JSON.stringify(res.data));
+      // this.tableData = res.data;
+    })
+    //获得公司员工的总人数
+    axios.get('/selectWorktorNum').then((res) => {
+      alert("获得的总人数据："+JSON.stringify(res.data));
+      // this.tableData = res.data;
+    })
+  },
   handleClick(row) {
     //查看的内容
     alert("查看的内容"+JSON.stringify(row))
     console.log(row);
-    this.$router.push({path:'WorkorTable',query:{worktor:row.name}});
+    // this.$router.push({path:'WorkorTable',query:{worktor:row.name}});
   },
   search() {
     this.is_search = true;
@@ -238,9 +254,13 @@ methods:{
     console(`下页 ${val} 条`);
   },
   handleSizeChange(val) {
+    this.cur_page_size=val;
+    this.getData();
     console.log(`每页 ${val} 条`);
   },
   handleCurrentChange(val) {
+    this.cur_page=val;
+    this.getData();
     console.log(`当前页: ${val}`);
   },
   handleSelectionChange(){
