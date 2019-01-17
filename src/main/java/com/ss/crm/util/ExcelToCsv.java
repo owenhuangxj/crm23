@@ -28,11 +28,12 @@ public class ExcelToCsv {
     private String src;
     /*目标文件地址*/
     private String targetFile;
+    /*工作簿*/
+    private Workbook workbook = null;
 
-    public ExcelToCsv() {
 
-    }
 
+    /*初始化工作簿，指定输入文件和输出文件地址*/
     public ExcelToCsv(String src, String targetFolder) {
         this.src = src;
         this.targetFolder = targetFolder;
@@ -40,69 +41,94 @@ public class ExcelToCsv {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String format = sdf.format(date);
         this.targetFile = targetFolder.concat(format).concat(".csv");
-    }
-
-    public List<Integer> getNeededColumnIndex(List<String> columnTitleList, int sheetIndex, int sheetTitleIndex) {
-        List<Integer> NeededColumnIndexList = new ArrayList<>();
-        Workbook workbook = null;
         try {
-            workbook = WorkbookFactory.create(new FileInputStream(src));
-            final Sheet sheet = workbook.getSheetAt(sheetIndex);
-            Row row = sheet.getRow(sheetTitleIndex);
-            if (row == null) {
-                return null;
-            } else {
-                for (int i = 0; i < columnTitleList.size(); i++) {
-                    String columnTitle = columnTitleList.get(i);
-                    for (int j = 0; j < row.getLastCellNum(); j++) {
-                        getCellIndex(sheetTitleIndex, j);
-                        final Cell cell = row.getCell(j);
-                        // 判断空格和类型
-                        if (cell.getCellType() != CELL_TYPE_STRING) {
-                            continue;
-                        }
-                        final String originCellTitle = cell.getStringCellValue();
-                        System.out.println(originCellTitle);
-                        if (originCellTitle.equals(columnTitle)) {
-                            NeededColumnIndexList.add(j);
-                        }
-                    }
-
-
-                }
-
-
-            }
-
+            this.fis=new FileInputStream(src);
+            this.workbook = WorkbookFactory.create(this.fis);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidFormatException e) {
             e.printStackTrace();
         }
+    }
+
+    public Workbook getWorkbook() {
+        return workbook;
+    }
+
+    /*获取指定的列标题的索引*/
+    public List<Integer> getNeededColumnIndex(List<String> titleList, int sheetIndex, int sheetTitleIndex) {
+        List<Integer> NeededColumnIndexList = new ArrayList<>();
+        final Sheet sheet = workbook.getSheetAt(sheetIndex);
+        Row row = sheet.getRow(sheetTitleIndex);
+        if (row == null) {
+            return null;
+        } else {
+            for (int i = 0; i < titleList.size(); i++) {
+                String columnTitle = titleList.get(i);
+                for (int j = 0; j < row.getLastCellNum(); j++) {
+                    getCellIndex(sheetTitleIndex, j);
+                    final Cell cell = row.getCell(j);
+                    // 判断空格和类型
+                    if (cell.getCellType() != CELL_TYPE_STRING) {
+                        continue;
+                    }
+                    final String originCellTitle = cell.getStringCellValue();
+
+                    if (originCellTitle.equals(columnTitle)) {
+                        NeededColumnIndexList.add(j);
+                    }
+                }
+            }
+        }
 
         return NeededColumnIndexList;
     }
 
-    /*传入一个excel文件地址将其转化为指定目录下的csv文件*/
+    /*获取指定工作表指定列行标题的索引*/
+    public List<Integer> getNeededRowIndex(List<String> titleList, int columnIndex, int sheetIndex) {
+        ArrayList<Integer> neededRowIndexList = new ArrayList<>();
+        final Sheet sheet = workbook.getSheetAt(sheetIndex);
+        int rowNum = sheet.getLastRowNum();
+        for(int titleListIndex=0;titleListIndex<titleList.size();titleListIndex++){
+            final String title = titleList.get(titleListIndex);
+            for (int rowIndex = 0; rowIndex < rowNum; rowIndex++) {
+                Row row = sheet.getRow(rowIndex);
+                final Cell cell = row.getCell(columnIndex);
+                // 判断空格和类型
+                if (cell.getCellType() != CELL_TYPE_STRING) {
+                    continue;
+                } else {
+                    final String originCellTitle = cell.getStringCellValue();
+                    if (originCellTitle.equals(title)) {
+                        neededRowIndexList.add(rowIndex);
+
+                    }
+                }
+
+            }
+        }
+
+        return neededRowIndexList;
+    }
+
+    /*传入一个工作表索引和开始行数将其输出到指定目录下的csv,可以指定列*/
     public String excelToCSV(int beginRowIndex, int sheetIndex, List<Integer> columnIndexList) {
 
         try {
             Workbook workbook = WorkbookFactory.create(new FileInputStream(src));
             final Sheet sheet = workbook.getSheetAt(sheetIndex);
-            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(targetFile), "UTF-8"));
-            System.out.println("多少行 ： " + sheet.getLastRowNum());
+            this.bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(targetFile), "UTF-8"));
             for (int i = beginRowIndex; i < sheet.getLastRowNum() + 1; i++) {
                 final Row row = sheet.getRow(i);
                 if (row == null) {
                     continue;
                 }
                 if (columnIndexList == null) {
-                    writeFullRow(row, i);
+                    writeRow(row, i,row.getFirstCellNum(),row.getLastCellNum());
                 } else {
-                    writeSpicifyColumn(row,i,columnIndexList);
+                    writeSpicifyColumn(row, i, columnIndexList);
                 }
-
-                bw.newLine();
+                this.bw.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -110,40 +136,65 @@ public class ExcelToCsv {
             e.printStackTrace();
 
         } finally {
-            close(bw, fis);
+            this.close();
         }
         return targetFile;
     }
 
+
+    /*合并汇总指定的行数，指定列*/
+    public String  consolidation(int beginSheetIndex,int EndSheetIndex,List<Integer>rowIndexList,int beginColumnIndex,int endColumnIndex){
+
+        try {
+            this.bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(targetFile), "UTF-8"));
+        for(int i=beginSheetIndex;i<EndSheetIndex;i++){
+            System.out.println(i);
+            final Sheet sheet = workbook.getSheetAt(i);
+            Iterator<Integer> iterator = rowIndexList.iterator();
+            while (iterator.hasNext()){
+                final Integer rowIndex = iterator.next();
+                final Row row = sheet.getRow(rowIndex);
+                    writeRow(row,rowIndex,beginColumnIndex,endColumnIndex);
+            }
+            this.bw.newLine();
+        }
+
+        } catch (IOException e) {
+                e.printStackTrace();
+            }
+        return targetFile;
+    }
+
+
     /*完整的写指定索引列的一整行*/
-    private void writeFullRow(Row row, Integer Rowindex) throws IOException {
-        for (int columnIndex = 0; columnIndex < row.getLastCellNum(); columnIndex++) {
-            getCellIndex(Rowindex, columnIndex);
-            final Cell cell = row.getCell(columnIndex);
+    private void writeRow(Row row, int Rowindex,int beginColumnIndex,int endColumnIndex) throws IOException {
+        for (int i = beginColumnIndex; i <=endColumnIndex; i++) {
+            getCellIndex(Rowindex, i);
+            final Cell cell = row.getCell(i);
             // 判断空格和类型
             if (cell != null) {
-                checkTypeAndWriteCell(cell, bw);
+                checkTypeAndWriteCell(cell, this.bw);
             } else {
                 System.out.println("空");
             }
-            bw.write(",");
+            this.bw.write(",");
         }
     }
 
-    /*完整的写指定索引列的一整行*/
+    /*完整的写指定索引列的一整列*/
     private void writeSpicifyColumn(Row row, Integer Rowindex, List<Integer> indexList) throws IOException {
-        int i=0;
+        int i = 0;
         Iterator<Integer> iterator = indexList.iterator();
         while (iterator.hasNext()) {
-            getCellIndex(Rowindex,i++);
+            getCellIndex(Rowindex, i++);
             final Cell cell = row.getCell(iterator.next());
             // 判断空格和类型
             if (cell != null) {
-                checkTypeAndWriteCell(cell, bw);
+                checkTypeAndWriteCell(cell, this.bw);
             } else {
                 System.out.println("空");
             }
-            bw.write(",");
+            this.bw.write(",");
         }
 
     }
@@ -163,15 +214,15 @@ public class ExcelToCsv {
                 break;
             case CELL_TYPE_NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
-                    System.out.println(cell.getDateCellValue());
+
                     bw.write(sdf.format(cell.getDateCellValue()));
                 } else {
-                    System.out.println(cell.getNumericCellValue());
+
                     bw.write("" + cell.getNumericCellValue());
                 }
                 break;
             case CELL_TYPE_BOOLEAN:
-                System.out.println(cell.getBooleanCellValue());
+
                 bw.write("" + cell.getBooleanCellValue());
                 break;
         }
@@ -187,22 +238,24 @@ public class ExcelToCsv {
         int temp1 = column % 26;//个位数
         String columnIndex = temp != 0 ? (char) (temp - 1 + ASCII_INDEX_OF_A) + "" + (char) (temp1 + ASCII_INDEX_OF_A) : (char) (temp1 + ASCII_INDEX_OF_A) + "";
         String cellIndex = columnIndex + "" + (row + 1);
-        System.out.print(cellIndex + ":");
+
         return cellIndex;
     }
 
     /*关流的方法封装*/
-    private void close(BufferedWriter bw, FileInputStream fis) {
+    public void close() {
         try {
-            if (null != bw) {
-                bw.close();
+            if (null != this.bw) {
+                this.bw.close();
+                System.out.println("关流成功");
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (null != fis) {
-                    fis.close();
+                if (null != this.fis) {
+                    this.fis.close();
+                    System.out.println("关流成功");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
