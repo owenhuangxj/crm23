@@ -4,21 +4,24 @@ import com.ss.crm.entity.Student;
 import com.ss.crm.entity.User;
 import com.ss.crm.service.MonitorService;
 import com.ss.crm.service.UserService;
+import com.ss.crm.util.ChartData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/")
 public class lxbController {
 
     @Autowired
     private MonitorService monitorService;
 
-    @GetMapping("workMonitor")
+    @GetMapping("/workMonitor")
     public String testlxb(){
         return  "workMonitor";
     }
@@ -48,7 +51,6 @@ public class lxbController {
     Integer selectWorktorNum() {
         return monitorService.selectWorktorNum();
     }
-
     /**
      *
      * @param userId
@@ -60,7 +62,13 @@ public class lxbController {
     public @ResponseBody
     List<Student> selectWorktorOfStu(@PathVariable("userId") Integer userId, @PathVariable("currentPage") Integer currentPage, @PathVariable("currentPageSize") Integer currentPageSize) {
         List<Student> students = monitorService.selectWorktorOfStu(userId,currentPage, currentPageSize);
-
         return students;
     }
+    @GetMapping("/selectWorktorOfStu/{userId}")
+    public @ResponseBody
+    ChartData selectWorkOfBusiness(@PathVariable("userId") Integer userId) {
+
+        return monitorService.selectWorkOfBusiness(userId);
+    }
+
 }

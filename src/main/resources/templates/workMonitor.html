@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui@2.4.11/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src=""></script>
+    <script src="resources/js/echarts.min.js" type="text/javascript"></script>
+
 </head>
 <body>
 <div id="app">
     <!--<user-Tables></user-Tables>-->
-    <worktor-tables></worktor-tables>
+    <!--<worktor-tables></worktor-tables>-->
+    <my-chart></my-chart>
 </div>
 <script type="text/javascript">
     new Vue({
@@ -21,6 +23,7 @@
             components: {
                 'user-tables': httpVueLoader('resources/components/userTable.vue'),
                 'worktor-tables': httpVueLoader('resources/components/WorkorTable.vue'),
+                'my-chart': httpVueLoader('resources/components/MyChart.vue'),
 
             }
         }

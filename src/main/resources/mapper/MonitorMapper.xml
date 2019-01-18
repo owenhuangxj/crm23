@@ -9,10 +9,13 @@
     <select id="selectWorktorNum" resultType="Integer">
       select count(*) from s_user
     </select>
+    <!--查询某位员工下的学生信息-->
     <select id="selectWorktorOfStu" resultMap="studentMap">
         select <include refid="studentClumns"/> from t_student limt #{start},#{currentPageSize} where stu_user_id=#{userId} group by stu_id;
     </select>
 
     <resultMap id="worktorMap" type="user" autoMapping="true"></resultMap>
     <sql id="worktor">user_id,user_name,sex,email,phone,status,edit_date </sql>
+
+    <sql id="studentClumns">stu_id,stu_number,stu_name,stu_level,stu_sex,stu_phone_num,stu_qq,stu_source,stu_tatus,stu_address</sql>
 </mapper>
