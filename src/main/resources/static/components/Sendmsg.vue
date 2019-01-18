@@ -32,7 +32,6 @@
                     websocket.send(JSON.stringify(msg));
                 }
 
-                // $("#chatList").append("<p class='selfMsg'>"+$self+" : "+message+"</p>");
             },
 
             // 接收消息

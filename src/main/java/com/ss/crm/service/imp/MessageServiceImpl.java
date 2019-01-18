@@ -1,4 +1,4 @@
-package com.ss.crm.service.Impl;
+package com.ss.crm.service.imp;
 
 import com.ss.crm.entity.Message;
 import com.ss.crm.entity.User;

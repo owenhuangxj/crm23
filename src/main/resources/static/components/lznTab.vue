@@ -7,13 +7,15 @@
         <el-date-picker
                 v-model="value1"
                 type="date"
-                placeholder="选择日期">
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd">
         </el-date-picker>
         <span class="demonstration">结束</span>
         <el-date-picker
                 v-model="value2"
                 type="date"
-                placeholder="选择日期">
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd">
         </el-date-picker>
             <!--选择器-->
             <el-select v-model="value" placeholder="请选择">
@@ -33,7 +35,7 @@
         <el-table
                 :data="tableData"
                 border
-                style="width: 100%">
+                style="width: 100%" text-align: center>
             <el-table-column
                     prop="log_id"
                     label="序号"
@@ -97,9 +99,6 @@
                     value: '用户操作',
                     label: '用户操作'
                 }, {
-                    value: '错误',
-                    label: '错误'
-                }, {
                     value: '查询',
                     label: '查询'
                 }, {
@@ -137,17 +136,20 @@
             },
             seek:function () {
                 alert("是什么:" + this.input + this.value1+this.value2+this.value)
-            }
+            },
+
         },
         mounted() {
             axios.get("/selectLog")
                 .then((res) => {
                     alert(JSON.stringify(res.data))
+                    this.tableData = res.data
                 })
         },
-       /* created() {
-            alert("我执行了careated的方法");
-            this.getData();
-        },*/
+        /* created() {
+             alert("我执行了careated的方法");
+             this.getData();
+         },*/
+
     };
 </script>

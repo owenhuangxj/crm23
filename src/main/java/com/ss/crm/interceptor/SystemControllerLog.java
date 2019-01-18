@@ -20,7 +20,7 @@ import java.lang.annotation.*;
 public @interface SystemControllerLog {
     /*描述操作*/
     String descrption() default "" ;
-    /*操作的类型，1、用户操作 2、错误 3、添加 4、删除 5、修改 6、查询  */
+    /*操作的类型，1、用户操作 2、添加 3、删除 4、修改 5、查询  */
     String actionType() default "" ;
 
 }
