@@ -15,6 +15,7 @@
     </select>
 
     <resultMap id="worktorMap" type="user" autoMapping="true"></resultMap>
+    <resultMap id="studentMap" type="student" autoMapping="true"></resultMap>
     <sql id="worktor">user_id,user_name,sex,email,phone,status,edit_date </sql>
 
     <sql id="studentClumns">stu_id,stu_number,stu_name,stu_level,stu_sex,stu_phone_num,stu_qq,stu_source,stu_tatus,stu_address</sql>

@@ -2,6 +2,7 @@ package com.ss.crm.service;
 
 import com.ss.crm.entity.Student;
 import com.ss.crm.entity.User;
+import com.ss.crm.util.ChartData;
 
 import java.util.List;
 
@@ -28,4 +29,11 @@ public interface MonitorService {
      * @return
      */
     List<Student> selectWorktorOfStu(Integer userId, Integer currentPage, Integer currentPageSize);
+
+    /**
+     * 查询员工业务的完成情况
+     * @param userId
+     * @return
+     */
+    ChartData selectWorkOfBusiness(Integer userId);
 }
