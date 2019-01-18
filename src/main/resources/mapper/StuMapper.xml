@@ -20,6 +20,11 @@
         where stu_number = #{stuNumber}
     </select>
 
+    <select id="getStuInfoByStu" resultMap="stuResultMap">
+        select <include refid="stuAllColumns"/>
+        from t_student
+    </select>
+
     <!--修改学生信息-->
     <update id="updateStuInfo">
         update t_student
@@ -72,6 +77,9 @@
             <if test="null!=stuPerformance and stuPerformance!=''">
                 stu_performance = #{stuPerformance}
             </if>
+            <if test="null!=stuStatus and stuStatus!=''">
+                stu_status = #{stuStatus}
+            </if>
         </set>
         where stu_number = #{stuNumber}
     </update>
@@ -82,6 +90,7 @@
         <association property="teacherId" column="teacher_id" select="com.ss.crm.mapper.UserMapper.getUserNameByUserId">
         </association>
     </resultMap>
+
 
     <sql id="stuColumns">stu_name,stu_number,stu_create_time,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance,consult_id,teacher_id
     </sql>

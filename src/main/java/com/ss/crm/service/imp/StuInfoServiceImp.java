@@ -26,7 +26,6 @@ public class StuInfoServiceImp implements StuInfoService {
     @Override
     public StudentInfo getStuInfo(String stuNumber) {
         Student info = ss.getStuInfo(stuNumber);
-        System.out.println(info);
         return new StudentInfo(info.getStuNumber(), info.getStuName(), info.getStuSex(), info.getStuImportance(), info.getStuPhoneNum(), info.getStuQq(), info.getStuLevel(), info.getStuAddress(), info.getStuChannel(), info.getStuSource(), info.getStuEvaluation(), info.getStuWork(), info.getStuProject(), info.getStuEducation(), info.getStuTrained(), info.getStuCredentials(), info.getStuPerformance(), getConsultId(info).getUserId(), getTeacherId(info).getUserId());
     }
 
