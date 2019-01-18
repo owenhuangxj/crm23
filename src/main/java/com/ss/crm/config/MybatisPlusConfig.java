@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class MybatisPlusConfig {
 
     /**
-     * 分页插件
+     * 分页配置
      */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
