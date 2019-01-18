@@ -22,7 +22,7 @@ public class TrackInfoServiceImp implements TrackInfoService {
 
     @Override
     public boolean addTrackInfoRecord(TrackInfo ti) {
-//        cache.addCache(ti.getStuNumber(),ti);
+//        cache.addCache("track" + ti.getStuNumber(), ti);
         // 学生编号
         Student stu = new Student();
         stu.setStuNumber(ti.getStuNumber());
@@ -37,8 +37,8 @@ public class TrackInfoServiceImp implements TrackInfoService {
     public List<TrackInfo> getTrackInfo(String stuNumber) {
         List<TrackInfo> trackInfos = null;
         // 判断Redis中有没有数据
-        if (cache.getCache(stuNumber).size() > 0) {
-            return cache.getCache(stuNumber);
+        if (cache.getCache("track" + stuNumber).size() > 0) {
+            return cache.getCache("track" + stuNumber);
         } else {
             // 获取跟踪对象集合
             List<Track> tracks = ts.getTrackInfo(stuNumber);
@@ -51,11 +51,10 @@ public class TrackInfoServiceImp implements TrackInfoService {
             TrackInfo trackInfo = null;
             // 循环遍历
             for (Track track : tracks) {
-
                 trackInfo = new TrackInfo(track.getTrackWays(), track.getTrackPriority(), track.getTrackTime(), track.getTrackStatus(), track.getTrackNextTime(), track.getTrackDuration(), track.getTrackPredictTime(), track.getTrackTurnoverTime(), null, null, track.getTrackDetails(), track.getStuNumber().getStuNumber(), getConsultId(track).getUserName(), getTeacherId(track).getUserName());
                 trackInfos.add(trackInfo);
                 // 添加缓存
-//                cache.addCache(stuNumber, trackInfo);
+//                cache.addCache("track" + stuNumber, trackInfo);
             }
             System.out.println(trackInfos);
         }

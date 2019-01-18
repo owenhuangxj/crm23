@@ -1,9 +1,13 @@
 package com.ss.crm.service.imp;
 
+import com.ss.crm.entity.Student;
 import com.ss.crm.entity.Track;
+import com.ss.crm.entity.TrackInfo;
 import com.ss.crm.mapper.TrackMapper;
+import com.ss.crm.service.StuInfoService;
 import com.ss.crm.service.StuService;
 import com.ss.crm.service.TrackService;
+import com.ss.crm.util.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,8 @@ public class TrackServiceImp implements TrackService {
 
     @Autowired
     private TrackMapper tm;
+    @Autowired
+    private StuService ss;
 
     @Override
     public boolean addTrackRecord(Track track) {
@@ -106,10 +112,23 @@ public class TrackServiceImp implements TrackService {
 //                track.setTrackValid("0");
 //                break;
 //        }
-        System.out.println(track);
         if (tm.insertTrackRecord(track) > 0) {
-            return true;
+            return updateStu(track);
         }
+        return false;
+    }
+
+    /**
+     * 添加跟踪信息，完成后修改状态
+     * @param track
+     * @return
+     */
+    public Boolean updateStu(Track track){
+        Student stu = new Student();
+        stu.setStuNumber(track.getStuNumber().getStuNumber());
+        stu.setStuStatus(track.getTrackStatus());
+       if(ss.updateStuStatus(stu)>0)
+           return true;
         return false;
     }
 
@@ -117,7 +136,6 @@ public class TrackServiceImp implements TrackService {
     public List<Track> getTrackInfo(String stuNumber) {
         // 获取数据
         List<Track> tracks = tm.getTrackInfo(stuNumber);
-        System.out.println(tracks);
         for (Track track : tracks) {
             switch (track.getTrackStatus()) {
                 case "1":
