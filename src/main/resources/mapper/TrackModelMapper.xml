@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ss.crm.mapper.TrackModelMapper">
+    <!--查询跟踪信息-->
+    <select id="getTrackModel" resultMap="trackResultMap">
+      select <include refid="trackColumns"/>
+      from t_track t,t_student s,s_user u
+      where t.stu_number = s.stu_number
+      and s.consult_id = u.user_id
+      <trim prefix="and" suffixOverrides="and">
+          <if test="stuName != '' and stuName != null">  <!--学生性名-->
+              s.stu_name = #{stuName} and
+          </if>
+          <if test="userName != '' and userName != null">  <!--咨询师姓名-->
+              u.user_name = #{userName} and
+          </if>
+          <if test="trackWays != '' and trackWays != null">  <!--跟踪方式-->
+              t.track_ways = #{trackWays} and
+          </if>
+      </trim>
+      LIMIT #{start},#{end}
+    </select>
+
+    <resultMap id="trackResultMap" type="track" autoMapping="true">
+        <association property="stuNumber" column="stu_number"
+                     select="com.ss.crm.mapper.StuMapper.getStuInfoByStu">
+        </association>
+    </resultMap>
+
+    <sql id="trackColumns">
+      t.track_ways,t.track_time,t.track_status,t.track_next_time,
+      t.track_predict_time,t.stu_number,t.update_time
+    </sql>
+
+
+</mapper>
