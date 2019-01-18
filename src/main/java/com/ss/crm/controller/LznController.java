@@ -34,7 +34,6 @@ public class LznController {
     }
 
     /*添加日志*/
-
     @RequestMapping("/insertLog")
     @ResponseBody
     public Integer fingInsert(Log log){
@@ -42,14 +41,18 @@ public class LznController {
     }
 
     /*查询日志所有内容*/
-/*      @SystemControllerLog(actionType="查看", descrption="查看一定时间段的日志")*/
+   /*@SystemControllerLog(actionType="查看", descrption="查看一定时间段的日志")*/
     @RequestMapping(value = "selectLog", produces = "application/json;charset=utf-8")
     @ResponseBody
     public List<Log> findSelectAll(Log log){
         return ls.getSelectLog(log);
     }
 
+    @RequestMapping("/asyncSelectLog")
+    @ResponseBody
     /*根据条件查找数据*/
-
+    public List<Log> findSelectAsyncLog(String logType,Integer userId,String userName,String startTime,String endTime){
+        return ls.getAsyncSelectLog(logType,userId,userName,startTime,endTime);
+    }
 
 }
