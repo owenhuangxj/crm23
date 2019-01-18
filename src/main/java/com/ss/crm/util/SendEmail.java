@@ -89,10 +89,10 @@ public class SendEmail {
         return msg;
     }
 
-//    public static void main(String[] args) throws Exception {
-//			send("2535545766@qq.com", "123456");
-//
-//	}
+    public static void main(String[] args) throws Exception {
+			send("2535545766@qq.com", "123456");
+
+	}
 }
 
 

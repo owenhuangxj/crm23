@@ -10,4 +10,6 @@ public interface UserService {
     User getEmail(String email);
     User getUserName(String userName);
     int insertUser(String email, String userName, String password);
+
+    Integer selectUserId(String createDate);
 }

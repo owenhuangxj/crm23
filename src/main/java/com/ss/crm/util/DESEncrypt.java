@@ -6,7 +6,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import java.security.SecureRandom;
 
-public class DESEncrypt {
+public abstract class DESEncrypt {
     /**
      * DES算法密钥
      */
@@ -69,7 +69,7 @@ public class DESEncrypt {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
 
-        String str="abc12388";
+        String str="abc12345";
 
         // DES数据加密
         String s1=encryptBasedDes(str);
@@ -79,7 +79,7 @@ public class DESEncrypt {
         // DES数据解密
         String s2=decryptBasedDes(s1);
 
-        System.err.println(s2);
+        System.out.println(s2);
 
 
     }
