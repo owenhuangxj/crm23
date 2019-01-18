@@ -30,9 +30,10 @@
         </div>
         <!--下部工具按钮-->
         <a href="javascript:;" v-show="index===curId"
-           v-for="(btntext, index) in utilBtns"
+           v-for="(utilItem, index) in utilBtns"
            class="utilBtn"
-        >{{utilBtns[index].btntext}}</a>
+           @click="changeAllStatus(utilItem.func)"
+        >{{utilItem.btntext}}</a>
     </div>
 </template>
 
@@ -66,9 +67,9 @@
 
                 // 下方工具按钮
                 utilBtns: [
-                    {btntext: '全部标为已读', color: '#409eff'},
-                    {btntext: '删除全部', color: '#f56c6c'},
-                    {btntext: '清空回收站', color: '#f56c6c'}
+                    {btntext: '全部标为已读', color: '#409eff', func:'readAll'},
+                    {btntext: '删除全部', color: '#f56c6c', func:'delAll'},
+                    {btntext: '清空回收站', color: '#f56c6c', func:'clearAll'}
                 ],
 
                 // 每条消息后的工具按钮
@@ -96,13 +97,32 @@
                 console.log(func);
                 axios({
                     method:'post',
-                    url:'./changeMsgStatus/'+item.id+'/'+item.status,
-
+                    url:'./changeMsgStatus/',
+                    params:{
+                        msgId: item.id,
+                        oldStatus: item.status
+                    }
                 }).then(function(response){
                         alert("修改结果"+response.data)
+                    // 重新加载
+                    window.location.reload()
                     }).catch(function (error) {
                         console.log(error);
                     });
+            },
+            changeAllStatus(func){
+                console.log(func);
+                axios({
+                    method:'post',
+                    url:'./changeAllStatus/'+func,
+
+                }).then(function(response){
+                    alert("修改结果"+response.data)
+                    // 重新加载
+                    window.location.reload()
+                }).catch(function (error) {
+                    console.log(error);
+                });
             }
 
 
@@ -111,19 +131,28 @@
             // 中间表内容
             this.contents = [[],[],[]];
             // axios中this是window对象。所以要将现在的this赋值给中间变量_this
-            // var _this = this;
             console.log('before')
-            initMsgList(this,0);
+            // initMsgList(this,0);
+            // var _this = this;
+            // alert('before')
 
         },
         created: function () {
             // 50毫秒后加载消息列表
             // setTimeout(loadMsgList, 50, this);
             // loadMsgList(obj)
+            // alert('created')
         },
         mounted: function(){
-
+            // alert('mounted')
+        },
+        beforeUpdate:function() {
+            // alert('beforeupdate')
+        },
+        updated:function() {
+            // console.log('updated');
         }
+
 
     }
 
@@ -149,6 +178,7 @@
                     obj.items[v.status].msgCount++;
                     // 将消息填入消息列表
                     obj.contents[state].push(v);
+
                 });
             })
             .catch(function (error) {
@@ -158,7 +188,8 @@
     // 刷新后加载消息列表
     function loadMsgList(obj){
         obj.Tab(1);
-        obj.$refs.msgTab.firstElementChild.click();
+        obj.Tab(2);
+        obj.Tab(0);
     }
     // // 发送请求获取消息并拼接dom
     // function getMsgData(obj,status) {
