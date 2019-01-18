@@ -21,6 +21,10 @@ public class Student extends Model<Student> {
      */
     private String stuNumber;
     /**
+     * 创建时间
+     */
+    private String stuCreateTime;
+    /**
      * 学生姓名
      */
     private String stuName;
@@ -97,9 +101,10 @@ public class Student extends Model<Student> {
      */
     private String stuStatus;
 
-    public Student(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, User consultId, User teacherId) {
+    public Student(String stuNumber, String stuName, String stuCreateTime, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, User consultId, User teacherId) {
         this.stuNumber = stuNumber;
         this.stuName = stuName;
+        this.stuCreateTime = stuCreateTime;
         this.stuSex = stuSex;
         this.stuImportance = stuImportance;
         this.stuPhoneNum = stuPhoneNum;
