@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script>
+    <script src="resources/js/echarts.js"></script>
+    <script type="text/javascript" src="resources/js/jquery.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ech_arts></ech_arts>
+    </div>
+<script type="text/javascript">
+    new Vue({
+        el:'#app',
+        components:{
+            'ech_arts':httpVueLoader('resources/components/visiter.vue')
+        }
+    })
+</script>
+</body>
+</html>

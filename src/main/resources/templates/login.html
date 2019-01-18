@@ -7,9 +7,7 @@
 <link rel="stylesheet" href="resources/css/login1.css" />
 <link rel="stylesheet" href="resources/css/tooltips.css" />
 
-    <script src="resources/lib/layui/lay/layer.js"></script>
 <script src="resources/js/jquery.min.js"></script>
-    <script src="resources/js/jquery-2.2.1.min.js"></script>
 <script src="resources/js/jquery.pure.tooltips.js"></script>
 <script src="resources/lib/layui/layui.js"></script>
 <style>
@@ -28,7 +26,7 @@ body {
 }
 .box {background:#000000; position:absolute;margin-left:-14%; z-index:3;opacity: 0.6;left:50%;}
 .box-login{width:450px; height:295px;margin-top:-10%;top:50%;}
-.box-register{width:450px; height:420px;margin-top:-10%;top:46%;}
+.box-register{width:450px; height:420px;margin-top:-8%;top:46%;}
 .box-reset{width:450px; height:385px;margin-top:-8%;top:46%;}
 #register {display:none;}
 #reset{display:none;}
@@ -50,13 +48,14 @@ body {
 				<label class="beg-login-icon">
 				<i class="layui-icon">&#xe612;</i>
 			</label>
-				<input id="username" type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="请输入登录名" class="layui-input" onchange="nameChange()">
+                <!--onChange 改变事件-->
+				<input id="username" type="text" name="userName" value="1887388" lay-verify="userName" autocomplete="off" placeholder="请输入登录名" class="layui-input" onchange="nameChange()">
 			</div>
 			<div class="layui-form-item">
 				<label class="beg-login-icon">
 				<i class="layui-icon">&#xe642;</i>
 			</label>
-				<input id="password" type="password" name="password" lay-verify="password" autocomplete="off" placeholder="请输入密码" class="layui-input" onchange="passwordChange()">
+				<input id="password" type="password" name="password" value="ss12345" lay-verify="password" autocomplete="off" placeholder="请输入密码" class="layui-input" onchange="passwordChange()">
 			</div>
 			<div class="layui-form-item">
 				<div class="beg-pull-left beg-login-remember" style="color:#FFFFFF;margin-top: -2%;">
@@ -86,6 +85,7 @@ body {
 				<label class="beg-login-icon">
 					<i class="layui-icon">&#xe612;</i>
 				</label>
+                <!--onblur 失焦事件-->
 				<input id="email_register" type="text" name="email" lay-verify="eamil" autocomplete="off" placeholder="请输入邮箱" class="layui-input" onblur="myEmail()">
 			</div>
 			<div class="layui-form-item">
@@ -330,16 +330,17 @@ function passwordChange() {
 	$('#loginOut').hide();;
 }
 function login(){
+	var user=null;
 	var username = $("#username").val();
 	var password = $("#password").val();
-	if(username.trim().length < 6){
+	if(username.trim().length < 3){
 		$.pt({
 			target: $("#username"),
 			position: 'r',
 			align: 't',
 			width: 'auto',
 			height: 'auto',
-			content:"用户名不能少于6位"
+			content:"用户名不能少于3位"
 		});
 		return false;
 	}
@@ -365,16 +366,20 @@ function login(){
         },
         async:false,
         success:function (data) {
-            if(data===true){
-            	//alert("登陆成功")
-                window.location.href='loginSuccess'
+        	//alert(JSON.stringify(data))
+            if(data==''){
+				// $("#loginOut").text("用户名或密码错误!");
+				$("#loginOut").show();
+
             }else{
-                // $("#loginOut").text("用户名或密码错误!");
-                $("#loginOut").show();
+				//alert("登录成功")
+                //本地储存
+                localStorage.setItem("ms_username",username),
+				window.location.href='header'
             }
         },
         error:function () {
-            alert("失败！")
+            alert("登录失败！")
         }
     })
 
@@ -468,14 +473,14 @@ function register(){
 		});
 		return false;
 	}
-	if(username_register.trim().length < 6){
+	if(username_register.trim().length < 3){
 		$.pt({
 			target: $("#username_register"),
 			position: 'r',
 			align: 't',
 			width: 'auto',
 			height: 'auto',
-			content:"用户名不能少于6位"
+			content:"用户名不能少于3位"
 		});
 		return false;
 	}
