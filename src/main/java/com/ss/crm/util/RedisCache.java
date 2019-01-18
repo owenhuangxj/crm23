@@ -19,13 +19,11 @@ public class RedisCache<T> {
      * @param keys 键
      * @return 是否添加成功
      */
-    public Boolean addCache(String keys, T t) {
+    public void addCache(String keys, T t) {
         Long aLong = rt.opsForList().rightPush(keys, t);
         if (aLong > 0) {
             System.out.println("缓存添加成功");
-            return true;
         }
-        return false;
     }
 
     /**
@@ -40,6 +38,15 @@ public class RedisCache<T> {
             System.out.println("从Redis获取到的list:" + list);
         }
         return list;
+    }
+
+    /**
+     * 删除全部
+     * @param keys
+     */
+    public void updateCache(String keys) {
+        System.out.println("清除缓存");
+        rt.delete(keys);
     }
 
 }

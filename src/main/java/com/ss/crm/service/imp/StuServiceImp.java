@@ -15,8 +15,6 @@ public class StuServiceImp implements StuService {
 
     @Autowired
     private StuMapper sm;
-    @Autowired
-    private RedisCache<Student> cache;
 
     @Override
     public Integer addStuResume(Student stu) {
@@ -61,46 +59,40 @@ public class StuServiceImp implements StuService {
 
     @Override
     public Student getStuInfo(String stuNumber) {
-        Student stu = null;
-        if (cache.getCache(stuNumber).size() > 0) {
-            return (Student) (cache.getCache(stuNumber).get(0));
-        } else {
-            stu = sm.getStuInfoByStuNumber(stuNumber);
-            switch (stu.getStuSex()) {
-                case "0":
-                    stu.setStuSex("女");
-                    break;
-                case "1":
-                    stu.setStuSex("男");
-                    break;
-            }
-            switch (stu.getStuImportance()) {
-                case "0":
-                    stu.setStuImportance("不重要");
-                    break;
-                case "1":
-                    stu.setStuImportance("重要");
-                    break;
-            }
-            //优先级别：1：无，2：低，3：中，4：高
-            switch (stu.getStuLevel()) {
-                case "1":
-                    stu.setStuLevel("无");
-                    break;
-                case "2":
-                    stu.setStuLevel("低");
-                    break;
-                case "3":
-                    stu.setStuLevel("中");
-                    break;
-                case "4":
-                    stu.setStuLevel("高");
-                    break;
-            }
-//            cache.addCache(stuNumber,stu);
+        Student stu = sm.getStuInfoByStuNumber(stuNumber);
+        switch (stu.getStuSex()) {
+            case "0":
+                stu.setStuSex("女");
+                break;
+            case "1":
+                stu.setStuSex("男");
+                break;
+        }
+        switch (stu.getStuImportance()) {
+            case "0":
+                stu.setStuImportance("不重要");
+                break;
+            case "1":
+                stu.setStuImportance("重要");
+                break;
+        }
+        //优先级别：1：无，2：低，3：中，4：高
+        switch (stu.getStuLevel()) {
+            case "1":
+                stu.setStuLevel("无");
+                break;
+            case "2":
+                stu.setStuLevel("低");
+                break;
+            case "3":
+                stu.setStuLevel("中");
+                break;
+            case "4":
+                stu.setStuLevel("高");
+                break;
         }
         return stu;
-    }
+}
 
     @Override
     public Integer updateStuInfoByStuNumber(Student stu) {
@@ -145,5 +137,10 @@ public class StuServiceImp implements StuService {
                 break;
         }
         return sm.updateStuInfo(stu);
+    }
+
+    @Override
+    public Integer updateStuStatus(Student student) {
+        return sm.updateStuStatus(student);
     }
 }

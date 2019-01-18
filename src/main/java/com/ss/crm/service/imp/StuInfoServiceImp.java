@@ -6,6 +6,7 @@ import com.ss.crm.entity.User;
 import com.ss.crm.service.StuInfoService;
 import com.ss.crm.service.StuService;
 import com.ss.crm.util.DateUtil;
+import com.ss.crm.util.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,23 +16,35 @@ public class StuInfoServiceImp implements StuInfoService {
     private User user = new User();
     @Autowired
     private StuService ss;
+    @Autowired
+    private RedisCache<StudentInfo> cache;
 
     @Override
     public Boolean addStuResume(StudentInfo info) {
-        User user1 = getConsultId(info);
-        System.out.println(user1.getUserName() + "------" + user1.getUserId());
         return ss.addStuResume(getStu(info)) > 0;
     }
 
     @Override
     public StudentInfo getStuInfo(String stuNumber) {
-        Student info = ss.getStuInfo(stuNumber);
-        return new StudentInfo(info.getStuNumber(), info.getStuName(), info.getStuSex(), info.getStuImportance(), info.getStuPhoneNum(), info.getStuQq(), info.getStuLevel(), info.getStuAddress(), info.getStuChannel(), info.getStuSource(), info.getStuEvaluation(), info.getStuWork(), info.getStuProject(), info.getStuEducation(), info.getStuTrained(), info.getStuCredentials(), info.getStuPerformance(), getConsultId(info).getUserId(), getTeacherId(info).getUserId());
+        StudentInfo stuInfo = null;
+        if (cache.getCache("stu" + stuNumber).size() > 0) {
+            return (StudentInfo) cache.getCache("stu"+stuNumber).get(0);
+        } else {
+            Student info = ss.getStuInfo(stuNumber);
+            stuInfo = new StudentInfo(info.getStuNumber(), info.getStuName(), info.getStuSex(), info.getStuImportance(), info.getStuPhoneNum(), info.getStuQq(), info.getStuLevel(), info.getStuAddress(), info.getStuChannel(), info.getStuSource(), info.getStuEvaluation(), info.getStuWork(), info.getStuProject(), info.getStuEducation(), info.getStuTrained(), info.getStuCredentials(), info.getStuPerformance(), getConsultId(info).getUserId(), getTeacherId(info).getUserId());
+            // 添加缓存
+//            cache.addCache("stu"+stuNumber,stuInfo);
+            return stuInfo;
+        }
     }
 
     @Override
     public Integer updateStuInfo(StudentInfo info) {
-        return ss.updateStuInfoByStuNumber(getStu(info));
+        Integer integer = ss.updateStuInfoByStuNumber(getStu(info));
+        if (integer > 0) {
+            cache.updateCache("stu" + info.getStuNumber());
+        }
+        return integer;
     }
 
     /**

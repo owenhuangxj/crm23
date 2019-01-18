@@ -25,5 +25,12 @@ public interface StuService {
      */
     Integer updateStuInfoByStuNumber(Student stu);
 
+    /**
+     * 修改学生状态
+     * @param student
+     * @return
+     */
+    Integer updateStuStatus(Student student);
+
 
 }
