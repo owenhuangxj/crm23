@@ -6,7 +6,7 @@
     <!--查询姓名-->
     <select id="getUserNameByUserId" resultMap="userResultMap">
         select
-        user_name
+        user_name,user_id
         from s_user
         where user_id = #{userId}
     </select>

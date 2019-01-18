@@ -56,17 +56,38 @@ public class Track extends Model<Track> {
      * 跟踪内容
      */
     private String trackDetails;
-//    /**
-//     * 咨询师id
-//     */
-//    private User consultId;
     /**
-     * 学生id
+     * 学生编号
      */
     private Student stuNumber;
-//    /**
-//     * 面试老师id
-//     */
-//    private User teacherId;
 
+    /**
+     * 咨询师id
+     */
+    private User consultId;
+    /**
+     * 面试老师id
+     */
+    private User teacherId;
+    /**
+     * 更新时间
+     */
+    private String updateTime;
+
+    public Track(String trackWays, String trackPriority, String trackTime, String trackStatus, String trackNextTime, Integer trackDuration, String trackPredictTime, String trackTurnoverTime, String trackImportance, String trackValid, String trackDetails, Student stuNumber, User consultId, User teacherId) {
+        this.trackWays = trackWays;
+        this.trackPriority = trackPriority;
+        this.trackTime = trackTime;
+        this.trackStatus = trackStatus;
+        this.trackNextTime = trackNextTime;
+        this.trackDuration = trackDuration;
+        this.trackPredictTime = trackPredictTime;
+        this.trackTurnoverTime = trackTurnoverTime;
+        this.trackImportance = trackImportance;
+        this.trackValid = trackValid;
+        this.trackDetails = trackDetails;
+        this.stuNumber = stuNumber;
+        this.consultId = consultId;
+        this.teacherId = teacherId;
+    }
 }
