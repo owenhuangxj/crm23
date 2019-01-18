@@ -4,28 +4,34 @@
     <!--查询跟踪信息-->
     <select id="getTrackInfo" resultMap="trackResultMap">
         select DISTINCT
-        a.track_ways,a.track_priority,a.track_time,a.track_status,a.track_next_time,a.track_duration,a.track_predict_time,a.track_turnover_time,a.track_importance,a.track_valid,a.track_details,
-		a.stu_number
-        from t_track a,t_student b,s_user e,s_user d
-		where a.stu_number = b.stu_number
-		and a.stu_number = #{stuNumber}
-		order by a.track_priority DESC
+        <include refid="trackColumns"/>,
+        a.stu_number,
+        a.consult_id,
+        a.teacher_id
+        from t_track a,t_student b
+        where a.stu_number = b.stu_number
+        and a.stu_number = #{stuNumber}
+        order by a.track_priority DESC
     </select>
     <!--添加跟踪信息-->
     <insert id="insertTrackRecord">
         insert into t_track
-        (<include refid="trackColumns"/>)
+        (<include refid="trackColumns"/>,stu_number,consult_id,teacher_id,update_time)
         values
-        (<include refid="trackValues"/>)
+        (<include refid="trackValues"/>,#{updateTime})
     </insert>
 
     <resultMap id="trackResultMap" type="track" autoMapping="true">
         <association property="stuNumber" column="stu_number" select="com.ss.crm.mapper.StuMapper.getStuInfoByStuNumber">
         </association>
+        <association property="consultId" column="consult_id" select="com.ss.crm.mapper.UserMapper.getUserNameByUserId">
+        </association>
+        <association property="teacherId" column="teacher_id" select="com.ss.crm.mapper.UserMapper.getUserNameByUserId">
+        </association>
     </resultMap>
 
-    <sql id="trackColumns">track_ways,track_priority,track_time,track_status,track_next_time,track_duration,track_predict_time,track_turnover_time,track_importance,track_valid,track_details,stu_number
+    <sql id="trackColumns">track_ways,track_priority,track_time,track_status,track_next_time,track_duration,track_predict_time,track_turnover_time,track_importance,track_valid,track_details
     </sql>
-    <sql id="trackValues">#{trackWays},#{trackPriority},#{trackTime},#{trackStatus},#{trackNextTime},#{trackDuration},#{trackPredictTime},#{trackTurnoverTime},#{trackImportance},#{trackValid},#{trackDetails},#{stuNumber.stuNumber}
+    <sql id="trackValues">#{trackWays},#{trackPriority},#{trackTime},#{trackStatus},#{trackNextTime},#{trackDuration},#{trackPredictTime},#{trackTurnoverTime},#{trackImportance},#{trackValid},#{trackDetails},#{stuNumber.stuNumber},#{consultId.userId},#{teacherId.userId}
     </sql>
 </mapper>

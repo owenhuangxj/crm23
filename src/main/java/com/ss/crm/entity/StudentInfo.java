@@ -85,17 +85,17 @@ public class StudentInfo extends Model<StudentInfo> {
     /**
      * 咨询师id
      */
-    private String consultId;
+    private Integer consultId;
     /**
      * 面试老师id
      */
-    private String teacherId;
+    private Integer teacherId;
     /**
      * 学生状态：1：新增，2：跟踪中，3：待面试，4：面试未通过，5：面试通过，6：已缴未清，7：已缴费，8：入学，9：放弃入学，10：退学，11：放弃
      */
     private String stuStatus;
 
-    public StudentInfo(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, String consultId, String teacherId) {
+    public StudentInfo(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, Integer consultId, Integer teacherId) {
         this.stuNumber = stuNumber;
         this.stuName = stuName;
         this.stuSex = stuSex;
@@ -115,25 +115,5 @@ public class StudentInfo extends Model<StudentInfo> {
         this.stuPerformance = stuPerformance;
         this.consultId = consultId;
         this.teacherId = teacherId;
-    }
-
-    public StudentInfo(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance) {
-        this.stuNumber = stuNumber;
-        this.stuName = stuName;
-        this.stuSex = stuSex;
-        this.stuImportance = stuImportance;
-        this.stuPhoneNum = stuPhoneNum;
-        this.stuQq = stuQq;
-        this.stuLevel = stuLevel;
-        this.stuAddress = stuAddress;
-        this.stuChannel = stuChannel;
-        this.stuSource = stuSource;
-        this.stuEvaluation = stuEvaluation;
-        this.stuWork = stuWork;
-        this.stuProject = stuProject;
-        this.stuEducation = stuEducation;
-        this.stuTrained = stuTrained;
-        this.stuCredentials = stuCredentials;
-        this.stuPerformance = stuPerformance;
     }
 }

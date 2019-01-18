@@ -21,6 +21,10 @@ public class Student extends Model<Student> {
      */
     private String stuNumber;
     /**
+     * 创建时间
+     */
+    private String stuCreateTime;
+    /**
      * 学生姓名
      */
     private String stuName;
@@ -93,13 +97,14 @@ public class Student extends Model<Student> {
      */
     private User teacherId;
     /**
-     * 学生状态：0：未分配，1：新增，2：跟踪中，3：待面试，4：面试未通过，5：面试通过，6：已缴未清，7：已缴费，8：入学，9：放弃入学，10：退学，11：放弃
+     * 学生状态：0：未分配，1：新增，2：跟踪中，3：待面试，4：面试未通过，5：面试通过，6：已缴未清，7：已缴费，8：入学，9：放弃入学，10：退学，11：已退费，12：放弃
      */
     private String stuStatus;
 
-    public Student(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, User consultId, User teacherId) {
+    public Student(String stuNumber, String stuName, String stuCreateTime, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, User consultId, User teacherId) {
         this.stuNumber = stuNumber;
         this.stuName = stuName;
+        this.stuCreateTime = stuCreateTime;
         this.stuSex = stuSex;
         this.stuImportance = stuImportance;
         this.stuPhoneNum = stuPhoneNum;

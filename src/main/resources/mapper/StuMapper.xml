@@ -12,7 +12,7 @@
     <!--通过学生编号查询学生信息-->
     <select id="getStuInfoByStuNumber" resultMap="stuResultMap">
         select
-        <include refid="stuColumns"/>,
+        <include refid="stuAllColumns"/>,
         a.consult_id,
         a.teacher_id
         from
@@ -83,9 +83,11 @@
         </association>
     </resultMap>
 
-    <sql id="stuColumns">stu_name,stu_number,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance,consult_id,teacher_id
+    <sql id="stuColumns">stu_name,stu_number,stu_create_time,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance,consult_id,teacher_id
     </sql>
-    <sql id="stuValues">#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuChannel},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuCredentials},#{stuPerformance},#{consultId.userId},#{teacherId.userId}
+    <sql id="stuValues">#{stuName},#{stuNumber},#{stuCreateTime},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuChannel},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuCredentials},#{stuPerformance},#{consultId.userId},#{teacherId.userId}
+    </sql>
+    <sql id="stuAllColumns">stu_name,stu_number,stu_create_time,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance,consult_id,teacher_id,stu_status
     </sql>
 
 
