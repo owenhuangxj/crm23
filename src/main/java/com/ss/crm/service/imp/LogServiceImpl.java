@@ -22,16 +22,14 @@ public class LogServiceImpl implements LogService {
                 return null;
             case "用户操作":
                 return 1;
-            case "错误":
-                return 2;
             case "添加":
-                return 3;
+                return 2;
             case "删除":
-                return 4;
+                return 3;
             case "修改":
-                return 5;
+                return 4;
             case "查询":
-                return 6;
+                return 5;
             default:
                 return null;
         }
@@ -56,13 +54,7 @@ public class LogServiceImpl implements LogService {
     /*按要求查找日志内容*/
     @Override
     public List<Log> getAsyncSelectLog(String logType,Integer userId,String userName,String startTime, String endTime) {
-        if(startTime!=null&startTime.length()!=0){
-            startTime =startTime+" 00:00:00";
-        }
-        if(endTime!=null&endTime.length()!=0){
-            endTime = endTime+" 23:59:59";
-        }
-        return lm.getSelectClassifyLog(logType,userId,userName,startTime,endTime);
+        return lm.getAsyncSelectLog(logType,userId,userName,startTime,endTime);
     }
 
 
