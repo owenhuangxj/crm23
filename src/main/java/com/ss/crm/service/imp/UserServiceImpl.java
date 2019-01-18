@@ -43,11 +43,18 @@ public class UserServiceImpl implements UserService {
         String date =new SimpleDateFormat("YYYY-MM-dd").format(new Date());
         User user = new User();
         user.setEmail(email);
-       user.setUserName(userName);
-       user.setPassword(password);
-       user.setCreateDate(date);
+        user.setUserName(userName);
+        user.setPassword(password);
+        user.setCreateDate(date);
         int insert = userMapper.insert(user);
         return insert;
 
     }
+
+    @Override
+    public Integer selectUserId(String createDate) {
+        Integer count = userMapper.getCount(createDate);
+        return count;
+    }
+
 }

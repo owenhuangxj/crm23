@@ -31,5 +31,4 @@ public class User extends Model<User> {
     private int sex;
     private boolean status;
     private int type;
-
 }
