@@ -12,8 +12,7 @@ public class DateUtil {
      * @return 学生编号
      */
     public static String getStuNumber() {
-        String stuNumber = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
-        return "ss" + stuNumber;
+        return new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
     }
 
     /**

@@ -73,9 +73,6 @@ public class StuServiceImp implements StuService {
                 case "1":
                     stu.setStuSex("男");
                     break;
-                case "2":
-                    stu.setStuSex("未知");
-                    break;
             }
             switch (stu.getStuImportance()) {
                 case "0":

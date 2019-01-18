@@ -1,7 +1,6 @@
 package com.ss.crm.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("t_student")
-public class Student extends Model<Student> {
+public class StudentInfo extends Model<StudentInfo> {
 
     @TableId
     /**学生id*/
@@ -87,17 +85,17 @@ public class Student extends Model<Student> {
     /**
      * 咨询师id
      */
-    private User consultId;
+    private String consultId;
     /**
      * 面试老师id
      */
-    private User teacherId;
+    private String teacherId;
     /**
-     * 学生状态：0：未分配，1：新增，2：跟踪中，3：待面试，4：面试未通过，5：面试通过，6：已缴未清，7：已缴费，8：入学，9：放弃入学，10：退学，11：放弃
+     * 学生状态：1：新增，2：跟踪中，3：待面试，4：面试未通过，5：面试通过，6：已缴未清，7：已缴费，8：入学，9：放弃入学，10：退学，11：放弃
      */
     private String stuStatus;
 
-    public Student(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, User consultId, User teacherId) {
+    public StudentInfo(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, String consultId, String teacherId) {
         this.stuNumber = stuNumber;
         this.stuName = stuName;
         this.stuSex = stuSex;
@@ -119,7 +117,7 @@ public class Student extends Model<Student> {
         this.teacherId = teacherId;
     }
 
-    public Student(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance) {
+    public StudentInfo(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance) {
         this.stuNumber = stuNumber;
         this.stuName = stuName;
         this.stuSex = stuSex;

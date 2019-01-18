@@ -14,7 +14,7 @@
         select
         <include refid="stuColumns"/>,
         a.consult_id,
-        if (a.teacher_id is null,a.teacher_id = null,a.teacher_id) teacher_id
+        a.teacher_id
         from
         t_student a
         where stu_number = #{stuNumber}
@@ -85,7 +85,7 @@
 
     <sql id="stuColumns">stu_name,stu_number,stu_sex,stu_importance,stu_phone_num,stu_qq,stu_level,stu_address,stu_channel,stu_source,stu_evaluation,stu_work,stu_project,stu_education,stu_trained,stu_credentials,stu_performance,consult_id,teacher_id
     </sql>
-    <sql id="stuValues">#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuChannel},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuCredentials},#{stuPerformance},#{consultId},#{teacherId}
+    <sql id="stuValues">#{stuName},#{stuNumber},#{stuSex},#{stuImportance},#{stuPhoneNum},#{stuQq},#{stuLevel},#{stuAddress},#{stuChannel},#{stuSource},#{stuEvaluation},#{stuWork},#{stuProject},#{stuEducation},#{stuTrained},#{stuCredentials},#{stuPerformance},#{consultId.userId},#{teacherId.userId}
     </sql>
 
 
