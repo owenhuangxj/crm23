@@ -1,6 +1,7 @@
 <template>
-    <div id="resumeUpload">
-        <span>选择模板：</span>    <el-select v-model="value" placeholder="请选择">
+
+<div>
+           <span>选择模板：</span> <el-select v-model="value" placeholder="请选择">
 
          <el-option
                     v-for="item in fileModel"
@@ -14,8 +15,8 @@
         <el-upload
                 class="upload-demo"
                 ref="upload"
-                limit="1"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                :limit=1
+                action="http://localhost/upload"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 :auto-upload="false">

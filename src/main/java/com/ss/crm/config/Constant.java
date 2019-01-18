@@ -6,4 +6,6 @@ package com.ss.crm.config;
  * @Description:
  */
 public class Constant {
+
+
 }

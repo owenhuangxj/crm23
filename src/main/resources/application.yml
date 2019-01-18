@@ -18,6 +18,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: crm_group23
     password: Group23@2019
+#    url: jdbc:mysql://localhost:3306/kol?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: root
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 2   #连接池的初始连接数
@@ -29,9 +33,8 @@ spring:
       #开发环境开启
       test-on-borrow: true
       test-on-return: true
-
       test-while-idle: true
-      filters: stat,wall,log4j
+      filters: stat,log4j
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=2000
 #mybatis-plus 配置
 mybatis-plus:
