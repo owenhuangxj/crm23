@@ -14,14 +14,14 @@ spring:
   shymeleaf:
     cash: false
   datasource:
-    url: jdbc:mysql://129.204.70.43:3306/crm?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: crm_group23
-    password: Group23@2019
-#    url: jdbc:mysql://localhost:3306/kol?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+#    url: jdbc:mysql://129.204.70.43:3306/crm?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
-#    password: root
+#    username: crm_group23
+#    password: Group23@2019
+    url: jdbc:mysql://localhost:3306/kol?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 2   #连接池的初始连接数
