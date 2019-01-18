@@ -51,11 +51,13 @@ public class TrackInfoServiceImp implements TrackInfoService {
             TrackInfo trackInfo = null;
             // 循环遍历
             for (Track track : tracks) {
+
                 trackInfo = new TrackInfo(track.getTrackWays(), track.getTrackPriority(), track.getTrackTime(), track.getTrackStatus(), track.getTrackNextTime(), track.getTrackDuration(), track.getTrackPredictTime(), track.getTrackTurnoverTime(), null, null, track.getTrackDetails(), track.getStuNumber().getStuNumber(), getConsultId(track).getUserName(), getTeacherId(track).getUserName());
                 trackInfos.add(trackInfo);
                 // 添加缓存
 //                cache.addCache(stuNumber, trackInfo);
             }
+            System.out.println(trackInfos);
         }
         return trackInfos;
     }

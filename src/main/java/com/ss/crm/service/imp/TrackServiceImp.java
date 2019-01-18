@@ -55,8 +55,11 @@ public class TrackServiceImp implements TrackService {
             case "退学":
                 track.setTrackStatus("10");
                 break;
-            case "放弃":
+            case "已退费":
                 track.setTrackStatus("11");
+                break;
+            case "放弃":
+                track.setTrackStatus("12");
                 break;
             default:
                 track.setTrackStatus("1");
@@ -114,6 +117,7 @@ public class TrackServiceImp implements TrackService {
     public List<Track> getTrackInfo(String stuNumber) {
         // 获取数据
         List<Track> tracks = tm.getTrackInfo(stuNumber);
+        System.out.println(tracks);
         for (Track track : tracks) {
             switch (track.getTrackStatus()) {
                 case "1":
@@ -147,6 +151,9 @@ public class TrackServiceImp implements TrackService {
                     track.setTrackStatus("退学");
                     break;
                 case "11":
+                    track.setTrackStatus("已退费");
+                    break;
+                case "12":
                     track.setTrackStatus("放弃");
                     break;
             }

@@ -91,7 +91,7 @@ public class StudentInfo extends Model<StudentInfo> {
      */
     private Integer teacherId;
     /**
-     * 学生状态：1：新增，2：跟踪中，3：待面试，4：面试未通过，5：面试通过，6：已缴未清，7：已缴费，8：入学，9：放弃入学，10：退学，11：放弃
+     * 学生状态：0：未分配，1：新增，2：跟踪中，3：待面试，4：面试未通过，5：面试通过，6：已缴未清，7：已缴费，8：入学，9：放弃入学，10：退学，11：已退费，12:放弃
      */
     private String stuStatus;
 

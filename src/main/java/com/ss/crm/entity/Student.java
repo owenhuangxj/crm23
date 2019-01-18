@@ -101,10 +101,11 @@ public class Student extends Model<Student> {
      */
     private String stuStatus;
 
-    public Student(String stuNumber, String stuName, String stuCreateTime, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, User consultId, User teacherId) {
+
+    public Student(String stuNumber, String stuCreateTime, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance, User consultId, User teacherId) {
         this.stuNumber = stuNumber;
-        this.stuName = stuName;
         this.stuCreateTime = stuCreateTime;
+        this.stuName = stuName;
         this.stuSex = stuSex;
         this.stuImportance = stuImportance;
         this.stuPhoneNum = stuPhoneNum;
@@ -122,25 +123,5 @@ public class Student extends Model<Student> {
         this.stuPerformance = stuPerformance;
         this.consultId = consultId;
         this.teacherId = teacherId;
-    }
-
-    public Student(String stuNumber, String stuName, String stuSex, String stuImportance, String stuPhoneNum, String stuQq, String stuLevel, String stuAddress, String stuChannel, String stuSource, String stuEvaluation, String stuWork, String stuProject, String stuEducation, String stuTrained, String stuCredentials, String stuPerformance) {
-        this.stuNumber = stuNumber;
-        this.stuName = stuName;
-        this.stuSex = stuSex;
-        this.stuImportance = stuImportance;
-        this.stuPhoneNum = stuPhoneNum;
-        this.stuQq = stuQq;
-        this.stuLevel = stuLevel;
-        this.stuAddress = stuAddress;
-        this.stuChannel = stuChannel;
-        this.stuSource = stuSource;
-        this.stuEvaluation = stuEvaluation;
-        this.stuWork = stuWork;
-        this.stuProject = stuProject;
-        this.stuEducation = stuEducation;
-        this.stuTrained = stuTrained;
-        this.stuCredentials = stuCredentials;
-        this.stuPerformance = stuPerformance;
     }
 }

@@ -55,13 +55,13 @@ public class TrackInfo extends Model<TrackInfo> {
      */
     private String trackDesc;
     /**
-     * 咨询师id
-     */
-    private String trailsman;
-    /**
      * 学生id
      */
     private String stuNumber;
+    /**
+     * 咨询师id
+     */
+    private String trailsman;
     /**
      * 面试老师id
      */
