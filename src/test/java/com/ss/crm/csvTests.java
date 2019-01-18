@@ -1,7 +1,7 @@
 package com.ss.crm;
 
+import com.ss.crm.constant.ResumeTemplate;
 import com.ss.crm.mapper.ResumeAllotMapper;
-import com.ss.crm.service.ResumeAllotService;
 import com.ss.crm.util.ExcelToCsv;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ public class csvTests {
         csvUtil.setSrc("C:/Users//Administrator/Desktop/爱你.xls");
         csvUtil.setTargetFolder("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/","n8dsaS");
         int num = csvUtil.getWorkbook().getNumberOfSheets();
-        final List<Integer> index = ResumeAllotService.CONSUME_51JOB_ROW_INDEX;
+        final List<Integer> index = ResumeTemplate.CONSUME_51JOB_ROW_INDEX;
         csvUtil.setSexIndex(1);
         csvUtil.setColumnIndexList(2,2);
         csvUtil.setAppendInfo(new ArrayList<>(Arrays.asList("Boos直聘","简历导入")));
@@ -51,7 +51,7 @@ public class csvTests {
         csvUtil.setSrc("C:/Users//Administrator/Desktop/爱你.xls");
         csvUtil.setTargetFolder("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/","列采集");
         csvUtil.setAppendInfo(new ArrayList<>(Arrays.asList("51job","简历录入")));
-        final List<Integer> index = ResumeAllotService.CONSUME_51JOB_COLUMN_INDEX;
+        final List<Integer> index = ResumeTemplate.CONSUME_51JOB_COLUMN_INDEX;
         csvUtil.setColumnIndexList(index);
         csvUtil.setSexIndex(1);
         csvUtil.excelToCSV(2,0);

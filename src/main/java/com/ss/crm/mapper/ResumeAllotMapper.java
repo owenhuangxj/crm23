@@ -1,5 +1,9 @@
 package com.ss.crm.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.ss.crm.entity.Student;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -8,9 +12,9 @@ import org.apache.ibatis.annotations.Param;
  * @Description:
  */
 
-public interface ResumeAllotMapper   {
+public interface ResumeAllotMapper  extends BaseMapper<Student> {
         /*导入csv简历文件到t_student表*/
     Integer ImportResume(@Param("src")String src);
-
-
+        /*多条件分页查询*/
+    IPage<Student> selectPage(IPage<Student> page, @Param("ew") Wrapper<Student> queryWrapper);
 }

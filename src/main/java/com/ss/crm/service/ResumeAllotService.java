@@ -1,19 +1,18 @@
 package com.ss.crm.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.ss.crm.entity.Student;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Author: 王顺坤
- * @Date: 2019/1/17 15:00
+ * @Date: 2019/1/18 16:37
  * @Description:
  */
-public class ResumeAllotService {
+public interface ResumeAllotService {
 
-    public  static List<String> CONSUME_NEEDED_COLUMN=new ArrayList<>( Arrays.asList("姓名","性别","手机","出生日期","家庭地址","职能/职位","自我评价","工作经验","项目经验","培训经历"));
-      public  static List<Integer> CONSUME_51JOB_ROW_INDEX=new ArrayList<>(Arrays.asList(9,10,11,13,22,35,39,41,43,52));
-    /*public  static List<Integer> CONSUME_51JOB_ROW_INDEX=new ArrayList<>(Arrays.asList(9,10,11,13));*/
-    public static List<Integer> CONSUME_51JOB_COLUMN_INDEX=new ArrayList<>(Arrays.asList(0,7,8));
 
+    /*多条件分页查询*/
+    IPage<Student> selectPage(IPage<Student> page, @Param("ew") Wrapper<Student> queryWrapper);
 }
