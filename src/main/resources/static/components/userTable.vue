@@ -29,12 +29,12 @@
      border
     class="table" style="width: 100%" ref="multipleTable"  @row-dbclick="doubleclick(scope.$index)" @selection-change="handleSelectionChange">
      <el-table-column
-       prop="id"
+       prop="userId"
        label="编号"
        width="180" >
      </el-table-column>
      <el-table-column
-       prop="name"
+       prop="userName"
        label="姓名"
        width="180"
        :filters="[{text: '王小虎', value: '王小虎'}, {text: '王垂花', value: '王垂花'}, {text: '李小仙', value: '李小仙'}, {text: '王大虎', value: '王大虎'}]"
@@ -61,7 +61,7 @@
        width="180" >
      </el-table-column>
      <el-table-column
-       prop="date"
+       prop="createDate"
        label="日期"
        width="180" >
      </el-table-column>
@@ -89,7 +89,7 @@
       :page-sizes="[10, 20, 30, 40]"
       :page-size="10"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="cur_total">
     </el-pagination>
   </div>
   </div>
@@ -107,6 +107,7 @@
         del_list:[],
         cur_page:1,
         cur_page_size:10,
+        cur_total:0,
         url:'',
         sendList:[{'typename': 'Id'},{'typename': '姓名'},{'typename': '年纪'},{'typename': '时间'}],
         pickerOptions1: {
@@ -139,41 +140,41 @@
         currentPage4: 4,
         msg: 'Welcome to Your Vue.js App',
         tableData: [{
-          id:'1312',
-          name: '王小虎',
+          userId:'1312',
+          userName: '王小虎',
           sex:'男',
           phone:'12345678952',
           email:'321498@163.com',
-          date: '2016-05-02',
+          createDate: '2016-05-02',
           status:'status',
           address: '上海市普陀区金沙江路 153 弄'
         }, {
-          id:'1312',
-          name: '王垂花',
-          sex:'女',
-          phone:'12345678952',
-          email:'321498@163.com',
-          date: '2016-05-02',
-          status:'status',
-          address: '上海市普陀区金沙江路 1513弄'
-        }, {
-          id:'1312',
-          name: '李小仙',
-          sex:'女',
-          phone:'12345678952',
-          email:'321498@163.com',
-          date: '2016-05-02',
-          status:'status',
-          address: '上海市普陀区金沙江路 1517弄'
-        }, {
-          id:'1312',
-          name: '王大虎',
+          userId:'1312',
+          userName: '王老虎',
           sex:'男',
           phone:'12345678952',
           email:'321498@163.com',
-          date: '2016-05-02',
+          createDate: '2016-05-02',
           status:'status',
-          address: '上海市普陀区金沙江路 1519弄'
+          address: '上海市普陀区金沙江路 153 弄'
+        }, {
+          userId:'1312',
+          userName: '王d大虎',
+          sex:'男',
+          phone:'12345678952',
+          email:'321498@163.com',
+          createDate: '2016-05-02',
+          status:'status',
+          address: '上海市普陀区金沙江路 153 弄'
+        }, {
+          userId:'1312',
+          userName: '王小花',
+          sex:'女',
+          phone:'12345678952',
+          email:'321498@163.com',
+          createDate: '2016-05-02',
+          status:'status',
+          address: '上海市普陀区金沙江路 153 弄'
         }]
       }
     },
@@ -226,11 +227,12 @@ methods:{
       this.url = '/selectAllWorktor/'+this.cur_page+'/'+this.cur_page_size;
     axios.get(this.url).then((res) => {
       alert("获得的数据："+JSON.stringify(res.data));
-      // this.tableData = res.data;
+      this.tableData = res.data;
     })
     //获得公司员工的总人数
     axios.get('/selectWorktorNum').then((res) => {
       alert("获得的总人数据："+JSON.stringify(res.data));
+      this.cur_total=res.data;
       // this.tableData = res.data;
     })
   },

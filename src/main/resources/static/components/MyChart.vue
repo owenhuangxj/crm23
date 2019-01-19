@@ -1,7 +1,7 @@
 <template>
     <el-card class="box-card">
         <div slot="header" class="clearfix">
-            <span>李小姐的业务情况</span>
+            <span>李小姐的业f务情况</span>
         </div>
         <div class="yourClassName" id="yourID" style="height:250px;width:300px" ref="myEchart"></div>
     </el-card>
@@ -11,7 +11,8 @@
         data() {
             return {
                 userId: 1,
-                chart: null
+                chart: null,
+                chartData:'',
             }
         },
         created() {
@@ -30,9 +31,10 @@
         methods: {
             //从后台获取数据
             getData() {
-                this.url = '/selectWorkOfBusiness/' + this.userId;
+                this.url = '/selectWorkOfBusiness/' + 4;
                 axios.get(this.url).then((res) => {
-                    alert("获得的数据：" + JSON.stringify(res.data));
+                    this.chartData=res.data
+                    alert("获得的数据：" + JSON.stringify(this.chartData));
                     // this.tableData = res.data;
                 })
             },
@@ -54,7 +56,7 @@
                     xAxis: [
                         {
                             type: 'category',
-                            data: ['本周', '本月']
+                            data: this.chartData.category
                         }
                     ],
                     yAxis: [
@@ -72,7 +74,7 @@
                                     position: 'top'
                                 }
                             },
-                            data: [2.0, 4.9]
+                            data: this.chartData.AlreadData
                         },
                         {
                             name: '未完成',
@@ -83,7 +85,7 @@
                                     position: 'top'
                                 }
                             },
-                            data: [2.6, 5.9]
+                            data: this.chartData.NoData
                         }
                         ,
                         {
@@ -96,7 +98,7 @@
                                     formatter: '{b}\n{c}%'
                                 }
                             },
-                            data: [2, 3]
+                            data: [5, 6]
                         }
                     ]
                 });

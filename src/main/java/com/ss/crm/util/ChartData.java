@@ -12,6 +12,10 @@ public class ChartData extends HashMap {
               List  category=   new ArrayList<String>();
               category.add("本周");
               category.add("本月");
+              //转数组
+            category.toArray();
+            AlreadData.toArray();
+            NoData.toArray();
             chartData.put("category",category);//柱状图的下坐标
             chartData.put("AlreadData",AlreadData);//对应的数据
             chartData.put("NoData",NoData);

@@ -1,6 +1,7 @@
 package com.ss.crm.service.imp;
 
 import com.ss.crm.entity.Student;
+import com.ss.crm.entity.Track;
 import com.ss.crm.entity.User;
 import com.ss.crm.mapper.MonitorMapper;
 import com.ss.crm.service.MonitorService;
@@ -36,13 +37,21 @@ public class MonitorServiceImp implements MonitorService {
         Integer  noZhouWord=   monitorMapper.selectNoZhouWork(userId);//查询周未完成的工作量
         Integer  alreadYueWord=    monitorMapper.selectAlreadYueWork(userId);//查询周完成的工作量
         Integer  NoYueWord=  monitorMapper.selectNoYueWork(userId);//查询周未完成的工作量
-       List<Integer> dataAlread = new ArrayList<>();
+        System.out.println("serviceimpl获得的数据是："+alreadZhouWord+noZhouWord+alreadYueWord+NoYueWord);
+         List<Integer> dataAlread = new ArrayList<>();
         List<Integer> dataNo = new ArrayList<>();
         dataAlread.add(alreadYueWord);
         dataAlread.add(alreadZhouWord);
+        dataNo.add(NoYueWord);
         dataNo.add(noZhouWord);
-        dataNo.add(noZhouWord);
-        ChartData.chartData(dataAlread,dataNo);
-        return null;
+        ChartData chartData = ChartData.chartData(dataAlread, dataNo);
+
+        return chartData;
+    }
+
+    @Override
+    public List<Track> selectWorkOfStuTrak(String stuNumber, Integer userId) {
+
+        return monitorMapper.selectWorkOfStuTrak(stuNumber,userId);
     }
 }

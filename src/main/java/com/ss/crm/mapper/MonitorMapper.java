@@ -1,6 +1,7 @@
 package com.ss.crm.mapper;
 
 import com.ss.crm.entity.Student;
+import com.ss.crm.entity.Track;
 import com.ss.crm.entity.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,4 +22,6 @@ public interface MonitorMapper  {
     Integer selectAlreadYueWork(@Param("userId") Integer userId);
     //查询余额未完成的工作量
     Integer selectNoYueWork(@Param("userId") Integer userId);
+    //查询某个员工下的某个学员的跟踪记录
+    List<Track> selectWorkOfStuTrak(@Param("stuNumber") String stuNumber, @Param("userId") Integer userId);
 }
