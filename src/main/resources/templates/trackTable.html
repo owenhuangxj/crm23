@@ -14,14 +14,15 @@
 <body>
 
 <div id="app">
-    <jack></jack>
+    <tracktable></tracktable>
 </div>
 
 <script>
     new Vue({
         el: '#app',
-        components:{
-            'jack': httpVueLoader('resources/components/trackTable.vue')
+        components: {
+            'tracktable': httpVueLoader('resources/components/trackTable.vue')
+            // 'jack': httpVueLoader('../static/components/trackTable.vue')
         }
     })
 </script>

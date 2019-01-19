@@ -1,5 +1,6 @@
 package com.ss.crm;
 
+import com.ss.crm.entity.PageData;
 import com.ss.crm.entity.TrackModel;
 import com.ss.crm.service.TrackModelService;
 import org.junit.Test;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
 
 /**
  * @ClassName TrackTest
@@ -25,7 +25,7 @@ public class TrackTest {
 
     @Test
     public void test(){
-        List<TrackModel> trackModel = ts.getTrackModel(null, null, null, 1, 10);
+        PageData<TrackModel> trackModel = ts.getTrackModel(null, "1", 1, 10);
         System.out.println("trackModel：" + trackModel);
     }
 

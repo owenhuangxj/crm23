@@ -1,20 +1,26 @@
 package com.ss.crm.controller;
 
+import com.ss.crm.entity.PageData;
 import com.ss.crm.entity.TrackInfo;
+import com.ss.crm.entity.TrackModel;
 import com.ss.crm.service.TrackInfoService;
+import com.ss.crm.service.TrackModelService;
 import com.ss.crm.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/track")
+//@RequestMapping(value = "/track")
 public class TrackController {
 
     @Autowired
     private TrackInfoService tis;
+    @Autowired
+    private TrackModelService tms;
 
     /**
      * 查询跟踪信息
@@ -42,6 +48,22 @@ public class TrackController {
         ti.setPredictTime(DateUtil.changeDateTime(ti.getPredictTime()));
         ti.setPredictTrade(DateUtil.changeDateTime(ti.getPredictTrade()));
         return tis.addTrackInfoRecord(ti);
+    }
+
+    @GetMapping("/tailAfter")
+    public String track(){
+        return "trackTable";
+    }
+
+    @PostMapping(value = "/getTrackList", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public PageData<TrackModel> getTrackList(@RequestParam("pageSize")Integer pageSize,@RequestParam("pageNum")Integer pageNum,
+                                             @RequestParam("input")String input,@RequestParam("value")String value){
+        System.out.println("进getTrackList的参数：" + input + "，" + value + "，" + pageNum + "，" + pageSize);
+        String inp = "".equals(input) ? null : input;
+        PageData<TrackModel> trackModel = tms.getTrackModel(inp, value, pageSize, pageNum);
+        System.out.println("返回的集合：" + trackModel);
+        return trackModel;
     }
 
 

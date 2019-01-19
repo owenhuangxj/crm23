@@ -1,5 +1,5 @@
 <template>
-    <div id="main">
+    <div id="tracktable">
         <div id="button_div">
             <span id="stuInfo">学员信息操作</span>&nbsp;
             <el-button class="el_bt" round @click="addResoume"><i class="el-icon-plus"></i>&nbsp;新增简历</el-button>
@@ -73,16 +73,16 @@
             <el-table-column type="index" label="编号" width="55"></el-table-column>
             <el-table-column prop="flag" label="状态标识" width="120"></el-table-column>
             <el-table-column prop="stuName" label="姓名" width="120"></el-table-column>
-            <el-table-column prop="priority" label="优先级" width="120"></el-table-column>
-            <el-table-column prop="trackNum" label="跟踪次数" width="120"></el-table-column>
-            <el-table-column prop="phoneNum" label="手机号" width="120"></el-table-column>
-            <el-table-column prop="origin" label="来源途径" width="120"></el-table-column>
-            <el-table-column prop="progress" label="进度情况" width="120"></el-table-column>
-            <el-table-column prop="nextTime" label="下次跟踪时间" width="120"></el-table-column>
-            <el-table-column prop="phoneCou" label="电话咨询" width="120"></el-table-column>
-            <el-table-column prop="counselor" label="咨询师" width="120"></el-table-column>
+            <el-table-column prop="stuLevel" label="优先级" width="120"></el-table-column>
+            <el-table-column prop="trackCount" label="跟踪次数" width="120"></el-table-column>
+            <el-table-column prop="stuPhoneNum" label="手机号" width="120"></el-table-column>
+            <el-table-column prop="stuSource" label="来源途径" width="120"></el-table-column>
+            <el-table-column prop="stuStatus" label="进度情况" width="120"></el-table-column>
+            <el-table-column prop="trackNextTime" label="下次跟踪时间" width="120"></el-table-column>
+            <el-table-column prop="trackWays" label="咨询方式" width="120"></el-table-column>
+            <el-table-column prop="userName" label="咨询师" width="120"></el-table-column>
             <el-table-column prop="updateTime" label="更新时间" width="120"></el-table-column>
-            <el-table-column prop="predict" label="预计上门" width="120"></el-table-column>
+            <el-table-column prop="trackPredictTime" label="预计上门" width="120"></el-table-column>
         </el-table>
 
         <!--
@@ -92,7 +92,7 @@
         -->
         <div class="fenye">
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                           :current-page="currentPage" :page="pageNum" :page-size="pagesize" :total="total"
+                           :current-page="currentPage" :page="pageNum" :page-size="pageSize" :total="total"
                            :page-sizes="[10, 20, 30, 40]" layout="total, sizes, prev, pager, next, jumper">
             </el-pagination>
         </div>
@@ -109,48 +109,19 @@
         // components: {ElTableFilterPanel, ElTableHeader},
         data() {
             return {
-                tableData: [{
-                    "flag": "@",
-                    "stuId": 1,
-                    "stuName": "张三",
-                    "priority": "高",
-                    "trackNum": 3,
-                    "phoneNum": "123456",
-                    "origin": "网络",
-                    "progress": "进度",
-                    "nextTime": "2018",
-                    "phoneCou": "是",
-                    "counselor": "jack",
-                    "updateTime": "2017",
-                    "predict": "否"
-                },
-                    {
-                        "flag": "#",
-                        "stuId": 2,
-                        "stuName": "张三",
-                        "priority": "高",
-                        "trackNum": 3,
-                        "phoneNum": "123456",
-                        "origin": "网络",
-                        "progress": "进度",
-                        "nextTime": "2018",
-                        "phoneCou": "是",
-                        "counselor": "jack",
-                        "updateTime": "2017",
-                        "predict": "否"
-                    }],
+                tableData: [], // 后台传入的数据
                 options: [{
-                    value: '性名',
+                    value: '1',
                     label: '姓名'
                 }, {
-                    value: '咨询方式',
-                    label: '咨询方式'
-                }, {
-                    value: '咨询师',
+                    value: '2',
                     label: '咨询师'
+                }, {
+                    value: '3',
+                    label: '咨询方式'
                 }],
-                pagesize: 2,    // pagesize：一页显示多少条，
-                total: 100,     // total：一共多少条
+                pageSize: 10,    // pagesize：一页显示多少条，
+                total: 0,     // total：一共多少条
                 pageNum: 1,     // 当前页
                 currentPage: 1, // 默认显示第1页
                 input: '',      // 输入框
@@ -177,13 +148,17 @@
         methods: {
             // 发送请求，获取相应的数据
             getNewsList() {
-                this.$axios({
-                    url: "/track/getTrackList",
+                axios({
+                    url: "/getTrackList",
                     method: "post",
-                    data: this.fenyedata()
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: this.pagingData()
                 }).then(res => {
                     this.tableData = res.data.rows;
                     this.total = res.data.total;
+                    alert("返回成功！");
                     console.log("返回成功：" + res)
                 }).catch(err => {
                     console.log("发生错误：" + err);
@@ -192,19 +167,19 @@
             },
             // 一页显示多少条
             handleSizeChange(val) {
-                alert(`选择了每页：${val}条`)
-                // this.getNewsList();
+                alert(`选择了每页：${val}条`);
+                this.getNewsList();
             },
             // 当前页
             handleCurrentChange(val) {
                 this.pageNum = val;
-                // this.getNewsList();
-                alert("当前页：" + this.pageNum)
+                alert("当前页：" + this.pageNum);
+                this.getNewsList();
             },
             // 点击查询时执行的函数
             doSearch() {
                 alert("选择了：" + this.value + "，输入的内容：" + this.input)
-                // this.getNewsList();
+                this.getNewsList();
             },
             // 如果没输入查询关键字会执行这个函数
             hints() {
@@ -315,20 +290,23 @@
                 alert("handlePreview："+file);
                 console.log(file);
             },
+            // 分页参数的写法
+            pagingData() {
+                const params = new URLSearchParams();
+                params.append('pageSize', this.pageSize);
+                params.append('pageNum', this.pageNum);
+                params.append('input', this.input);
+                params.append('value', this.value);
+                console.log("传入后台的参数：" + params);
+                return params;
+            }
         },
-        // 分页参数的写法
-        fenyedata() {
-            const postdata = new URLSearchParams();
-            postdata.append('pagesize', this.pagesize);
-            postdata.append('pageNum', this.pageNum);
-            console.log("传入后台的参数：" + postdata);
-            return postdata;
-        }
+
     }
 </script>
 
 <style>
-    #main {
+    #tracktable {
         border: 1px solid #e3e3e3;
         width: 100%;
         height: 100%;

@@ -9,7 +9,7 @@ public class CrmApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CrmApplication.class, args);
-    }
+     }
 
 }
 

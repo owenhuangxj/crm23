@@ -1,12 +1,14 @@
 package com.ss.crm.service.imp;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ss.crm.entity.PageData;
 import com.ss.crm.entity.Track;
 import com.ss.crm.entity.TrackModel;
 import com.ss.crm.mapper.TrackMapper;
 import com.ss.crm.mapper.TrackModelMapper;
 import com.ss.crm.service.TrackModelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,29 +27,26 @@ public class TrackModelServiceImpl implements TrackModelService {
     private TrackModelMapper tmm;
     @Autowired
     private TrackMapper tm;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
-    public List<TrackModel> getTrackModel(String stuName, String userName, String trackWays,Integer pageNum,Integer pageSize) {
+    public PageData<TrackModel> getTrackModel(String input, String value, Integer pageNum, Integer pageSize) {
         Integer start = (pageNum - 1) * pageSize;
-        List<TrackModel> trackModels = new ArrayList<>();
-        List<Track> track = tmm.getTrackModel(stuName, userName, trackWays, start, pageSize);
-        for (Track t : track) {
-//            Integer trackCount = tm.getTrackCount(t.getStuNumber().getStuNumber());
-            trackModels.add(new TrackModel(t.getStuNumber().getStuNumber(),t.getStuNumber().getStuName(),t.getStuNumber().getStuLevel(),
-                    5,t.getStuNumber().getStuPhoneNum(),t.getStuNumber().getStuSource(),t.getStuNumber().getStuStatus(),
-                    t.getTrackNextTime(),t.getTrackWays(),t.getStuNumber().getConsultId().getUserName(),t.getUpdateTime(),t.getTrackPredictTime()));
+        List<TrackModel> track = null;
+        Integer total = null;
+        // 判断用户在下拉框选择的搜索类型
+        if ("1".equals(value)) {
+            total = tmm.getTotal(input,null,null);
+            track = tmm.getTrackModel(input, null, null, start, pageSize);
+        } else if ("2".equals(value)) {
+            total = tmm.getTotal(null,input,null);
+            track = tmm.getTrackModel(null, input, null, start, pageSize);
+        } else {
+            total = tmm.getTotal(null,null,input);
+            track = tmm.getTrackModel(null, null, input, start, pageSize);
         }
-        return trackModels;
+        PageData<TrackModel> pageData = new PageData<>(track,total);
+        return pageData;
     }
-
-
-    /*public List<Track> getTrack(Integer pageNum,Integer pageSize){
-        Track track = new Track();
-        Page<Track> page = new Page<Track>(pageNum,pageSize);
-        track.selectPage(page,)
-        return null;
-    }*/
-
-
-
 }
