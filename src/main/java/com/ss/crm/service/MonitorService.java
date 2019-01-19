@@ -1,6 +1,7 @@
 package com.ss.crm.service;
 
 import com.ss.crm.entity.Student;
+import com.ss.crm.entity.Track;
 import com.ss.crm.entity.User;
 import com.ss.crm.util.ChartData;
 
@@ -36,4 +37,12 @@ public interface MonitorService {
      * @return
      */
     ChartData selectWorkOfBusiness(Integer userId);
+
+    /**
+     * 查询某个员工名下学员的跟踪记录信息
+     * @param stuNumber
+     * @param studentId
+     * @return
+     */
+    List<Track> selectWorkOfStuTrak(String stuNumber, Integer userId);
 }

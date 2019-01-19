@@ -11,12 +11,36 @@
     </select>
     <!--查询某位员工下的学生信息-->
     <select id="selectWorktorOfStu" resultMap="studentMap">
-        select <include refid="studentClumns"/> from t_student limt #{start},#{currentPageSize} where stu_user_id=#{userId} group by stu_id;
+        select <include refid="studentClumns"/>from t_student where consult_id=#{userId} limit #{start},#{currentPageSize};
     </select>
+    <!--以下4个全是查询员工工作完成的量的功能-->
+    <!--查询本周已完成的任务数量-->
+    <select id="selectAlreadZhouWork" resultType="Integer">
+        select count(*) from t_student where  DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(stu_create_time) and consult_id=#{userId} and stu_status=8;
+    </select>
+    <!--查询本周没有完成的任务数量-->
+    <select id="selectNoZhouWork" resultType="Integer">
+        select count(*) from t_student where  DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(stu_create_time) and consult_id=#{userId} and stu_status &lt;8 and stu_status &gt;0;
+    </select>
+    <!--查询本月已经完成的任务数量-->
+    <select id="selectAlreadYueWork" resultType="Integer">
+        select count(*) from t_student where  DATE_SUB(CURDATE(), INTERVAL 1 MONTH) &lt;= date(stu_create_time) and consult_id=#{userId} and stu_status=8;
+    </select>
+    <!--查询本月没有完成的任务数量-->
+    <select id="selectNoYueWork" resultType="Integer">
+        select count(*) from t_student where  DATE_SUB(CURDATE(), INTERVAL 1 MONTH) &lt;= date(stu_create_time) and consult_id=#{userId} and stu_status &lt;8 and stu_status &gt;0;
+    </select>
+    <!--查询某个员工名下的某个学员的跟踪信息-->
+    <select id="selectWorkOfStuTrak" resultMap="trackMap">
+    select <include refid="trackClumns"/> from t_track where stu_number=#{stuNumber} and consult_id=#{userId};
+    </select>
+
 
     <resultMap id="worktorMap" type="user" autoMapping="true"></resultMap>
     <resultMap id="studentMap" type="student" autoMapping="true"></resultMap>
-    <sql id="worktor">user_id,user_name,sex,email,phone,status,edit_date </sql>
+    <resultMap id="trackMap" type="track" autoMapping="true"></resultMap>
 
-    <sql id="studentClumns">stu_id,stu_number,stu_name,stu_level,stu_sex,stu_phone_num,stu_qq,stu_source,stu_tatus,stu_address</sql>
+    <sql id="worktor">user_id,user_name,sex,email,phone,status,create_date </sql>
+    <sql id="studentClumns">stu_id,stu_number,stu_name,stu_level,stu_sex,stu_phone_num,stu_qq,stu_source,stu_status,stu_address</sql>
+    <sql id="trackClumns">track_ways,track_time,track_status,track_priority,track_next_time,track_duration,teacher_id</sql>
 </mapper>

@@ -10,17 +10,17 @@
         stripe
         style="width: 100%"  @row-dbclick="doubleclick(scope.$index)">
         <el-table-column
-          prop="id"
-          label="编号"
+          prop="trackTime"
+          label="跟踪时间"
           width="90" >
         </el-table-column>
         <el-table-column
-          prop="followDate"
-          label="跟踪时间"
+          prop="trackStatus"
+          label="跟踪状态"
           width="100">
         </el-table-column>
         <el-table-column
-          prop="level"
+          prop="trackPriority"
           label="优先级"
           width="100" >
         </el-table-column>
@@ -30,27 +30,27 @@
           width="90" >
         </el-table-column>
         <el-table-column
-          prop="followWay"
+          prop="trackWays"
           label="跟踪方式"
           width="160" >
         </el-table-column>
         <el-table-column
-          prop="followLongDate"
+          prop="trackDuration"
           label="跟踪时长"
           width="160" >
         </el-table-column>
         <el-table-column
-          prop="followPerson"
+          prop="consultId"
           label="跟踪人员"
           width="160" >
         </el-table-column>
         <el-table-column
-          prop="seeTeacher"
+          prop="teacherId"
           label="面试老师"
           width="160" >
         </el-table-column>
         <el-table-column
-          prop="nextDate"
+          prop="teacherId"
           label="近期跟踪时间"
           width="180" >
         </el-table-column>
@@ -90,12 +90,15 @@
     name:'WorkorTable',
     data() {
       return {
-        student:this.$route.query.student,
+        // student:this.$route.query.student,
+        student:'李狗蛋',
         numbers:'10',
         numbers2:'5',
         numbers3:'33',
         select_cate:'',
         select_word:'',
+        cur_page:1,
+        cur_page_size:10,
         sendList:[{'typename': 'Id'},{'typename': '姓名'},{'typename': '年纪'},{'typename': '时间'}],
         pickerOptions1: {
           disabledDate(time) {
@@ -127,49 +130,45 @@
         currentPage4: 4,
         msg: 'Welcome to Your Vue.js App',
         tableData: [{
-          id:'1312',
-          followDate: '王小虎',
-          followSize:'男',
-          level:'高',
+          trackTime: 'trackTime',
+          trackStatus:'',
+          trackWays:'男',
+          trackPriority:'高',
           followSize:'2',
-          followLongDate:'网络招聘',
-          followPerson:'12345678952',
-          seeTeacher:'321498@163.com',
-          nextDate: '2016-05-02',
-          remarks:'入学'
+          trackDuration:'网络招聘',
+          consultId:'12345678952',
+          teacherId:'321498@163.com',
+          trackNextTime: '2016-05-02',
         }, {
-          id:'1312',
-          followDate: '王小虎',
-          followSize:'男',
-          level:'高',
+          trackTime: 'trackTime',
+          trackStatus:'',
+          trackWays:'男',
+          trackPriority:'高',
           followSize:'2',
-          followLongDate:'网络招聘',
-          followPerson:'12345678952',
-          seeTeacher:'321498@163.com',
-          nextDate: '2016-05-02',
-          remarks:'入学'
+          trackDuration:'网络招聘',
+          consultId:'12345678952',
+          teacherId:'321498@163.com',
+          trackNextTime: '2016-05-02',
         }, {
-          id:'1312',
-          followDate: '王小虎',
-          followSize:'男',
-          level:'高',
+          trackTime: 'trackTime',
+          trackStatus:'',
+          trackWays:'男',
+          trackPriority:'高',
           followSize:'2',
-          followLongDate:'网络招聘',
-          followPerson:'12345678952',
-          seeTeacher:'321498@163.com',
-          nextDate: '2016-05-02',
-          remarks:'入学'
+          trackDuration:'网络招聘',
+          consultId:'12345678952',
+          teacherId:'321498@163.com',
+          trackNextTime: '2016-05-02',
         }, {
-          id:'1312',
-          followDate: '王小虎',
-          followSize:'男',
-          level:'高',
+          trackTime: 'trackTime',
+          trackStatus:'',
+          trackWays:'男',
+          trackPriority:'高',
           followSize:'2',
-          followLongDate:'网络招聘',
-          followPerson:'12345678952',
-          seeTeacher:'321498@163.com',
-          nextDate: '2016-05-02',
-          remarks:'入学'
+          trackDuration:'网络招聘',
+          consultId:'12345678952',
+          teacherId:'321498@163.com',
+          trackNextTime: '2016-05-02',
         }]
       }
     },
@@ -177,7 +176,7 @@
       //获得初始化数据
       getData(){
         // 开发环境使用 easy-mock 数据，正式环境使用 json 文件
-        this.url = '/selectStudentOfRecrod/'+this.student.id;
+        this.url = '/selectStudentOfRecrod/'+20191121870+'/'+1;
         axios.get(this.url).then((res) => {
           alert("获得的数据："+JSON.stringify(res.data));
           // this.tableData = res.data;
@@ -199,9 +198,11 @@
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
+        this.cur_page_size=val;
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+        this.cur_page=val;
       }
     }
   }

@@ -3,7 +3,6 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <el-container>
       <el-header height="230px">
-        <el-progress type="circle" style="width: 30%" :percentage="numbers3"></el-progress>
           <p>本周完成量</p>
         <div class="handle-box" style="text-align: left">
         <P class="yewu">{{worktor}}:业务详情 今日完成量：{{numbers}}  未完成量：{{numbers2}} 完成率：</P>
@@ -16,17 +15,17 @@
                   stripe
                   style="width: 100%"  @row-dbclick="doubleclick(scope.$index)">
             <el-table-column
-                    prop="id"
+                    prop="stuNumber"
                     label="编号"
                     width="90" >
             </el-table-column>
             <el-table-column
-                    prop="name"
+                    prop="stuNumber"
                     label="姓名"
                     width="100">
             </el-table-column>
             <el-table-column
-                    prop="level"
+                    prop="stuLevel"
                     label="优先级"
                     width="100" >
             </el-table-column>
@@ -36,32 +35,27 @@
                     width="90" >
             </el-table-column>
             <el-table-column
-                    prop="phone"
+                    prop="stuPhoneNum"
                     label="手机号"
                     width="160" >
             </el-table-column>
             <el-table-column
-                    prop="email"
-                    label="邮箱"
+                    prop="stuQq"
+                    label="QQ"
                     width="160" >
             </el-table-column>
             <el-table-column
-                    prop="laiyuan"
+                    prop="stuSource"
                     label="来源途径"
                     width="160" >
             </el-table-column>
             <el-table-column
-                    prop="status"
+                    prop="stuStatus"
                     label="进度情况"
                     width="160" >
             </el-table-column>
             <el-table-column
-                    prop="date"
-                    label="近期跟踪时间"
-                    width="180" >
-            </el-table-column>
-            <el-table-column
-                    prop="address"
+                    prop="stuAddress"
                     label="地址">
             </el-table-column>
             <el-table-column
@@ -97,10 +91,6 @@
 <script>
   module.exports={
     name:'WorkorTable',
-    components: {
-      'Schart': httpVueLoader('https://github.com/lin-xin/vue-schart'),
-
-  },
     data() {
       return {
         // worktor:this.$route.query.worktor,
@@ -110,6 +100,8 @@
         numbers3:33,
         select_cate:'',
         select_word:'',
+        cur_page:1,
+        cur_page_size:10,
         sendList:[{'typename': 'Id'},{'typename': '姓名'},{'typename': '年纪'},{'typename': '时间'}],
         pickerOptions1: {
           disabledDate(time) {
@@ -141,53 +133,57 @@
         currentPage4: 4,
         msg: 'Welcome to Your Vue.js App',
         tableData: [{
-          id:'1312',
-          name: '王小虎',
-          sex:'男',
-          level:'高',
+          stuId:'1312',
+          stuNumber:'23156451',
+          stuName: '王小虎',
+          stuSex:'男',
+          stuLevel:'高',
           followSize:'2',
-          laiyuan:'网络招聘',
-          phone:'12345678952',
-          email:'321498@163.com',
+          stuSource:'网络招聘',
+          stuPhoneNum:'12345678952',
+          stuQq:'321498@163.com',
           date: '2016-05-02',
-          status:'入学',
-          address: '上海市普陀区金沙江路 153 弄'
+          stuStatus:'入学',
+          stuAddress: '上海市普陀区金沙江路 153 弄'
         }, {
-          id:'1312',
-          name: '王小虎',
-          sex:'男',
-          level:'高',
+          stuId:'1312',
+          stuNumber:'23156451',
+          stuName: '王小虎',
+          stuSex:'男',
+          stuLevel:'高',
           followSize:'2',
-          laiyuan:'网络招聘',
-          phone:'12345678952',
-          email:'321498@163.com',
+          stuSource:'网络招聘',
+          stuPhoneNum:'12345678952',
+          stuQq:'321498@163.com',
           date: '2016-05-02',
-          status:'入学',
-          address: '上海市普陀区金沙江路 153 弄'
+          stuStatus:'入学',
+          stuAddress: '上海市普陀区金沙江路 153 弄'
         }, {
-          id:'1312',
-          name: '王小虎',
-          sex:'男',
-          level:'高',
+          stuId:'1312',
+          stuNumber:'23156451',
+          stuName: '王小虎',
+          stuSex:'男',
+          stuLevel:'高',
           followSize:'2',
-          laiyuan:'网络招聘',
-          phone:'12345678952',
-          email:'321498@163.com',
+          stuSource:'介绍来的',
+          stuPhoneNum:'12345678952',
+          stuQq:'321498@163.com',
           date: '2016-05-02',
-          status:'入学',
-          address: '上海市普陀区金沙江路 153 弄'
+          stuStatus:'入学',
+          stuAddress: '上海市普陀区金沙江路 15w弄'
         }, {
-          id:'1312',
-          name: '王小虎',
-          sex:'男',
-          level:'高',
+          stuId:'1312',
+          stuNumber:'23156451',
+          stuName: '王大虎',
+          stuSex:'男',
+          stuLevel:'高',
           followSize:'2',
-          laiyuan:'网络招聘',
-          phone:'12345678952',
-          email:'321498@163.com',
+          stuSource:'网络招聘',
+          stuPhoneNum:'12345678952',
+          stuQq:'321498@163.com',
           date: '2016-05-02',
-          status:'入学',
-          address: '上海市普陀区金沙江路 153 弄'
+          stuStatus:'入学',
+          stuAddress: '上海市普陀区金沙江路 153 弄'
         }]
       }
     },
@@ -205,11 +201,12 @@
 
       //获得初始化数据
       getData(){
+        alert("hahah");
         // 开发环境使用 easy-mock 数据，正式环境使用 json 文件
-        this.url = '/selectWorktorOfStu/'+this.userId+'/'+this.cur_page+'/'+this.cur_page_size;
+        this.url = '/selectWorktorOfStu/'+1+'/'+this.cur_page+'/'+this.cur_page_size;
         axios.get(this.url).then((res) => {
           alert("获得的数据："+JSON.stringify(res.data));
-          // this.tableData = res.data;
+          this.tableData = res.data;
         })
       },
       handleClick(row) {
@@ -229,9 +226,12 @@
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
+        this.cur_page_size=val;
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+        this.cur_page=val;
+
       }
     }
   }
