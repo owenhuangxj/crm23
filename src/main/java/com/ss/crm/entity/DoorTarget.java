@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("T_TARGER")
-public class doorTarget {
+@TableName("t_target")
+public class DoorTarget {
     @TableId
     private Integer targetId; //目标id
     private String userCreateId;//人员系统创建者Id
@@ -24,9 +24,10 @@ public class doorTarget {
     private String editDate;//更新时间
     private int conversionTarget;//转化量目标
     private int industryAverage;//行业均值
-    private int phoneTarget;//上门目标
-    private int typeTarget;//团队上门目标
+    private int weekTarget;//周上门目标
+    private int monthTarget;//月上门目标
     private String mouth;//月份
-    private String typeConversionTarget;//团队关单目标
+    private String monthConversionTarget;//月关单目标
+    private String weekConversionTarget;//周关单目标
 
 }

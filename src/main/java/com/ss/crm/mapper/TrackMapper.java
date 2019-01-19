@@ -36,5 +36,13 @@ public interface TrackMapper {
      */
     Integer getTrackCount(@Param("stuNumber") String stuNumber);
 
+    /*本月实现的上门量*/
+    Integer getMonthId();
+    /*本周实现的上门量*/
+    Integer getWeekId();
+    /*本月实现的下单量*/
+    Integer trackGetMonth();
+    /*本周实现的下单量*/
+    Integer trackGetWeek();
 
 }

@@ -21,6 +21,24 @@
         (<include refid="trackValues"/>,#{updateTime})
     </insert>
 
+    <!--获取本月的上门量-->
+    <select id="getMonthId" resultType="Integer">
+    select count(track_status) from t_track where date_format(update_time,'%M%')=date_format(curdate(),'%M%') and track_status between 4 and 5
+    </select>
+    <!--获取本周的上门量-->
+    <select id="getWeekId" resultType="Integer">
+    SELECT count(track_status) FROM t_track WHERE YEARWEEK(date_format(update_time,'%Y-%m-%d')) = YEARWEEK(now()) and track_status between 4 and 5
+    </select>
+
+    <!--获取本月的下单量-->
+    <select id="trackGetMonth" resultType="Integer">
+    select count(track_status) from t_track where date_format(update_time,'%M%')=date_format(curdate(),'%M%') and track_status between 7 and 8
+    </select>
+    <!--获取本周的下单量-->
+    <select id="trackGetWeek" resultType="Integer">
+    SELECT count(track_status) FROM t_track WHERE YEARWEEK(date_format(update_time,'%Y-%m-%d')) = YEARWEEK(now()) and track_status between 7 and 8
+    </select>
+
     <resultMap id="trackResultMap" type="track" autoMapping="true">
         <association property="stuNumber" column="stu_number" select="com.ss.crm.mapper.StuMapper.getStuInfoByStuNumber">
         </association>

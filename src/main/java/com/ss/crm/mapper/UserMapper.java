@@ -14,6 +14,7 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User getUserNameByUserId(@Param("userId") int userId);
 
-    Integer getCount(@Param("create_date")String createDate);
+
+    Integer updateByStatus(@Param("userName")String userName,@Param("status")String status);
 
 }

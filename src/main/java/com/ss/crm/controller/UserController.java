@@ -13,19 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class UserController {
     //测试
-    @GetMapping("/laber")
-    public String leftMu(){
-        return "laber";
-    }
     @GetMapping("/echarts")
     public String leftMu2(){
         return "echarts";
     }
-    @GetMapping("/header")
-    public String leftMu1(){
-        return "header";
-    }
-
     //登陆页面
     @GetMapping("/")
     public String loginTest(){
@@ -47,6 +38,8 @@ public class UserController {
         User user = userService.selectUser(username, DESEncrypt.encryptBasedDes(password));
         if(user!=null){
             //System.out.println(user.getUserName().equals(username)&&DESEncrypt.decryptBasedDes(user.getPassword()).equals(password));
+            user.setStatus("1");
+            userService.ChangeStatus(user);
             return user;
         }else {
             return null;
@@ -91,6 +84,9 @@ public class UserController {
         return false;
     }
 
+
+    //　@responseBody注解的作用是将controller的方法返回的
+    // 对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML
     @PostMapping("addUser")
     @ResponseBody
     public boolean addUser(@RequestParam String email,@RequestParam String username,@RequestParam String password){
@@ -101,13 +97,4 @@ public class UserController {
         return false;
     }
 
-
-    //　@responseBody注解的作用是将controller的方法返回的
-    // 对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML
-  @GetMapping("{createDate}/findUserId")
-    public @ResponseBody Integer findUserId(@PathVariable("createDate") String createDate){
-        Integer count = userService.selectUserId(createDate);
-        System.out.println("条数是："+ count);
-        return count;
-    }
 }

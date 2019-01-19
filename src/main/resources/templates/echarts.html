@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <!--前后台交互-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="resources/js/vue.js"></script>
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/http-vue-loader"></script>
     <script src="resources/js/echarts.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
-        <ech_arts></ech_arts>
+        <side_bar></side_bar>
     </div>
 <script type="text/javascript">
     new Vue({
         el:'#app',
         components:{
-            'ech_arts':httpVueLoader('resources/components/visiter.vue')
+            'side_bar':httpVueLoader('resources/components/sidebar.vue'),
         }
     })
 </script>

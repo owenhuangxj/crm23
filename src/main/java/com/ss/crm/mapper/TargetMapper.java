@@ -1,10 +1,17 @@
 package com.ss.crm.mapper;
 
 
-public  interface TargetMapper {
-     /*查询本月的数据*/
-     Integer targetGetMonthType() ;
+import java.util.Map;
 
-     //查询本周的数据
-     Integer targetGetDayType();
+public  interface TargetMapper {
+     /*查询本月的上门量*/
+   Integer targetGetMonthType() ;
+
+     //查询本周的上门量
+     Integer targetGetWeekType();
+    /*查询本月的下单量*/
+    Integer getTargetMonth();
+
+    /*查询本周的下单量*/
+    Integer getTargetWeek();
 }

@@ -1,28 +1,28 @@
 package com.ss.crm.controller;
 
 import com.ss.crm.service.TargetService;
+import com.ss.crm.util.ChartData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 public class TargetController {
     @Autowired
     private TargetService targetService;
 
-    @GetMapping("getMonthCount")
+    @GetMapping("getCount")
     @ResponseBody
-    public Integer getMonthCount(){
-        Integer count = targetService.selectTargetMonthId();
-        System.out.println("count:"+count);
-        return count;
+    public ChartData getCount(){
+        ChartData chartData = targetService.selectFindTarget();
+        return chartData;
     }
-    @GetMapping("getDayCount")
+    @GetMapping("findCount")
     @ResponseBody
-    public Integer getDayCount(){
-        Integer count = targetService.selectTargetDayId();
-        System.out.println("count==="+count);
-        return count;
+    public ChartData findCount(){
+        ChartData targetData = targetService.findTargetCount();
+        return targetData;
     }
 }

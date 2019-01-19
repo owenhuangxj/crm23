@@ -1,7 +1,12 @@
 package com.ss.crm.service;
 
-public interface TargetService {
-    Integer selectTargetMonthId();
+import com.ss.crm.util.ChartData;
 
-    Integer selectTargetDayId();
+import java.util.Map;
+
+public interface TargetService {
+
+    ChartData selectFindTarget();
+
+    ChartData findTargetCount();
 }

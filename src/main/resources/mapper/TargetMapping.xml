@@ -3,13 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ss.crm.mapper.TargetMapper">
+
+    <!--本月上门目标-->
     <select id="targetGetMonthType" resultType="Integer">
-        select type_target from t_target where date_format(edit_date,'%Y-%m')=date_format(now(),'%Y-%m')
+        select month_target from t_target where date_format(edit_date,'%Y-%m')=date_format(now(),'%Y-%m')
+    </select>
+    <!--本周上门目标-->
+    <select id="targetGetWeekType" resultType="Integer">
+        select week_target from t_target where YEARWEEK(date_format(edit_date,'%Y-%m-%d')) = YEARWEEK(now())
     </select>
 
-    <select id="targetGetDayType" resultType="Integer">
-        select type_target from t_target where YEARWEEK(date_format(edit_date,'%Y-%m-%d')) = YEARWEEK(now())
+    <!--本月下单目标-->
+    <select id="getTargetMonth" resultType="Integer">
+        select month_conversion_target from t_target where date_format(edit_date,'%Y-%m')=date_format(now(),'%Y-%m')
     </select>
+    <!--本周下单目标-->
+    <select id="getTargetWeek" resultType="Integer">
+        select week_conversion_target from t_target where YEARWEEK(date_format(edit_date,'%Y-%m-%d')) = YEARWEEK(now())
+    </select>
+
+
     <resultMap id="targetResultMap" type="user" autoMapping="true">
 
     </resultMap>

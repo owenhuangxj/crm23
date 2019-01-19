@@ -1,5 +1,7 @@
 package com.ss.crm.util;
 
+import com.ss.crm.constant.AllConstant;
+
 import java.util.Date;
 import java.util.Properties;
 
@@ -80,7 +82,7 @@ public class SendEmail {
         //设置邮件主题
         msg.setSubject("来自用户的验证邮件","UTF-8");
         //设置邮件正文
-        String email="<h1><a href='"+ UserConstant.APPSERVERADDRESS+"/"+recipientAddress+"/"+code+"/authCode'>"+ UserConstant.APPSERVERADDRESS+"/"+recipientAddress+"/num/authCode</a>接收验证码<h1>";
+        String email="<h1><a href='"+ AllConstant.APPSERVERADDRESS+"/"+recipientAddress+"/"+code+"/authCode'>"+ AllConstant.APPSERVERADDRESS+"/"+recipientAddress+"/num/authCode</a>接收验证码<h1>";
         msg.setContent(email, "text/html;charset=UTF-8");
         //设置邮件的发送时间,默认立即发送
         msg.setSentDate(new Date());

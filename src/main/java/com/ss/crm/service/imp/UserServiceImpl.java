@@ -1,5 +1,6 @@
 package com.ss.crm.service.imp;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.additional.update.impl.UpdateChainWrapper;
 import com.ss.crm.entity.User;
 import com.ss.crm.mapper.UserMapper;
 import com.ss.crm.service.UserService;
@@ -52,9 +53,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer selectUserId(String createDate) {
-        Integer count = userMapper.getCount(createDate);
-        return count;
+    public Integer ChangeStatus(User user) {
+        String userName = user.getUserName();
+        String status = user.getStatus();
+        return userMapper.updateByStatus(userName,status);
     }
 
 }
