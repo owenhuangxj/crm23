@@ -59,10 +59,10 @@ public class TrackController {
     @ResponseBody
     public PageData<TrackModel> getTrackList(@RequestParam("pageSize")Integer pageSize,@RequestParam("pageNum")Integer pageNum,
                                              @RequestParam("input")String input,@RequestParam("value")String value){
-        System.out.println("进getTrackList的参数：" + input + "，" + value + "，" + pageNum + "，" + pageSize);
+//        System.out.println("进getTrackList的参数：" + input + "，" + value + "，" + pageNum + "，" + pageSize);
         String inp = "".equals(input) ? null : input;
-        PageData<TrackModel> trackModel = tms.getTrackModel(inp, value, pageSize, pageNum);
-        System.out.println("返回的集合：" + trackModel);
+        PageData<TrackModel> trackModel = tms.getTrackModel(inp, value, pageNum, pageSize);
+//        System.out.println("返回的集合：" + trackModel);
         return trackModel;
     }
 

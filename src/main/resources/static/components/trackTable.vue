@@ -121,14 +121,14 @@
                     label: '咨询方式'
                 }],
                 pageSize: 10,    // pagesize：一页显示多少条，
-                total: 0,     // total：一共多少条
-                pageNum: 1,     // 当前页
-                currentPage: 1, // 默认显示第1页
-                input: '',      // 输入框
-                value: '性名',   // 下拉框，默认让它选中“姓名”
-                multipleSelection: [], // 储存选中行的数据
-                dialogFormVisible: false, // 调换咨询电话的对话框
-                resoumeFormVisible: false, // 导入简历的对话框
+                total: 0,        // total：一共多少条
+                pageNum: 1,      // 当前页
+                currentPage: 1,  // 默认显示第1页
+                input: '',       // 输入框
+                value: '1',      // 下拉框，默认让它选中“姓名”
+                multipleSelection: [],     // 储存选中行的数据
+                dialogFormVisible: false,  // “调换咨询电话”的对话框 false为关闭
+                resoumeFormVisible: false, // “导入简历”的对话框
                 fileList: [], // 上传文件的数组
                 form: {
                     info: '',
@@ -142,7 +142,6 @@
         },
         // 钩子函数，页面加载时就会执行
         created() {
-            // alert("created()钩子函数被调用！");
             this.getNewsList();
         },
         methods: {
@@ -158,27 +157,27 @@
                 }).then(res => {
                     this.tableData = res.data.rows;
                     this.total = res.data.total;
-                    alert("返回成功！");
                     console.log("返回成功：" + res)
                 }).catch(err => {
+                    this.$message({ // 提示框
+                        type: 'warning',
+                        message: '系统内部错误！请联系管理员。错误代码：' + err
+                    });
                     console.log("发生错误：" + err);
-                    alert("系统内部错误：" + err)
                 })
             },
             // 一页显示多少条
             handleSizeChange(val) {
-                alert(`选择了每页：${val}条`);
+                this.pageSize = val;
                 this.getNewsList();
             },
             // 当前页
             handleCurrentChange(val) {
                 this.pageNum = val;
-                alert("当前页：" + this.pageNum);
                 this.getNewsList();
             },
             // 点击查询时执行的函数
             doSearch() {
-                alert("选择了：" + this.value + "，输入的内容：" + this.input)
                 this.getNewsList();
             },
             // 如果没输入查询关键字会执行这个函数
@@ -188,7 +187,7 @@
                     message: '请输入查询关键字'
                 })
             },
-            // 点击行执行的函数
+            // 双击行执行的函数
             rowClick(column) {
                 console.log(column);
                 alert("行的双击事件：" + column.stuName);

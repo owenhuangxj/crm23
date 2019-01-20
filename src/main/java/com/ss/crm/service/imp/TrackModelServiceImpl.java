@@ -46,7 +46,77 @@ public class TrackModelServiceImpl implements TrackModelService {
             total = tmm.getTotal(null,null,input);
             track = tmm.getTrackModel(null, null, input, start, pageSize);
         }
-        PageData<TrackModel> pageData = new PageData<>(track,total);
+        PageData<TrackModel> pageData = new PageData<>(switchStatus(track), total);
         return pageData;
     }
+
+
+    /**
+     * 转换学员跟踪信息状态
+     * @param trackModels
+     * @return
+     */
+    public static List<TrackModel> switchStatus(List<TrackModel> trackModels){
+        for (TrackModel tm : trackModels) {
+            // 转换学员优先级
+            switch (tm.getStuLevel()){
+                case "2":
+                    tm.setStuLevel("低");
+                    break;
+                case "3":
+                    tm.setStuLevel("中");
+                    break;
+                case "4":
+                    tm.setStuLevel("高");
+                    break;
+                default:
+                    tm.setStuLevel("无");
+            }
+            // 转换学员的进度
+            switch (tm.getStuStatus()) {
+                case "1":
+                    tm.setStuStatus("新增");
+                    break;
+                case "2":
+                    tm.setStuStatus("跟踪中");
+                    break;
+                case "3":
+                    tm.setStuStatus("待面试");
+                    break;
+                case "4":
+                    tm.setStuStatus("面试未通过");
+                    break;
+                case "5":
+                    tm.setStuStatus("面试通过");
+                    break;
+                case "6":
+                    tm.setStuStatus("已缴未清");
+                    break;
+                case "7":
+                    tm.setStuStatus("已缴费");
+                    break;
+                case "8":
+                    tm.setStuStatus("入学");
+                    break;
+                case "9":
+                    tm.setStuStatus("放弃入学");
+                    break;
+                case "10":
+                    tm.setStuStatus("退学");
+                    break;
+                case "11":
+                    tm.setStuStatus("已退费");
+                    break;
+                case "12":
+                    tm.setStuStatus("放弃");
+                    break;
+                default:
+                    tm.setStuStatus("未分配");
+            }
+        }
+        return trackModels;
+    }
+
+
+
 }
