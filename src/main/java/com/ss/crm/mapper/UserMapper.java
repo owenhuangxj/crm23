@@ -15,6 +15,6 @@ public interface UserMapper extends BaseMapper<User> {
     User getUserNameByUserId(@Param("userId") int userId);
 
 
-    Integer updateByStatus(@Param("userName")String userName,@Param("status")String status);
+    Integer updateByStatus(@Param("userName")String userName,@Param("status")int status);
 
 }

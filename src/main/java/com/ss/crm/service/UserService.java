@@ -14,4 +14,7 @@ public interface UserService {
     int insertUser(String email, String userName, String password);
     //登陆成功改变用户状态
     Integer ChangeStatus(User user);
+
+    //退出登录改变用户状态
+    Integer updateStatus(String userName,int status);
 }

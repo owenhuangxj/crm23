@@ -39,6 +39,6 @@ public class User extends Model<User> {
     //性别
     private int sex;
     //在线状态
-    private String status;
+    private int status;
     private int type;
 }

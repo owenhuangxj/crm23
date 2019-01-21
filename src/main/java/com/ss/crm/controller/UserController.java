@@ -38,7 +38,7 @@ public class UserController {
         User user = userService.selectUser(username, DESEncrypt.encryptBasedDes(password));
         if(user!=null){
             //System.out.println(user.getUserName().equals(username)&&DESEncrypt.decryptBasedDes(user.getPassword()).equals(password));
-            user.setStatus("1");
+            user.setStatus(1);
             userService.ChangeStatus(user);
             return user;
         }else {
@@ -91,6 +91,16 @@ public class UserController {
     @ResponseBody
     public boolean addUser(@RequestParam String email,@RequestParam String username,@RequestParam String password){
         Integer user = userService.insertUser(email, username,DESEncrypt.encryptBasedDes(password));
+        if(user>0){
+            return true;
+        }
+        return false;
+    }
+
+    @PostMapping("changeState")
+    @ResponseBody
+     public boolean changeCondition(String username){
+        Integer user = userService.updateStatus(username, 0);
         if(user>0){
             return true;
         }

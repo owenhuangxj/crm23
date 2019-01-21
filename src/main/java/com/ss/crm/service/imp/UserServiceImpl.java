@@ -1,6 +1,5 @@
 package com.ss.crm.service.imp;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.additional.update.impl.UpdateChainWrapper;
 import com.ss.crm.entity.User;
 import com.ss.crm.mapper.UserMapper;
 import com.ss.crm.service.UserService;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserMapper userMapper;
@@ -55,7 +54,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer ChangeStatus(User user) {
         String userName = user.getUserName();
-        String status = user.getStatus();
+        int status = user.getStatus();
+        return userMapper.updateByStatus(userName,status);
+    }
+
+    @Override
+    public Integer updateStatus(String userName,int status) {
         return userMapper.updateByStatus(userName,status);
     }
 
