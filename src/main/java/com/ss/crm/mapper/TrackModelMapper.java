@@ -19,7 +19,6 @@ public interface TrackModelMapper {
                                     @Param("trackWays") String trackWays, @Param("start") Integer start,
                                     @Param("end") Integer end);
 
-
     /**
      * 获取查询出来的总条数
      * @param stuName
