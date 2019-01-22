@@ -36,10 +36,15 @@ spring:
       test-while-idle: true
       filters: stat,log4j
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=2000
+
+  redis:
+    password: foobared
+
 #mybatis-plus 配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   type-aliases-package: com.ss.crm.entity
   configuration:
     map-underscore-to-camel-case: true
+    cache-enabled: true  # value属性默认为false
 

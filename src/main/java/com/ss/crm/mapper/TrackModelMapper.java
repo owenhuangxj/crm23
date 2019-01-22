@@ -1,11 +1,15 @@
 package com.ss.crm.mapper;
 
-import com.ss.crm.entity.Track;
 import com.ss.crm.entity.TrackModel;
+import com.ss.crm.util.MybatisRedisCache;
+import org.apache.ibatis.annotations.CacheNamespace;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
+@CacheNamespace(eviction = MybatisRedisCache.class,implementation = MybatisRedisCache.class)
 public interface TrackModelMapper {
 
     /**

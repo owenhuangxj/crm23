@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 //@RequestMapping(value = "/track")
@@ -52,7 +51,7 @@ public class TrackController {
 
     @GetMapping("/tailAfter")
     public String track(){
-        return "trackTable";
+        return "trace";
     }
 
     @PostMapping(value = "/getTrackList", produces = "application/json;charset=UTF-8")

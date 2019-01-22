@@ -66,9 +66,11 @@
             <el-button class="el_bt" type="primary" v-else-if="this.input === ''" @click="hints">点击搜索</el-button>
         </div>
 
+        <el-tooltip class="item" effect="dark" content="双击行查看学员详情" placement="top">
         <!--表格 @row-click：行的单击事件，@cell-dblclick：行的双击事件，@select-all：全选，@clearSelection：取消全选-->
         <el-table ref="multipleTable" border :data="tableData" @row-dblclick="rowClick($event)" @selection-change="selectionChange"
-                  @select-all="selectAll(tableData)" @clearSelection="clearSelect" reserve-selection>
+                  @select-all="selectAll(tableData)" @clearSelection="clearSelect" reserve-selection
+                  :default-sort = "{prop: 'stuLevel', order: 'descending'}">
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column type="index" label="编号" width="55"></el-table-column>
             <el-table-column prop="flag" label="状态标识" width="120"></el-table-column>
@@ -84,7 +86,7 @@
             <el-table-column prop="updateTime" label="更新时间" width="120"></el-table-column>
             <el-table-column prop="trackPredictTime" label="预计上门" width="120"></el-table-column>
         </el-table>
-
+        </el-tooltip>
         <!--
         :total：总共有多少条数据，把后台获取到的数据总数复制给total就可以了
         :page-size：每页显示的条数
@@ -140,7 +142,7 @@
                 }
             }
         },
-        // 钩子函数，页面加载时就会执行
+        // created()钩子函数，页面加载时就会执行
         created() {
             this.getNewsList();
         },
@@ -182,7 +184,7 @@
             },
             // 如果没输入查询关键字会执行这个函数
             hints() {
-                this.$message({ // 提示框
+                this.$message({
                     type: 'info',
                     message: '请输入查询关键字'
                 })
@@ -234,9 +236,9 @@
             doConfirm(){
                 alert("选择：" + this.ruleForm.resource + "，输入了：" + this.form.info);
                 if(this.ruleForm.resource === '电话'){
-                    this.multipleSelection.phoneNum = this.form.info
+                    this.multipleSelection.stuPhoneNum = this.form.info
                 }else{
-                    this.multipleSelection.counselor = this.form.info
+                    this.multipleSelection.userName = this.form.info
                 }
                 this.dialogFormVisible = false
             },

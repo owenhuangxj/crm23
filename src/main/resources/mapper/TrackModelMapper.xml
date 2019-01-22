@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ss.crm.mapper.TrackModelMapper">
 
+    <!--
+        <cache/>
+        可以使用<cache/>开启mapper二级缓存，也可以使用@CacheNamespace注解在关联的XxxMapper接口
+        文件上启动二级缓存，两者只能选其一
+    -->
 
     <!--查询跟踪信息-->
     <select id="getTrackModel" resultMap="trackResultMap">

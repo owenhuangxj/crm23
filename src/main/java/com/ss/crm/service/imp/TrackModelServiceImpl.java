@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,6 +49,14 @@ public class TrackModelServiceImpl implements TrackModelService {
         return pageData;
     }
 
+    // redis测试用的
+    @Override
+    public List<TrackModel> getTrackModel1(String input, String value, Integer pageNum, Integer pageSize) {
+//        Integer total = tmm.getTotal(null, null, null);
+        List<TrackModel> track = tmm.getTrackModel(null, null, null, pageNum, pageSize);
+//        PageData<TrackModel> pageData = new PageData<>(switchStatus(track), total);
+        return track;
+    }
 
     /**
      * 转换学员跟踪信息状态

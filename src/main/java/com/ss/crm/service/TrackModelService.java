@@ -3,6 +3,8 @@ package com.ss.crm.service;
 import com.ss.crm.entity.PageData;
 import com.ss.crm.entity.TrackModel;
 
+import java.util.List;
+
 public interface TrackModelService {
 
     /**
@@ -14,6 +16,9 @@ public interface TrackModelService {
      * @return 返回前端需要的指定格式的数据
      */
     PageData<TrackModel> getTrackModel(String input, String value, Integer pageNum, Integer pageSize);
+
+    // redis测试用的
+    List<TrackModel> getTrackModel1(String input, String value, Integer pageNum, Integer pageSize);
 
 
 }
